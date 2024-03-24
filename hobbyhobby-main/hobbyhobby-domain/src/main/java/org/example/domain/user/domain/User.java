@@ -31,4 +31,7 @@ public class User  extends BaseEntity {
     @Column(name = "role")
     private String role;
 
+    public void hashedPassword(final String password) {
+        this.password = password;
+    }
 }

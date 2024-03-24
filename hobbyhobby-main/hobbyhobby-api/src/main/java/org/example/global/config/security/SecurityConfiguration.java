@@ -32,10 +32,13 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
         http
-                .cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers("/api/user/register").permitAll()
+                        authorize.requestMatchers("/swagger-ui/**").permitAll()
+                                .requestMatchers("/swagger*/**").permitAll()
+                                .requestMatchers("/v3/api-docs/**").permitAll()
+                                .requestMatchers("/api/user/register").permitAll()
                                 .requestMatchers("/api/user/login/**").permitAll()
                                 .requestMatchers("/api/token/access").permitAll()
                                 .anyRequest().hasRole("USER")

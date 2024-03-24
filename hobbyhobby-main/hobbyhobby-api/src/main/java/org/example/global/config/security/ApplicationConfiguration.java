@@ -1,8 +1,7 @@
 package org.example.global.config.security;
 
 import org.example.domain.user.domain.User;
-import org.example.domain.user.implemetion.UserReader;
-import org.example.global.config.security.UserSecurity;
+import org.example.domain.user.implementation.UserReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
