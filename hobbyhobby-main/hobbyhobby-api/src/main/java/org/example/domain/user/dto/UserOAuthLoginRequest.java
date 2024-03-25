@@ -17,5 +17,8 @@ public record UserOAuthLoginRequest(
         public User toKakaoEntity(){
                 return User.builder().email(email).nickname(nickname).type("Kakao").role("ROLE_USER").build();
         }
+        public User toGoogleEntity(){
+                return User.builder().email(email).nickname(nickname).type("Google").role("ROLE_USER").build();
+        }
 
 }
