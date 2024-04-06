@@ -1,4 +1,10 @@
 .idea
+hobbyhobby-eureka/.gradle
+hobbyhobby-eureka/build
+hobbyhobby-eureka/gradle
+hobbyhobby-gateway/.gradle
+hobbyhobby-gateway/gradle
+hobbyhobby-gateway/build
 hobbyhobby-main/hobbyhobby-api/src/main/resources/
 hobbyhobby-main/hobbyhobby-api/build
 hobbyhobby-main/hobbyhobby-common/src/main/resources/
