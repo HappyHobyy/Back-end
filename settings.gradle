@@ -1,7 +1,0 @@
-rootProject.name = 'hobbyhobby'
-include 'hobbyhobby-common'
-include 'hobbyhobby-eureka'
-include 'hobbyhobby-gateway'
-include 'hobbyhobby-user'
-include 'hobbyhobby-user:hobbyhobby-api'
-include 'hobbyhobby-user:hobbyhobby-domain'

@@ -1,0 +1,5 @@
+rootProject.name = 'hobbyhobby-main'
+include 'hobbyhobby-api'
+include 'hobbyhobby-domain'
+include 'hobbyhobby-common'
+
