@@ -8,11 +8,6 @@ repositories {
     mavenCentral()
 }
 
-
-repositories {
-    mavenCentral()
-}
-
 subprojects {
     group = 'org.v1'
     version = '0.0.1-SNAPSHOT'
@@ -44,9 +39,5 @@ subprojects {
     }
 }
 
-bootJar{
-    enabled = false
-}
-jar {
-    enabled = false
-}
+bootJar{enabled = false}
+jar {enabled = false}
