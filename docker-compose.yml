@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   user:
-    image: user:latest
+    image: hobbyhobby/user:latest
     container_name: user
     ports:
       - "8080:8080"
@@ -9,7 +9,7 @@ services:
       dockernet:
         ipv4_address: 10.10.20.143
   eureka:
-    image: eureka:latest
+    image: hobbyhobby/eureka:latest
     container_name: eureka
     ports:
       - "8761:8761"
@@ -20,7 +20,7 @@ services:
       TZ: Asia/Seoul
 
   gateway:
-    image: gateway:latest
+    image: hobbyhobby/gateway:latest
     container_name: gateway
     ports:
       - "8800:8000"
