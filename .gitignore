@@ -1,0 +1,12 @@
+.idea
+.gradle
+hobbyhobby-eureka/build
+hobbyhobby-gateway/build
+hobbyhobby-user/hobbyhobby-api/build
+hobbyhobby-user/build
+hobbyhobby-common/build
+hobbyhobby-user/gradlew.bat
+hobbyhobby-user/.idea
+hobbyhobby-user/.gradle
+hobbyhobby-user/hobbyhobby-domain/build
+
