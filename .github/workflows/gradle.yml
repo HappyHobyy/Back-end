@@ -81,5 +81,5 @@ jobs:
           username: ${{ env.EC2_SSH_USER }}
           host: ${{ env.EC2_HOST }}
           key: ${{ env.PRIVATE_KEY }}
-          source: "./docker-compose.yml"
+          source: "docker-compose.yml"
           target: "/home/ubuntu/"
