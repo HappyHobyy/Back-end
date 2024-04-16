@@ -1,11 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
-
-name: Java CI with Gradle
+name: Java CI with Gradle and Docker
 
 on:
   push:
@@ -30,18 +23,51 @@ jobs:
 
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+        
+    - name: Build with Gradle eureka
+      run: |
+        cd hobbyhobby-eureka
+        chmod +x gradlew
+        ./gradlew build
 
-    - name: Build with Gradle Wrapper
-      run: ./gradlew build
+    - name: Build with Gradle gateway
+      run: |
+        cd hobbyhobby-gateway
+        chmod +x gradlew
+        ./gradlew build
+
+    - name: Build with Gradle user
+      run: |
+        cd hobbyhobby-user
+        chmod +x gradlew
+        ./gradlew build
       
-    - name: docker image build
-      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo .
+    - name: Docker image build eureka
+      run: |
+        cd hobbyhobby-eureka
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/eureka .
+      
+    - name: Docker image build gateway
+      run: |
+        cd hobbyhobby-gateway
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/gateway .
+      
+    - name: Docker image build user
+      run: |
+        cd hobbyhobby-user
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/user .
 
-    - name: docker login
+    - name: Docker login
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-    - name: docker Hub push
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo
+    - name: Docker Hub push eureka
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/eureka
+
+    - name: Docker Hub push gateway
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/gateway
+
+    - name: Docker Hub push user
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/user
