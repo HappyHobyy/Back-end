@@ -94,10 +94,10 @@ jobs:
         username: ${{ env.EC2_SSH_USER }}
         key: ${{ env.PRIVATE_KEY }}
         script: |
-            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/eureka
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/gateway
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/user
+            docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/eureka
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/gateway
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/user
             cd /home/${{ env.EC2_SSH_USER }}
             docker-compose down
             docker rmi $(docker images -q)
