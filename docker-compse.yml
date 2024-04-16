@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  user:
+    image: user:latest
+    container_name: user
+    ports:
+      - "8080:8080"
+    networks:
+      dockernet:
+        ipv4_address: 10.10.20.143
+  eureka:
+    image: eureka:latest
+    container_name: eureka
+    ports:
+      - "8761:8761"
+    networks:
+      dockernet:
+        ipv4_address: 10.10.20.144
+    environment:
+      TZ: Asia/Seoul
+
+  gateway:
+    image: gateway:latest
+    container_name: gateway
+    ports:
+      - "8800:8000"
+    networks:
+      dockernet:
+        ipv4_address: 10.10.20.145
+    environment:
+      TZ: Asia/Seoul
+networks:
+  dockernet:
+    external: true

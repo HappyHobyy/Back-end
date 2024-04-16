@@ -43,7 +43,7 @@ public class SwaggerConfiguration {
                 .components(new Components().addSecuritySchemes("Authorization", bearerAuth))
                 // API 마다 Security 인증 컴포넌트 설정
                 .addSecurityItem(addSecurityItem)
-                .servers(List.of(server))
+                .addServersItem(new Server().url("http://localhost:8800/user-service"))
                 .info(swaggerInfo());
     }
 

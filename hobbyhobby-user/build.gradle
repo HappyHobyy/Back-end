@@ -8,11 +8,6 @@ repositories {
     mavenCentral()
 }
 
-
-repositories {
-    mavenCentral()
-}
-
 subprojects {
     group = 'org.v1'
     version = '0.0.1-SNAPSHOT'
@@ -37,16 +32,15 @@ subprojects {
     }
 
     dependencies {
-        compileOnly 'org.projectlombok:lombok'
-        annotationProcessor 'org.projectlombok:lombok'
-        testCompileOnly 'org.projectlombok:lombok'
-        testAnnotationProcessor 'org.projectlombok:lombok'
+        compileOnly 'org.projectlombok:lombok:1.18.20'
+        annotationProcessor 'org.projectlombok:lombok:1.18.20'
+        testCompileOnly 'org.projectlombok:lombok:1.18.20'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
     }
 }
-
-bootJar{
+bootJar {
     enabled = false
 }
 jar {
-    enabled = false
+    enabled = true
 }

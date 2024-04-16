@@ -10,16 +10,11 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://10.10.20.144:8761/eureka
 
 spring:
   application:
     name: gateway-service
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    passowrd: guest
   cloud:
     gateway:
       default-filters:
