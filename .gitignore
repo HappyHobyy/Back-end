@@ -1,16 +1,11 @@
 .idea
-gradle
 .gradle
-hobbyhobby-eureka/gradle
 hobbyhobby-eureka/build
-hobbyhobby-gateway/gradle
 hobbyhobby-gateway/build
-
 hobbyhobby-user/hobbyhobby-api/build
+hobbyhobby-user/build
 hobbyhobby-common/build
-hobbyhobby-user/gradlew
 hobbyhobby-user/gradlew.bat
-hobbyhobby-user/gradle
 hobbyhobby-user/.idea
 hobbyhobby-user/.gradle
 hobbyhobby-user/hobbyhobby-domain/build
