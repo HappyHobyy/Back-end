@@ -27,7 +27,7 @@ public class AuthController {
     @GetMapping("/token/access")
     @Operation(summary = "Access토큰 재발급")
     @Parameter(name = "Authorization", description = "Refresh token", required = true, in = ParameterIn.HEADER)
-    public ResponseEntity<Object> accessToken(
+    public ResponseEntity<AccessTokenResponse> accessToken(
             @RequestHeader("Authorization") final String jwt
     ){
         jwtService.isRefreshTokenValid(jwt);
@@ -49,7 +49,7 @@ public class AuthController {
 
     @PostMapping("/user/login/default")
     @Operation(summary = "일반 유저 로그인")
-    public ResponseEntity<Object> defaultLogin(
+    public ResponseEntity<RefreshTokenResponse> defaultLogin(
             @Valid @RequestBody UserDefaultLoginRequest request
     ) {
         User user = request.toEntity();
@@ -61,7 +61,7 @@ public class AuthController {
 
     @PostMapping("/user/login/kakao")
     @Operation(summary = "카카오 유저 로그인")
-    public ResponseEntity<Object> kakaoLogin(
+    public ResponseEntity<RefreshTokenResponse> kakaoLogin(
             @Valid @RequestBody UserOAuthLoginRequest request
     ) {
         User user = request.toKakaoEntity();
@@ -73,7 +73,7 @@ public class AuthController {
 
     @PostMapping("/user/login/google")
     @Operation(summary = "구글 유저 로그인")
-    public ResponseEntity<Object> googleLogin(
+    public ResponseEntity<RefreshTokenResponse> googleLogin(
             @Valid @RequestBody UserOAuthLoginRequest request
     ) {
         User user = request.toGoogleEntity();
