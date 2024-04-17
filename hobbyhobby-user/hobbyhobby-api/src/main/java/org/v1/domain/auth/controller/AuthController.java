@@ -1,6 +1,7 @@
 package org.v1.domain.auth.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import org.v1.domain.auth.dto.request.UserRegisterRequest;
 import org.v1.global.config.security.jwt.JwtService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-
+@Tag(name = "auth", description = "인증 API")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api")
@@ -20,6 +21,7 @@ public class AuthController {
     private final JwtService jwtService;
     private final AuthService authService;
     @GetMapping("/token/access")
+    @Operation(summary = "Access토큰 재발급")
     public ResponseEntity<String> accessToken(
             @RequestHeader("Authorization") final String jwt
     ){

@@ -40,7 +40,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
     @Operation(summary = "비밀번호 초기화", description = "userEmail 이용하여 마이페이지를 조회합니다.")
-    @PostMapping("/sendEmail")
+    @PostMapping("/resetPassword")
     public ResponseEntity<String> sendEmail(
             @Valid @RequestBody UserResetPasswordRequest request
             ){
