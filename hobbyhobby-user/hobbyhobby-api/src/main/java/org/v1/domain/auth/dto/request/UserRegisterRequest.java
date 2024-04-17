@@ -1,4 +1,4 @@
-package org.v1.domain.user.dto;
+package org.v1.domain.auth.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;

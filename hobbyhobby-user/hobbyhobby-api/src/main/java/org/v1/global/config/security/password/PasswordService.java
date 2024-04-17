@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 public class PasswordService {
     private final PasswordEncoder passwordEncoder;
 
-    public String encodePassword(User user){
-        return passwordEncoder.encode(user.getPassword());
+    public String encodePassword(String password){
+        return passwordEncoder.encode(password);
     }
 
     public boolean matchPassword(String loginPassword, String encodedPassword) {

@@ -1,0 +1,14 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation project(':hobbyhobby-common')
+    implementation project(':hobbyhobby-user:hobbyhobby-domain')
+}
+test {
+    useJUnitPlatform()
+}
+bootJar { enabled = false }
+jar { enabled = true }

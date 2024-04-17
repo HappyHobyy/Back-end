@@ -22,7 +22,10 @@ public class UserReader {
 
     public User readUserByTypeAndEmail(final User user){
         return userRepository.findUserByEmailAndType(user.getEmail(), user.getType())
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_LOGIN_EMAIL_FAIL));
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_EMAIL_NOT_FOUND));
     }
-
+    public User readUserByEmail(final String userEmail){
+        return userRepository.findUserByEmail(userEmail)
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_EMAIL_NOT_FOUND));
+    }
 }

@@ -9,9 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @RequiredArgsConstructor
 public class UserRemover {
-
     private final UserRepository userRepository;
-
     public void remove(final Long userId) {
         userRepository.deleteById(userId);
     }
