@@ -1,12 +1,16 @@
 package org.v1.domain.auth.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.v1.domain.auth.dto.request.UserDefaultLoginRequest;
 import org.v1.domain.auth.dto.request.UserOAuthLoginRequest;
+import org.v1.domain.auth.dto.response.AccessTokenResponse;
+import org.v1.domain.auth.dto.response.RefreshTokenResponse;
 import org.v1.domain.auth.service.AuthService;
 import org.v1.domain.user.domain.User;
 import org.v1.domain.auth.dto.request.UserRegisterRequest;
@@ -22,15 +26,15 @@ public class AuthController {
     private final AuthService authService;
     @GetMapping("/token/access")
     @Operation(summary = "Access토큰 재발급")
-    public ResponseEntity<String> accessToken(
+    @Parameter(name = "Authorization", description = "Refresh token", required = true, in = ParameterIn.HEADER)
+    public ResponseEntity<Object> accessToken(
             @RequestHeader("Authorization") final String jwt
     ){
         jwtService.isRefreshTokenValid(jwt);
         final String userId = jwtService.extractRefreshUsername(jwt);
         String accessToken = jwtService.generateAccessToken(userId);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization",accessToken);
-        return ResponseEntity.ok().headers(headers).build();
+        AccessTokenResponse response= AccessTokenResponse.from(accessToken);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/user/register")
@@ -51,9 +55,8 @@ public class AuthController {
         User user = request.toEntity();
         User savedUser = authService.loginUser(user);
         String refreshToken = jwtService.generateRefreshToken(String.valueOf(savedUser.getId()));
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", refreshToken);
-        return ResponseEntity.ok().headers(headers).build();
+        RefreshTokenResponse response= RefreshTokenResponse.from(refreshToken);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/user/login/kakao")
@@ -64,9 +67,8 @@ public class AuthController {
         User user = request.toKakaoEntity();
         User savedUser = authService.loginUserWithKakao(user);
         String refreshToken = jwtService.generateRefreshToken(String.valueOf(savedUser.getId()));
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", refreshToken);
-        return ResponseEntity.ok().headers(headers).build();
+        RefreshTokenResponse response= RefreshTokenResponse.from(refreshToken);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/user/login/google")
@@ -77,8 +79,7 @@ public class AuthController {
         User user = request.toGoogleEntity();
         User savedUser = authService.loginUserWithGoogle(user);
         String refreshToken = jwtService.generateRefreshToken(String.valueOf(savedUser.getId()));
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", refreshToken);
-        return ResponseEntity.ok().headers(headers).build();
+        RefreshTokenResponse response= RefreshTokenResponse.from(refreshToken);
+        return ResponseEntity.ok(response);
     }
 }
