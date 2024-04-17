@@ -10,7 +10,6 @@ import org.v1.domain.user.dto.response.UserGetMyPageResponse;
 import org.v1.domain.user.service.EmailService;
 import org.v1.domain.user.service.UserService;
 import org.v1.domain.user.domain.User;
-import org.v1.global.config.security.jwt.JwtService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
