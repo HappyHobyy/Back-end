@@ -8,7 +8,6 @@ import org.v1.email.Mail;
 import org.v1.domain.user.domain.User;
 import org.v1.domain.user.implementation.UserReader;
 import org.v1.global.config.security.password.PasswordService;
-
 import java.security.SecureRandom;
 import java.util.stream.Collectors;
 @Service
