@@ -23,7 +23,7 @@ services:
     image: hobbyhobby/gateway:latest
     container_name: gateway
     ports:
-      - "8800:8000"
+      - "8000:8000"
     networks:
       dockernet:
         ipv4_address: 10.10.20.145

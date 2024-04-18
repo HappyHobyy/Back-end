@@ -9,4 +9,5 @@ hobbyhobby-user/gradlew.bat
 hobbyhobby-user/.idea
 hobbyhobby-user/.gradle
 hobbyhobby-user/hobbyhobby-domain/build
+hobbyhobby-user/hobbyhobby-external/build
 
