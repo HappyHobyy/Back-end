@@ -39,7 +39,7 @@ public class UserController {
             HttpServletRequest request
     ) {
         User user = userService.getMyPage(Long.valueOf(request.getHeader("userId")));
-        UserGetMyPageResponse response =UserGetMyPageResponse.from(user);
+        UserGetMyPageResponse response =UserGetMyPageResponse.of(user);
         return ResponseEntity.ok(response);
     }
     @Operation(summary = "비밀번호 초기화", description = "email 이용하여 마이페이지를 조회합니다.")

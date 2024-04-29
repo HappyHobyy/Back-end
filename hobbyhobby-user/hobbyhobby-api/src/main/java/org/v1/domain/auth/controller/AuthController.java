@@ -15,7 +15,6 @@ import org.v1.domain.auth.service.AuthService;
 import org.v1.domain.user.domain.User;
 import org.v1.domain.auth.dto.request.UserRegisterRequest;
 import org.v1.global.config.security.jwt.JwtService;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 @Tag(name = "auth", description = "인증 API")
 @RequiredArgsConstructor
