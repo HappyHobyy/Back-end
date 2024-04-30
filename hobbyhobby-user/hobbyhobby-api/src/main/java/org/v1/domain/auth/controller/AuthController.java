@@ -16,6 +16,8 @@ import org.v1.domain.user.domain.User;
 import org.v1.domain.auth.dto.request.UserRegisterRequest;
 import org.v1.global.config.security.jwt.JwtService;
 import org.springframework.http.ResponseEntity;
+import response.HttpResponse;
+
 @Tag(name = "auth", description = "인증 API")
 @RequiredArgsConstructor
 @RestController
@@ -48,37 +50,37 @@ public class AuthController {
 
     @PostMapping("/user/login/default")
     @Operation(summary = "일반 유저 로그인")
-    public ResponseEntity<RefreshTokenResponse> defaultLogin(
+    public HttpResponse<RefreshTokenResponse> defaultLogin(
             @Valid @RequestBody UserDefaultLoginRequest request
     ) {
         User user = request.toEntity();
         User savedUser = authService.loginUser(user);
         String refreshToken = jwtService.generateRefreshToken(String.valueOf(savedUser.getId()));
         RefreshTokenResponse response= RefreshTokenResponse.from(refreshToken);
-        return ResponseEntity.ok(response);
+        return HttpResponse.success(response);
     }
 
     @PostMapping("/user/login/kakao")
     @Operation(summary = "카카오 유저 로그인")
-    public ResponseEntity<RefreshTokenResponse> kakaoLogin(
+    public HttpResponse<RefreshTokenResponse> kakaoLogin(
             @Valid @RequestBody UserOAuthLoginRequest request
     ) {
         User user = request.toKakaoEntity();
         User savedUser = authService.loginUserWithKakao(user);
         String refreshToken = jwtService.generateRefreshToken(String.valueOf(savedUser.getId()));
         RefreshTokenResponse response= RefreshTokenResponse.from(refreshToken);
-        return ResponseEntity.ok(response);
+        return HttpResponse.success(response);
     }
 
     @PostMapping("/user/login/google")
     @Operation(summary = "구글 유저 로그인")
-    public ResponseEntity<RefreshTokenResponse> googleLogin(
+    public HttpResponse<RefreshTokenResponse> googleLogin(
             @Valid @RequestBody UserOAuthLoginRequest request
     ) {
         User user = request.toGoogleEntity();
         User savedUser = authService.loginUserWithGoogle(user);
         String refreshToken = jwtService.generateRefreshToken(String.valueOf(savedUser.getId()));
         RefreshTokenResponse response= RefreshTokenResponse.from(refreshToken);
-        return ResponseEntity.ok(response);
+        return HttpResponse.success(response);
     }
 }
