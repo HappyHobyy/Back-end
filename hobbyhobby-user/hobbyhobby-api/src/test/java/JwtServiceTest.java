@@ -1,14 +1,12 @@
 
-import org.v1.domain.user.domain.User;
-import org.v1.global.config.security.jwt.JwtService;
-import org.v1.global.config.security.jwt.JwtToken;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
-
+import org.v1.domain.user.domain.User;
+import org.v1.global.config.security.jwt.JwtService;
+import org.v1.global.config.security.jwt.JwtToken;
 import io.jsonwebtoken.JwtException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,8 +23,7 @@ class JwtServiceTest {
     @DisplayName("access token 생성에 성공")
     void successAccessTokenCreate() {
         //given
-        Long userId = 1L;
-        User user = User.builder().id(userId).build();
+        User user = createUser();
 
         //when
         String token = jwtService.generateAccessToken(String.valueOf(user.getId()));
@@ -42,7 +39,7 @@ class JwtServiceTest {
     void successRefreshTokenCreate() {
         //given
         Long userId = 1L;
-        User user = User.builder().id(userId).build();
+        User user = createUser();
 
         //when
         String token = jwtService.generateRefreshToken(String.valueOf(user.getId()));
@@ -62,8 +59,7 @@ class JwtServiceTest {
         JwtService jwtService = new JwtService(jwtConfig);
 
         //when
-        Long userId = 1L;
-        User user = User.builder().id(userId).build();
+        User user = createUser();
         String token = jwtService.generateAccessToken(String.valueOf(user.getId()));
 
         //given
@@ -80,8 +76,7 @@ class JwtServiceTest {
         JwtService jwtService = new JwtService(jwtConfig);
 
         //when
-        Long userId = 1L;
-        User user = User.builder().id(userId).build();
+        User user = createUser();
         String generateAccessToken = jwtService.generateAccessToken(String.valueOf(user.getId()));
         String generateRefreshToken = jwtService.generateRefreshToken(String.valueOf(user.getId()));
         //then
@@ -91,5 +86,18 @@ class JwtServiceTest {
         Assertions.assertThrows(JwtException.class, ()-> {
             jwtService.isRefreshTokenValid(generateRefreshToken);
         });
+    }
+    User createUser(){
+        return  User.withId(
+                new User.UserId(1L),
+                "testNickname",
+                "testEmail",
+                User.UserType.OAUTH_DEFAULT,
+                new User.Password("testPassword"),
+                User.UserRole.ROLE_USER,
+                User.UserGender.MAN,
+                User.Nationality.DOMESTIC,
+                "testDeviceToken"
+        );
     }
 }

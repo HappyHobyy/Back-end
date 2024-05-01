@@ -10,8 +10,10 @@ import org.springframework.stereotype.Component;
 public class UserChecker {
 
     private final UserRepository userRepository;
-
     public boolean isUserEmailDuplicate(final User user) {
-        return userRepository.existsUserByEmailAndType(user.getEmail(), user.getType());
+        return userRepository.existsUserJpaEntitiesByEmail(user.getEmail());
+    }
+    public boolean isUserNicknameDuplicate(final User user) {
+        return userRepository.existsUserJpaEntitiesByNickname(user.getNickname());
     }
 }
