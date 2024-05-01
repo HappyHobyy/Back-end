@@ -12,12 +12,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserSecurity implements UserDetails {
     private final User user;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(user.getRole()));
+        return List.of(new SimpleGrantedAuthority(user.getUserRole().name()));
     }
-
     @Override
     public String getPassword() {
         return null;

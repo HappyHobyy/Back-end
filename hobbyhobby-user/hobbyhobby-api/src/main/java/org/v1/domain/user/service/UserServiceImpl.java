@@ -9,7 +9,6 @@ import org.v1.domain.user.implementation.UserRemover;
 
 import org.v1.error.BusinessException;
 import org.v1.error.ErrorCode;
-import org.v1.global.config.security.password.PasswordService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +21,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void removeUser(Long userId){
         User savedUser = userReader.readById(userId);
-        userRemover.remove(savedUser.getId());
+        userRemover.remove(savedUser.getId().value());
     }
     @Override
     public User getMyPage(final Long userId) {

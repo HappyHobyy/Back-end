@@ -9,7 +9,7 @@ public record UserGetMyPageResponse(
         String nickname,
         String email
 ) {
-    public static UserGetMyPageResponse from(final User user) {
+    public static UserGetMyPageResponse of(final User user) {
         return new UserGetMyPageResponse(
                 user.getNickname(),
                 user.getEmail()

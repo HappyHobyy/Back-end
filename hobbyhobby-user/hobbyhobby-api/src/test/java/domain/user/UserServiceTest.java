@@ -8,7 +8,6 @@ import org.v1.domain.user.implementation.UserRemover;
 import org.v1.domain.user.service.UserServiceImpl;
 import org.v1.error.BusinessException;
 import org.v1.error.ErrorCode;
-import org.v1.global.config.security.password.PasswordService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,12 +33,25 @@ public class UserServiceTest {
     @DisplayName("마이페이지 읽기 성공")
     void getMyPageWithUserId_ShouldReturnUser () {
         // Given
-        Long userId = 1L;
-        User savedUser = User.builder().id(1L).build();
+        Long userId = 123L;
+        User savedUser = createUser();
         when(userReader.readById(userId)).thenReturn(savedUser);
         // When
         User result = userService.getMyPage(userId);
         // Then
-        assertEquals(userId, result.getId());
+        assertEquals(userId, result.getId().value());
+    }
+    User createUser(){
+        return  User.withId(
+                new User.UserId(123L),
+                "testNickname",
+                "testEmail",
+                User.UserType.OAUTH_DEFAULT,
+                new User.Password("testPassword"),
+                User.UserRole.ROLE_USER,
+                User.UserGender.MAN,
+                User.Nationality.DOMESTIC,
+                "testDeviceToken"
+        );
     }
 }

@@ -13,19 +13,13 @@ import org.v1.domain.user.implementation.UserChecker;
 import org.v1.domain.user.implementation.UserReader;
 import org.v1.error.BusinessException;
 import org.v1.error.ErrorCode;
-import org.v1.global.config.security.password.PasswordService;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.never;
 
 public class AuthServiceTest {
     @Mock
     private UserChecker userChecker;
-    @Mock
-    private PasswordService passwordService;
     @Mock
     private UserAppender userAppender;
     @Mock
@@ -37,30 +31,26 @@ public class AuthServiceTest {
         MockitoAnnotations.openMocks(this);
     }
     @Test
-    @DisplayName("회원가입 실패 후 예외처리")
+    @DisplayName("회원가입 성공")
     void registerUser_WithNonDuplicateEmail_ShouldRegisterUser() {
         // given
-        User user = User.builder().build();
+        User user = createUser1();
         when(userChecker.isUserEmailDuplicate(user)).thenReturn(false);
-
         //when
-        authService.registerUser(user);
-
+        authService.registerDefaultUser(user);
         // then
-        verify(passwordService).encodePassword(user.getPassword());
-        verify(userAppender).appendUser(user);
+        verify(userAppender).appendUser(any(User.class));
     }
 
     @Test
-    @DisplayName("회원가입 성공")
+    @DisplayName("회원가입 실패")
     void registerUser_WithDuplicateEmail_ShouldThrowException(){
         //given
-        User user = User.builder().build();
+        User user = createUser1();
         when(userChecker.isUserEmailDuplicate(user)).thenReturn(true);
-
         //when&then
         BusinessException exception = assertThrows(BusinessException.class, () -> {
-            authService.registerUser(user);
+            authService.registerDefaultUser(user);
         });
         assertEquals(ErrorCode.USER_EMAIL_DUPLICATED, exception.getErrorCode());
     }
@@ -69,77 +59,53 @@ public class AuthServiceTest {
     @DisplayName("틀린 비밀번호 확인 후 예외처리")
     void loginUser_WithIncorrectPassword_ShouldThrowException() {
         // given
-        User user = User.builder().build();;
-        User savedUser = User.builder().password("encodedPassword").build();
+        User savedUser = createUser2();
+        User user = createUser1();
         when(userReader.readUserByTypeAndEmail(user)).thenReturn(savedUser);
-        when(passwordService.matchPassword(any(), any())).thenReturn(false);
         //when
-        BusinessException exception = assertThrows(BusinessException.class, () -> authService.loginUser(user));
+        BusinessException exception = assertThrows(BusinessException.class, () -> authService.loginDefaultUser(user));
         //then
         assertEquals(ErrorCode.USER_LOGIN_PASSWORD_FAIL, exception.getErrorCode());
     }
-    @Test
-    @DisplayName("새로운 카카오 유저 로그인 성공")
-    void loginUserWithKakao_NewUser_ShouldAppendAndReturnUser() {
-        // Given
-        User user = User.builder().build();
-        when(userChecker.isUserEmailDuplicate(user)).thenReturn(false);
-        when(userReader.readUserByTypeAndEmail(user)).thenReturn(user);
-
-        // When
-        User result = authService.loginUserWithKakao(user);
-
-        // Then
-        verify(userAppender).appendUser(user);
-        assertEquals(user, result);
-    }
 
     @Test
-    @DisplayName("기존 카카오 유저 로그인 성공")
-    void loginUserWithKakao_ExistingUser_ShouldReturnUser() {
+    @DisplayName("기존 소셜 유저 로그인 성공")
+    void loginUserWithOAuth_ExistingUser_ShouldReturnUser() {
         // Given
-        User user = User.builder().build();
-        when(userChecker.isUserEmailDuplicate(user)).thenReturn(true);
-        when(userReader.readUserByTypeAndEmail(user)).thenReturn(user);
-
+        User user = createUser1();
+        User savedUser = createUser2();
+        when(userReader.readUserByTypeAndEmail(savedUser)).thenReturn(user);
         // When
-        User result = authService.loginUserWithKakao(user);
-
+        User result = authService.loginOAuthUser(savedUser);
         // Then
-        verify(userAppender, never()).appendUser(user);
-        assertEquals(user, result);
+        assertNotNull(result.getDeviceToken());
     }
 
-    @Test
-    @DisplayName("새로운 구글 유저 로그인 성공")
-    void loginUserWithGoogle_NewUser_ShouldAppendAndReturnUser() {
-        // Given
-        User user = User.builder().build();
-        when(userChecker.isUserEmailDuplicate(user)).thenReturn(false);
-        when(userReader.readUserByTypeAndEmail(user)).thenReturn(user);
 
-        // When
-        User result = authService.loginUserWithGoogle(user);
-
-        // Then
-        verify(userAppender).appendUser(user);
-        assertEquals(user, result);
+    User createUser1(){
+        return  User.withId(
+                new User.UserId(123L),
+                "testNickname",
+                "testEmail",
+                User.UserType.OAUTH_DEFAULT,
+                new User.Password("testPassword"),
+                User.UserRole.ROLE_USER,
+                User.UserGender.MAN,
+                User.Nationality.DOMESTIC,
+                null
+        );
     }
-
-    @Test
-    @DisplayName("기존 구글 유저 로그인 성공")
-    void loginUserWithGoogle_ExistingUser_ShouldReturnUser() {
-        // Given
-        User user = User.builder().build();
-        when(userChecker.isUserEmailDuplicate(user)).thenReturn(true);
-        when(userReader.readUserByTypeAndEmail(user)).thenReturn(user);
-
-        // When
-        User result = authService.loginUserWithGoogle(user);
-
-        // Then
-        verify(userAppender, never()).appendUser(user);
-        assertEquals(user, result);
+    User createUser2(){
+        return  User.withId(
+                new User.UserId(123L),
+                "testNickname",
+                "testEmail",
+                User.UserType.OAUTH_DEFAULT,
+                new User.Password("testPassword"),
+                User.UserRole.ROLE_USER,
+                User.UserGender.MAN,
+                User.Nationality.DOMESTIC,
+                "testDeviceToken"
+        );
     }
-
 }
