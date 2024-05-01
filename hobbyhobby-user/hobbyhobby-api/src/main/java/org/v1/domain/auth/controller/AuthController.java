@@ -25,7 +25,7 @@ import response.HttpResponse;
 public class AuthController {
     private final JwtService jwtService;
     private final AuthService authService;
-    @GetMapping("/token/access")
+    @GetMapping("/auth/token/access")
     @Operation(summary = "Access토큰 재발급")
     @Parameter(name = "Authorization", description = "Refresh token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<OnlyAccessTokenResponse> accessToken(
@@ -37,7 +37,7 @@ public class AuthController {
         OnlyAccessTokenResponse response= OnlyAccessTokenResponse.from(accessToken);
         return HttpResponse.success(response);
     }
-    @PostMapping("/user/register/default")
+    @PostMapping("/auth/register/default")
     @Operation(summary = "일반 유저 회원가입")
     public HttpResponse<Object> defaultRegister(
             @Valid @RequestBody UserRegisterRequest.DefaultRegister request
@@ -46,7 +46,7 @@ public class AuthController {
         authService.registerDefaultUser(user);
         return HttpResponse.successOnly();
     }
-    @PostMapping("/user/register/oAuth")
+    @PostMapping("/auth/register/oAuth")
     @Operation(summary = "소셜 유저 회원가입")
     public HttpResponse<Object> oAuthRegister(
             @Valid @RequestBody UserRegisterRequest.OAuthRegister request
@@ -56,7 +56,7 @@ public class AuthController {
         return HttpResponse.successOnly();
     }
 
-    @PostMapping("/user/login/default")
+    @PostMapping("/auth/login/default")
     @Operation(summary = "일반 유저 로그인")
     public HttpResponse<TokenResponse> defaultLogin(
             @Valid @RequestBody UserLoginRequest.DefaultLogin request
@@ -67,7 +67,7 @@ public class AuthController {
         String accessToken = jwtService.generateAccessToken(String.valueOf(savedUser.getId()));
         return HttpResponse.success(TokenResponse.from(refreshToken,accessToken));
     }
-    @PostMapping("/user/login/oAuth")
+    @PostMapping("/auth/login/oAuth")
     @Operation(summary = "소셜 유저 로그인")
     public HttpResponse<TokenResponse> oAuthLogin(
             @Valid @RequestBody UserLoginRequest.OAuthLogin request
@@ -78,7 +78,7 @@ public class AuthController {
         String accessToken = jwtService.generateAccessToken(String.valueOf(savedUser.getId()));
         return HttpResponse.success(TokenResponse.from(refreshToken,accessToken));
     }
-    @PostMapping("/user/register/email")
+    @PostMapping("/auth/register/email")
     @Operation(summary = "이메일 중복 확인")
     public HttpResponse<Object> checkEmail(
             @Valid @RequestBody EmailCheckRequest request
@@ -87,7 +87,7 @@ public class AuthController {
         authService.checkEmailDuplicate(user);
         return HttpResponse.successOnly();
     }
-    @PostMapping("/user/register/nickName")
+    @PostMapping("/auth/register/nickName")
     @Operation(summary = "닉네임 중복 확인")
     public HttpResponse<Object> checkNickname(
             @Valid @RequestBody NicknameCheckRequest request
