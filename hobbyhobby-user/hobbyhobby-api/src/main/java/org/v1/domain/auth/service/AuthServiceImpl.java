@@ -2,6 +2,7 @@ package org.v1.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.v1.domain.user.domain.User;
 import org.v1.domain.user.implementation.UserAppender;
 import org.v1.domain.user.implementation.UserChecker;
@@ -9,43 +10,87 @@ import org.v1.domain.user.implementation.UserReader;
 import org.v1.domain.user.implementation.UserRemover;
 import org.v1.error.BusinessException;
 import org.v1.error.ErrorCode;
-import org.v1.global.config.security.password.PasswordService;
+
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImpl implements AuthService{
+public class AuthServiceImpl implements AuthService {
     private final UserAppender userAppender;
     private final UserReader userReader;
     private final UserChecker userChecker;
-    private final PasswordService passwordService;
+
     @Override
-    public void registerUser(User user) {
+    public void registerDefaultUser(User user) {
         if (userChecker.isUserEmailDuplicate(user)) {
             throw new BusinessException(ErrorCode.USER_EMAIL_DUPLICATED);
         }
-        user.hashedPassword(passwordService.encodePassword(user.getPassword()));
+        User hashedUser = User.withoutId(
+                user.getNickname(),
+                user.getEmail(),
+                user.getUserType(),
+                user.getPassword().hashPassword(),
+                user.getUserRole(),
+                user.getUserGender(),
+                user.getNationality(),
+                null
+        );
+        userAppender.appendUser(hashedUser);
+    }
+    @Override
+    public void registerOAuthUser(User user) {
+        if (userChecker.isUserEmailDuplicate(user)) {
+            throw new BusinessException(ErrorCode.USER_EMAIL_DUPLICATED);
+        }
         userAppender.appendUser(user);
     }
     @Override
-    public User loginUser(User user) {
+    @Transactional
+    public User loginDefaultUser(User user) {
         User savedUser = userReader.readUserByTypeAndEmail(user);
-        if (!passwordService.matchPassword(user.getPassword(), savedUser.getPassword())) {
+        if (!savedUser.getPassword().matches(user.getPassword().hashPassword())) {
             throw new BusinessException(ErrorCode.USER_LOGIN_PASSWORD_FAIL);
         }
-        return savedUser;
+        User updateUser = User.withId(
+                savedUser.getId(),
+                savedUser.getNickname(),
+                savedUser.getEmail(),
+                savedUser.getUserType(),
+                savedUser.getPassword(),
+                savedUser.getUserRole(),
+                savedUser.getUserGender(),
+                savedUser.getNationality(),
+                user.getDeviceToken()
+        );
+        userAppender.updateUser(updateUser);
+        return updateUser;
     }
     @Override
-    public User loginUserWithKakao(User user) {
-        if (!userChecker.isUserEmailDuplicate(user)) {
-            userAppender.appendUser(user);
-        }
-        return userReader.readUserByTypeAndEmail(user);
+    @Transactional
+    public User loginOAuthUser(User user) {
+        User savedUser = userReader.readUserByTypeAndEmail(user);
+        User updateUser = User.withId(
+                savedUser.getId(),
+                savedUser.getNickname(),
+                savedUser.getEmail(),
+                savedUser.getUserType(),
+                savedUser.getPassword(),
+                savedUser.getUserRole(),
+                savedUser.getUserGender(),
+                savedUser.getNationality(),
+                user.getDeviceToken()
+        );
+        userAppender.updateUser(updateUser);
+        return updateUser;
     }
-
     @Override
-    public User loginUserWithGoogle(User user) {
-        if (!userChecker.isUserEmailDuplicate(user)) {
-            userAppender.appendUser(user);
+    public void checkEmailDuplicate(User user) {
+        if (userChecker.isUserEmailDuplicate(user)) {
+            throw new BusinessException(ErrorCode.USER_EMAIL_DUPLICATED);
         }
-        return userReader.readUserByTypeAndEmail(user);
+    }
+    @Override
+    public void checkNicknameDuplicate(User user) {
+        if (userChecker.isUserNicknameDuplicate(user)) {
+            throw new BusinessException(ErrorCode.USER_NICKNAME_DUPLICATED);
+        }
     }
 }

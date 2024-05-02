@@ -2,13 +2,15 @@ package org.v1.domain.user.repository;
 
 import org.v1.domain.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.v1.domain.user.domain.UserJpaEntity;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    boolean existsUserByEmailAndType(final String email, final String type);
+public interface UserRepository extends JpaRepository<UserJpaEntity, Long> {
+    boolean existsUserJpaEntitiesByEmail(final String email);
+    boolean existsUserJpaEntitiesByNickname(final String nickName);
 
-    Optional<User> findUserByEmail(final String email);
+    Optional<UserJpaEntity> findUserJpaEntitiesByEmail(final String email);
 
-    Optional<User> findUserByEmailAndType(final String email, final String type);
+    Optional<UserJpaEntity> findUserJpaEntitiesByEmailAndType(String email, User.UserType type);
 }

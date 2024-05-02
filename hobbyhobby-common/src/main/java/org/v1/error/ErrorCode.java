@@ -19,7 +19,8 @@ public enum ErrorCode {
     USER_EMAIL_NOT_FOUND("USER_002", "저장된 이메일이 없습니다."),
     USER_EMAIL_DUPLICATED("USER_003", "이메일이 중복 되었습니다."),
     USER_EMAIL_SEND_FAIL("USER_004", " 이메일 전송이 실패되었습니다."),
-    USER_LOGIN_PASSWORD_FAIL("USER_005", "로그인 비밀번호가 잘못 되었습니다.");
+    USER_LOGIN_PASSWORD_FAIL("USER_005", "로그인 비밀번호가 잘못 되었습니다."),
+    USER_NICKNAME_DUPLICATED("USER_006", "닉네임이 중복 되었습니다.");
 
     private static final Map<String, ErrorCode> ERROR_CODE_MAP=  Collections.unmodifiableMap(Stream.of(values())
             .collect(Collectors.toMap(ErrorCode::getMessage, Function.identity())));

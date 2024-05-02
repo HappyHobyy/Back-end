@@ -17,15 +17,14 @@ public class UserReader {
     private final UserRepository userRepository;
     public User readById(final Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND)).toUser();
     }
-
     public User readUserByTypeAndEmail(final User user){
-        return userRepository.findUserByEmailAndType(user.getEmail(), user.getType())
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_EMAIL_NOT_FOUND));
+        return userRepository.findUserJpaEntitiesByEmailAndType(user.getEmail(), user.getUserType())
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_EMAIL_NOT_FOUND)).toUser();
     }
     public User readUserByEmail(final String userEmail){
-        return userRepository.findUserByEmail(userEmail)
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_EMAIL_NOT_FOUND));
+        return userRepository.findUserJpaEntitiesByEmail(userEmail)
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_EMAIL_NOT_FOUND)).toUser();
     }
 }
