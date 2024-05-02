@@ -1,9 +1,10 @@
-package org.v1.domain.user.domain;
+package org.v1;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.v1.domain.BaseEntity;
-
+import org.v1.domain.user.domain.User;
+import java.util.Optional;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
@@ -63,8 +64,9 @@ public class UserJpaEntity  extends BaseEntity {
                 .deviceToken(user.getDeviceToken())
                 .build();
     }
-    public User toUser() {
-        return User.withId(
+
+    public Optional<User> toUser() {
+        User user = User.withId(
                 new User.UserId(this.id),
                 this.nickname,
                 this.email,
@@ -75,5 +77,6 @@ public class UserJpaEntity  extends BaseEntity {
                 this.nationality,
                 this.deviceToken
         );
+        return Optional.of(user);
     }
 }

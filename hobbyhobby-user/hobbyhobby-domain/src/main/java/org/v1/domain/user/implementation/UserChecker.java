@@ -11,9 +11,9 @@ public class UserChecker {
 
     private final UserRepository userRepository;
     public boolean isUserEmailDuplicate(final User user) {
-        return userRepository.existsUserJpaEntitiesByEmail(user.getEmail());
+        return userRepository.checkByEmail(user);
     }
     public boolean isUserNicknameDuplicate(final User user) {
-        return userRepository.existsUserJpaEntitiesByNickname(user.getNickname());
+        return userRepository.checkByNickname(user);
     }
 }
