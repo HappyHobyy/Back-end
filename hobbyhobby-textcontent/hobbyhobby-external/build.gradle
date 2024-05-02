@@ -3,9 +3,8 @@ plugins {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation project(':hobbyhobby-common')
-    implementation project(':hobbyhobby-user:hobbyhobby-domain')
+    implementation project(':hobbyhobby-textcontent:hobbyhobby-domain')
 }
 
 bootJar { enabled = false }
