@@ -16,15 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserReader {
     private final UserRepository userRepository;
     public User readById(final Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND)).toUser();
+        return userRepository.readById(userId).orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
     }
     public User readUserByTypeAndEmail(final User user){
-        return userRepository.findUserJpaEntitiesByEmailAndType(user.getEmail(), user.getUserType())
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_EMAIL_NOT_FOUND)).toUser();
+        return userRepository.readByTypeAndEmail(user).orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
     }
     public User readUserByEmail(final String userEmail){
-        return userRepository.findUserJpaEntitiesByEmail(userEmail)
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_EMAIL_NOT_FOUND)).toUser();
+        return userRepository.readByEmail(userEmail).orElseThrow(() -> new BusinessException(ErrorCode.USER_EMAIL_NOT_FOUND));
     }
 }
