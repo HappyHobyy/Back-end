@@ -2,12 +2,19 @@
 .gradle
 hobbyhobby-eureka/build
 hobbyhobby-gateway/build
+hobbyhobby-common/build
 hobbyhobby-user/hobbyhobby-api/build
 hobbyhobby-user/build
-hobbyhobby-common/build
 hobbyhobby-user/gradlew.bat
 hobbyhobby-user/.idea
 hobbyhobby-user/.gradle
 hobbyhobby-user/hobbyhobby-domain/build
 hobbyhobby-user/hobbyhobby-external/build
+hobbyhobby-textcontent/hobbyhobby-api/build
+hobbyhobby-textcontent/build
+hobbyhobby-textcontent/gradlew.bat
+hobbyhobby-textcontent/.idea
+hobbyhobby-textcontent/.gradle
+hobbyhobby-textcontent/hobbyhobby-domain/build
+hobbyhobby-textcontent/hobbyhobby-external/build
 
