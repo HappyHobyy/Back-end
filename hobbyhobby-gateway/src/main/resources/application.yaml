@@ -43,6 +43,15 @@ spring:
             - LoggingFilter
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: textcontent-service
+          uri: lb://TEXTCONTENT-SERVICE
+          predicates:
+            - Path=/textcontent-service/**
+          filters:
+            - CustomFilter
+            - LoggingFilter
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/textcontent-service/(?<segment>.*), /$\{segment}
 
 management:
   endpoints:
@@ -65,3 +74,5 @@ springdoc:
     urls:
       - url: /user-service/v3/api-docs
         name: user Service
+      - url: /textcontent-service/v3/api-docs
+        name: textcontent Service
