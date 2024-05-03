@@ -25,7 +25,7 @@ public class UserController {
     @Operation(summary = "유저 정보 삭제")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> removeUser(
-            @Valid @RequestHeader Long userId
+            @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
         userService.removeUser(userId);
         return HttpResponse.successOnly();
@@ -34,7 +34,7 @@ public class UserController {
     @GetMapping("/mypage")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<UserGetMyPageResponse> getMyPage(
-            @Valid @RequestHeader Long userId
+            @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
         User user = userService.getMyPage(userId);
         UserGetMyPageResponse response =UserGetMyPageResponse.of(user);
