@@ -1,8 +1,9 @@
-package org.v1;
+package org.v1.textcontent;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.v1.TextContentInfo;
 import org.v1.user.User;
 
 import java.time.LocalDateTime;
@@ -15,10 +16,9 @@ public class TextContent {
     private final String title;
     private final LocalDateTime date;
     private final String category;
-    private final String username;
     private final User user;
     private final Integer likes;
-    private final Content content;
+    private final TextContentInfo textContentInfo;
     private final List<Comment> comment;
 
     public record Comment(Long id, User user, LocalDateTime date, String text) {

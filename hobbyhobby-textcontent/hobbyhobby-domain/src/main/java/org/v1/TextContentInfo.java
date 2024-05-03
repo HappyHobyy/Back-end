@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Content {
+public class TextContentInfo {
     private final Long id;
     private final List<Text> text;
     private final List<Image> image;

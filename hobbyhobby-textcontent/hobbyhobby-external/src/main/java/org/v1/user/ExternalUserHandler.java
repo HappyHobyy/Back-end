@@ -8,9 +8,8 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class ExternalUserHandler implements UserHandler {
+public class ExternalUserHandler {
     private ExternalUserClient externalUserClient;
-    @Override
     public List<Community> getUserCommunity(Long userId) {
         return externalUserClient.getResource(new UserCommunityRequest(userId)).toCommunityList();
     }
