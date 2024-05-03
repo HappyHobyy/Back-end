@@ -1,4 +1,4 @@
-package org.v1.domain;
+package org.v1;
 
 import java.time.LocalDateTime;
 

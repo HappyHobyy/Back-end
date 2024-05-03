@@ -63,8 +63,8 @@ public class AuthController {
     ) {
         User user = request.toUser();
         User savedUser = authService.loginDefaultUser(user);
-        String refreshToken = jwtService.generateRefreshToken(String.valueOf(savedUser.getId()));
-        String accessToken = jwtService.generateAccessToken(String.valueOf(savedUser.getId()));
+        String refreshToken = jwtService.generateRefreshToken(String.valueOf(savedUser.getId().value()));
+        String accessToken = jwtService.generateAccessToken(String.valueOf(savedUser.getId().value()));
         return HttpResponse.success(TokenResponse.from(refreshToken,accessToken));
     }
     @PostMapping("/auth/login/oAuth")
@@ -74,8 +74,8 @@ public class AuthController {
     ) {
         User user = request.toUser();
         User savedUser = authService.loginOAuthUser(user);
-        String refreshToken = jwtService.generateRefreshToken(String.valueOf(savedUser.getId()));
-        String accessToken = jwtService.generateAccessToken(String.valueOf(savedUser.getId()));
+        String refreshToken = jwtService.generateRefreshToken(String.valueOf(savedUser.getId().value()));
+        String accessToken = jwtService.generateAccessToken(String.valueOf(savedUser.getId().value()));
         return HttpResponse.success(TokenResponse.from(refreshToken,accessToken));
     }
     @PostMapping("/auth/register/email")

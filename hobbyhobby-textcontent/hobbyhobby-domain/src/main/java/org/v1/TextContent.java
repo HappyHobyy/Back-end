@@ -3,6 +3,7 @@ package org.v1;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.v1.user.User;
 
 import java.time.LocalDateTime;
 import java.util.List;

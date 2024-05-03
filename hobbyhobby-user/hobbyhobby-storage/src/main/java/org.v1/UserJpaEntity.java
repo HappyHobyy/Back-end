@@ -2,7 +2,6 @@ package org.v1;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.v1.domain.BaseEntity;
 import org.v1.domain.user.domain.User;
 import java.util.Optional;
 @Getter

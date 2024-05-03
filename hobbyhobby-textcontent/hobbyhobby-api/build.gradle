@@ -8,6 +8,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'org.springframework:spring-tx'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
     //domain module, hobby model 에 의존
     implementation project(':hobbyhobby-textcontent:hobbyhobby-domain')
     implementation project(':hobbyhobby-textcontent:hobbyhobby-external')
