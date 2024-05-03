@@ -14,16 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserService {
     private final UserReader userReader;
     private final UserRemover userRemover;
-    @Override
     @Transactional
     public void removeUser(Long userId){
         User savedUser = userReader.readById(userId);
         userRemover.remove(savedUser.getId().value());
     }
-    @Override
     public User getMyPage(final Long userId) {
         return userReader.readById(userId);
     }

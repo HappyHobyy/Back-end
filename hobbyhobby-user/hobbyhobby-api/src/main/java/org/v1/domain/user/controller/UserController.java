@@ -6,12 +6,12 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.v1.domain.email.EmailService;
 import org.v1.domain.user.dto.request.UserResetPasswordRequest;
 import org.v1.domain.user.dto.response.UserGetMyPageResponse;
-import org.v1.domain.user.service.EmailService;
-import org.v1.domain.user.service.UserService;
 import org.v1.domain.user.domain.User;
 import org.springframework.web.bind.annotation.*;
+import org.v1.domain.user.service.UserService;
 import response.HttpResponse;
 
 @Tag(name = "user", description = "회원 API")

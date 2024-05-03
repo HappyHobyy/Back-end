@@ -1,29 +1,23 @@
-package domain.user;
+package org.v1.domain;
 
-import org.v1.domain.user.domain.User;
-import org.v1.domain.user.implementation.UserAppender;
-import org.v1.domain.user.implementation.UserChecker;
-import org.v1.domain.user.implementation.UserReader;
-import org.v1.domain.user.implementation.UserRemover;
-import org.v1.domain.user.service.UserServiceImpl;
-import org.v1.error.BusinessException;
-import org.v1.error.ErrorCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.v1.domain.user.domain.User;
+import org.v1.domain.user.implementation.UserReader;
+import org.v1.domain.user.service.UserService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 public class UserServiceTest {
     @Mock
     private UserReader userReader;
     @InjectMocks
-    private UserServiceImpl userService;
+    private UserService userService;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);

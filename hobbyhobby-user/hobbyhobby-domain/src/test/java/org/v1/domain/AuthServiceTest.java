@@ -1,4 +1,4 @@
-package domain.auth;
+package org.v1.domain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.v1.domain.auth.service.AuthServiceImpl;
+import org.v1.domain.auth.AuthService;
 import org.v1.domain.user.domain.User;
 import org.v1.domain.user.implementation.UserAppender;
 import org.v1.domain.user.implementation.UserChecker;
@@ -25,7 +25,7 @@ public class AuthServiceTest {
     @Mock
     private UserReader userReader;
     @InjectMocks
-    private AuthServiceImpl authService;
+    private AuthService authService;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);

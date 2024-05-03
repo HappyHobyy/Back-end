@@ -1,4 +1,4 @@
-package org.v1.email;
+package org.v1.domain.email;
 
 import org.v1.domain.user.domain.User;
 

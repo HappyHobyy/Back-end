@@ -1,22 +1,19 @@
-package org.v1.domain.user.service;
+package org.v1.domain.email;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.v1.domain.user.implementation.UserAppender;
-import org.v1.email.ExternalMailService;
-import org.v1.email.Mail;
 import org.v1.domain.user.domain.User;
 import org.v1.domain.user.implementation.UserReader;
 import java.security.SecureRandom;
 import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
-public class EmailServiceImpl implements EmailService {
+public class EmailService {
     private final UserReader userReader;
     private final UserAppender userAppender;
     private final ExternalMailService externalMailService;
-    @Override
     @Transactional
     public void sendEmailAndChangePassword(final String userEmail) {
         User user = userReader.readUserByEmail(userEmail);
@@ -33,7 +30,7 @@ public class EmailServiceImpl implements EmailService {
         );
         userAppender.appendUser(hashedUser);
         Mail mail = Mail.from(user,randomPassword.password());
-        externalMailService.mailSend(mail);
+        externalMailService.sendEmail(mail);
     }
 
     public String getTempPassword() {
