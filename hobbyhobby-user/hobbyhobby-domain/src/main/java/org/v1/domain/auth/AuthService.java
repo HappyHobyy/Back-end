@@ -1,4 +1,4 @@
-package org.v1.domain.auth.service;
+package org.v1.domain.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,12 +13,11 @@ import org.v1.error.ErrorCode;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImpl implements AuthService {
+public class AuthService {
     private final UserAppender userAppender;
     private final UserReader userReader;
     private final UserChecker userChecker;
 
-    @Override
     public void registerDefaultUser(User user) {
         if (userChecker.isUserEmailDuplicate(user)) {
             throw new BusinessException(ErrorCode.USER_EMAIL_DUPLICATED);
@@ -35,14 +34,12 @@ public class AuthServiceImpl implements AuthService {
         );
         userAppender.appendUser(hashedUser);
     }
-    @Override
     public void registerOAuthUser(User user) {
         if (userChecker.isUserEmailDuplicate(user)) {
             throw new BusinessException(ErrorCode.USER_EMAIL_DUPLICATED);
         }
         userAppender.appendUser(user);
     }
-    @Override
     @Transactional
     public User loginDefaultUser(User user) {
         User savedUser = userReader.readUserByTypeAndEmail(user);
@@ -63,7 +60,6 @@ public class AuthServiceImpl implements AuthService {
         userAppender.updateUser(updateUser);
         return updateUser;
     }
-    @Override
     @Transactional
     public User loginOAuthUser(User user) {
         User savedUser = userReader.readUserByTypeAndEmail(user);
@@ -81,13 +77,11 @@ public class AuthServiceImpl implements AuthService {
         userAppender.updateUser(updateUser);
         return updateUser;
     }
-    @Override
     public void checkEmailDuplicate(User user) {
         if (userChecker.isUserEmailDuplicate(user)) {
             throw new BusinessException(ErrorCode.USER_EMAIL_DUPLICATED);
         }
     }
-    @Override
     public void checkNicknameDuplicate(User user) {
         if (userChecker.isUserNicknameDuplicate(user)) {
             throw new BusinessException(ErrorCode.USER_NICKNAME_DUPLICATED);

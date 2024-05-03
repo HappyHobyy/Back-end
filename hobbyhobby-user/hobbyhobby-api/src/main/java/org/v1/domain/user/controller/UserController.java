@@ -6,12 +6,12 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.v1.domain.email.EmailService;
 import org.v1.domain.user.dto.request.UserResetPasswordRequest;
 import org.v1.domain.user.dto.response.UserGetMyPageResponse;
-import org.v1.domain.user.service.EmailService;
-import org.v1.domain.user.service.UserService;
 import org.v1.domain.user.domain.User;
 import org.springframework.web.bind.annotation.*;
+import org.v1.domain.user.service.UserService;
 import response.HttpResponse;
 
 @Tag(name = "user", description = "회원 API")
@@ -25,7 +25,7 @@ public class UserController {
     @Operation(summary = "유저 정보 삭제")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> removeUser(
-            @Valid @RequestHeader Long userId
+            @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
         userService.removeUser(userId);
         return HttpResponse.successOnly();
@@ -34,7 +34,7 @@ public class UserController {
     @GetMapping("/mypage")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<UserGetMyPageResponse> getMyPage(
-            @Valid @RequestHeader Long userId
+            @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
         User user = userService.getMyPage(userId);
         UserGetMyPageResponse response =UserGetMyPageResponse.of(user);
