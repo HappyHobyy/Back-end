@@ -1,6 +1,7 @@
 package org.v1.repository;
 
 import org.v1.model.Article;
+import org.v1.model.ArticleDetail;
 import org.v1.model.Community;
 import org.v1.model.Search;
 

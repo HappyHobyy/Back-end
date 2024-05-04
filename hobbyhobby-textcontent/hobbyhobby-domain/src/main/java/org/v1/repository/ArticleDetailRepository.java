@@ -6,8 +6,11 @@ import org.v1.model.Like;
 
 public interface ArticleDetailRepository {
     ArticleDetail read(Long id);
+    ArticleDetail.UserStatus checkArticleUserRelation(Long articleId, Long userId);
+    boolean checkArticleExist(Long articleId);
+    boolean checkArticleLike(Like like);
     void saveLike(Like like);
     void removeLike(Like like);
     void removeComment(Long CommentId);
-    void saveComment(Comment comment);
+    void saveComment(Comment comment,Long articleId);
 }

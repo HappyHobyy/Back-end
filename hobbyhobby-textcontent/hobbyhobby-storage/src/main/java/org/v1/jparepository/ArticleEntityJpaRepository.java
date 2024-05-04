@@ -2,6 +2,7 @@ package org.v1.jparepository;
 
 import org.springframework.stereotype.Repository;
 import org.v1.model.Article;
+import org.v1.model.ArticleDetail;
 import org.v1.repository.ArticleRepository;
 import org.v1.model.Community;
 import org.v1.model.Search;

@@ -20,23 +20,22 @@ import java.util.List;
 @RequestMapping("/api/articles")
 public class ArticleController {
     private final ArticleService articleService;
-    @GetMapping("/default")
+    @GetMapping("/latest")
     @Operation(summary = "h-board 게시글 최신순 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> getArticleDefault(
-            @RequestBody Long communityId
+    public HttpResponse<Object> getArticleLatest(
+            @RequestBody ArticleRequest.LatestRequest articleRequest
     ) {
-        List<Article> articleList = articleService.getTenArticle(communityId);
+        List<Article> articleList = articleService.getTenArticle(articleRequest.communityId());
         return HttpResponse.success(ArticleResponse.of(articleList));
     }
     @GetMapping("/search")
     @Operation(summary = "h-board 게시글 검색 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> getTextContent(
-            @RequestBody Long communityId,
-            @RequestBody String search
+    public HttpResponse<Object> getArticleSearch(
+            @RequestBody ArticleRequest.SearchRequest articleRequest
     ) {
-        List<Article> articleList = articleService.getTenSearchArticle(new Search(communityId,search));
+        List<Article> articleList = articleService.getTenSearchArticle(articleRequest.toSearch());
         return HttpResponse.success(ArticleResponse.of(articleList));
     }
 }

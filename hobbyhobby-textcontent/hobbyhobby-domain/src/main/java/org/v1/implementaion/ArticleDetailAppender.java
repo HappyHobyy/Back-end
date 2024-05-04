@@ -15,7 +15,7 @@ public class ArticleDetailAppender {
     public void appendLike(final Like like) {
         articleDetailRepository.saveLike(like);
     }
-    public void appendComment(final Comment comment) {
-        articleDetailRepository.saveComment(comment);
+    public void appendComment(final Comment comment,final Long articleId) {
+        articleDetailRepository.saveComment(comment,articleId);
     }
 }
