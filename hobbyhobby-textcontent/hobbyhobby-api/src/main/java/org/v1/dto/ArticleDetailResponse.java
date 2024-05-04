@@ -51,7 +51,7 @@ public record ArticleDetailResponse(
             boolean isUserCommentOwner
     ) {
         public static CommentResponse of(Comment comment) {
-            return new CommentResponse(comment.id(), comment.user().nickname(), comment.date(), comment.text(), comment.user().id().equals(comment.user().id()));
+            return new CommentResponse(comment.getId(), comment.getUser().nickname(), comment.getDate(), comment.getText(), comment.isUserCommentOwner());
         }
     }
 
