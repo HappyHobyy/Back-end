@@ -37,8 +37,7 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
-            - Path=
-            - **
+            - Path=/**
           filters:
             - CustomFilter
             - LoggingFilter
@@ -57,7 +56,7 @@ spring:
         - id: textcontent-service
           uri: lb://TEXTCONTENT-SERVICE
           predicates:
-            - Path=/textcontent-service/**
+            - Path=/**
           filters:
             - CustomFilter
             - LoggingFilter
