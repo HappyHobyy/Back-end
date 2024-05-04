@@ -2,7 +2,7 @@ package org.v1.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.v1.Community;
+import org.v1.model.Community;
 
 import java.util.List;
 

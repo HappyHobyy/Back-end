@@ -2,7 +2,7 @@ version: '3.8'
 services:
   textcontent:
     image: hobbyhobby/textcontent:latest
-    container_name: textcontent
+    container_name: article
     ports:
       - "8081:8080"
     networks:

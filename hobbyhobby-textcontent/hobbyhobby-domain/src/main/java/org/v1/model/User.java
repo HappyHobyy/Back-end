@@ -1,6 +1,6 @@
-package org.v1.user;
+package org.v1.model;
 
 public record User(
-        Long userId,
+        Long id,
         String nickname
 ) {}

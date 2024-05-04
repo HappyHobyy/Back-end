@@ -1,6 +1,6 @@
 package org.v1.user;
 
-import org.v1.Community;
+import org.v1.model.Community;
 
 import java.util.List;
 import java.util.stream.Collectors;
