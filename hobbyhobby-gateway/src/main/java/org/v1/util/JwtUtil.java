@@ -21,7 +21,10 @@ public class JwtUtil {
     public String subStringToken(final String token){
         return token.substring(TOKEN_BEGIN_INDEX);
     }
-    public String extractAccessUsername(final String token) {
+    public String extractAccessUserId(final String token) {
+        return extractClaim(subStringToken(token), jwtToken.accessSecretKey()).getId();
+    }
+    public String extractAccessNickname(final String token) {
         return extractClaim(subStringToken(token), jwtToken.accessSecretKey()).getSubject();
     }
     public String extractAccessUserRole(final String token) {

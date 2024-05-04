@@ -35,10 +35,11 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             try {
                 String authorizationHeader = request.getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
                 if(jwtUtil.isAccessTokenValid(authorizationHeader)) {
-                    final String userId = jwtUtil.extractAccessUsername(authorizationHeader);
+                    final String userId = jwtUtil.extractAccessUserId(authorizationHeader);
+                    final String nickname = jwtUtil.extractAccessNickname(authorizationHeader);
                     final String userRole = jwtUtil.extractAccessUserRole(authorizationHeader);
                     log.info("userId: " + userId);
-                    updateRequest(exchange, userId, userRole);
+                    updateRequest(exchange, userId,nickname, userRole);
                     return chain.filter(exchange);
                 } else {
                     return onError(response, "Invalid access token", HttpStatus.UNAUTHORIZED);
@@ -63,9 +64,10 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     }
 
 
-    private void updateRequest(ServerWebExchange exchange, String userId, String userRole) {
+    private void updateRequest(ServerWebExchange exchange, String userId,String nickname, String userRole) {
         exchange.getRequest().mutate()
                 .header("userId", String.valueOf(userId))
+                .header("nickname", nickname)
                 .header("userRole", userRole)
                 .build();
     }
