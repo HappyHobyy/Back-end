@@ -26,8 +26,8 @@ class JwtServiceTest {
         User user = createUser();
 
         //when
-        String token = jwtService.generateAccessToken(String.valueOf(user.getId()));
-        String tokenUserId = jwtService.extractAccessUsername(token);
+        String token = jwtService.generateAccessToken(String.valueOf(user.getId()),user.getNickname());
+        String tokenUserId = jwtService.extractAccessUserId(token);
 
         //then
         assertTrue(jwtService.isAccessTokenValid(token));
@@ -42,8 +42,8 @@ class JwtServiceTest {
         User user = createUser();
 
         //when
-        String token = jwtService.generateRefreshToken(String.valueOf(user.getId()));
-        String tokenUserId = jwtService.extractRefreshUsername(token);
+        String token = jwtService.generateRefreshToken(String.valueOf(user.getId()),user.getNickname());
+        String tokenUserId = jwtService.extractRefreshUserId(token);
 
         //then
         assertTrue(jwtService.isAccessTokenValid(token));
@@ -60,7 +60,7 @@ class JwtServiceTest {
 
         //when
         User user = createUser();
-        String token = jwtService.generateAccessToken(String.valueOf(user.getId()));
+        String token = jwtService.generateAccessToken(String.valueOf(user.getId()),user.getNickname());
 
         //given
         boolean result = jwtService.isAccessTokenValid(token);
@@ -77,8 +77,8 @@ class JwtServiceTest {
 
         //when
         User user = createUser();
-        String generateAccessToken = jwtService.generateAccessToken(String.valueOf(user.getId()));
-        String generateRefreshToken = jwtService.generateRefreshToken(String.valueOf(user.getId()));
+        String generateAccessToken = jwtService.generateAccessToken(String.valueOf(user.getId()),user.getNickname());
+        String generateRefreshToken = jwtService.generateRefreshToken(String.valueOf(user.getId()),user.getNickname());
         //then
         Assertions.assertThrows(JwtException.class, ()-> {
             jwtService.isAccessTokenValid(generateAccessToken);

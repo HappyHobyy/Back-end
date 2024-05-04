@@ -1,6 +1,6 @@
 dependencies {
     implementation project(':hobbyhobby-common')
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compileOnly('org.springframework:spring-context')
 }
 bootJar { enabled = false }
 jar { enabled = true }

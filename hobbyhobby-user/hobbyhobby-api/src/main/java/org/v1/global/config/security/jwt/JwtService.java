@@ -21,17 +21,24 @@ public class JwtService {
     public String subStringToken(final String token){
         return token.substring(TOKEN_BEGIN_INDEX);
     }
-    public String extractAccessUsername(final String token) {
+    public String extractAccessUserId(final String token) {
+        return extractClaim(subStringToken(token), jwtToken.accessSecretKey()).getId();
+    }
+    public String extractAccessNickname(final String token) {
         return extractClaim(subStringToken(token), jwtToken.accessSecretKey()).getSubject();
     }
 
-    public String extractRefreshUsername(final String token) {
+    public String extractRefreshUserId(final String token) {
+        return extractClaim(subStringToken(token), jwtToken.refreshSecretKey()).getId();
+    }
+    public String extractRefreshNickname(final String token) {
         return extractClaim(subStringToken(token), jwtToken.refreshSecretKey()).getSubject();
     }
 
-    public String generateAccessToken(final String subject) {
+    public String generateAccessToken(final String userId,final String nickname) {
         String token = Jwts.builder()
-                .setSubject(subject)
+                .setId(userId)
+                .setSubject(nickname)
                 .claim("role", "ROLE_USER")
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtToken.accessExpirationSeconds() * 1000L))
@@ -40,9 +47,11 @@ public class JwtService {
         return "Bearer " + token;
     }
 
-    public String generateRefreshToken(final String subject) {
+    public String generateRefreshToken(final String userId,final String nickname) {
         String token = Jwts.builder()
-                .setSubject(subject)
+                .setId(userId)
+                .setSubject(nickname)
+                .claim("username",nickname)
                 .claim("role", "ROLE_USER")
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtToken.refreshExpirationSeconds() * 1000L))
