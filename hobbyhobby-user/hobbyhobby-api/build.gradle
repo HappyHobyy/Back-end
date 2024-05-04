@@ -13,7 +13,6 @@ dependencies {
 
     //domain module, hobby model 에 의존
     implementation project(':hobbyhobby-user:hobbyhobby-domain')
-    implementation project(':hobbyhobby-user:hobbyhobby-external')
     runtimeOnly project(":hobbyhobby-user:hobbyhobby-storage")
     implementation project(':hobbyhobby-common')
 
