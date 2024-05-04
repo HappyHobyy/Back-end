@@ -37,7 +37,7 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/user-service/**
+            - Path=/**
           filters:
             - CustomFilter
             - LoggingFilter
@@ -46,7 +46,17 @@ spring:
         - id: textcontent-service
           uri: lb://TEXTCONTENT-SERVICE
           predicates:
-            - Path=/textcontent-service/**
+            - Path=/textcontent-service/api/**
+          filters:
+            - CustomFilter
+            - LoggingFilter
+            - AuthorizationHeaderFilter
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: textcontent-service
+          uri: lb://TEXTCONTENT-SERVICE
+          predicates:
+            - Path=/**
           filters:
             - CustomFilter
             - LoggingFilter

@@ -28,27 +28,28 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     public GatewayFilter apply(AuthorizationHeaderFilter.Config config) {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
-            ServerHttpResponse response = exchange.getResponse(); // ServerHttpResponse 객체 가져오기
+            ServerHttpResponse response = exchange.getResponse();
 
             if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION))
                 return onError(response, "No authorization header", HttpStatus.UNAUTHORIZED);
             try {
                 String authorizationHeader = request.getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
                 if(jwtUtil.isAccessTokenValid(authorizationHeader)) {
-                    final String userId = jwtUtil.extractAccessUsername(authorizationHeader);
+                    final String userId = jwtUtil.extractAccessUserId(authorizationHeader);
+                    final String nickname = jwtUtil.extractAccessNickname(authorizationHeader);
                     final String userRole = jwtUtil.extractAccessUserRole(authorizationHeader);
-                    updateRequest(exchange, userId, userRole);
+                    log.info("userId: " + userId);
+                    updateRequest(exchange, userId,nickname, userRole);
                     return chain.filter(exchange);
                 } else {
                     return onError(response, "Invalid access token", HttpStatus.UNAUTHORIZED);
                 }
             } catch (Exception e) {
-                // 예외 처리 후 클라이언트에게 응답을 보냅니다.
                 String errorMessage = "JWT 오류 발생: " + e.getMessage();
-                response.setStatusCode(HttpStatus.UNAUTHORIZED); // 응답 상태 코드 설정
-                response.getHeaders().setContentType(MediaType.APPLICATION_JSON); // 응답 헤더 설정
-                DataBuffer db = response.bufferFactory().wrap(errorMessage.getBytes()); // 응답 데이터 생성
-                return response.writeWith(Mono.just(db)); // 응답 데이터 쓰기
+                response.setStatusCode(HttpStatus.UNAUTHORIZED);
+                response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
+                DataBuffer db = response.bufferFactory().wrap(errorMessage.getBytes());
+                return response.writeWith(Mono.just(db));
             }
         };
     }
@@ -63,9 +64,10 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     }
 
 
-    private void updateRequest(ServerWebExchange exchange, String userId, String userRole) {
+    private void updateRequest(ServerWebExchange exchange, String userId,String nickname, String userRole) {
         exchange.getRequest().mutate()
-                .header("userId", userId)
+                .header("userId", String.valueOf(userId))
+                .header("nickname", nickname)
                 .header("userRole", userRole)
                 .build();
     }

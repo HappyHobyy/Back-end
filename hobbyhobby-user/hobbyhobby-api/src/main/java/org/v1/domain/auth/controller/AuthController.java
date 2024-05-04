@@ -7,12 +7,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.v1.domain.auth.AuthService;
 import org.v1.domain.auth.dto.request.EmailCheckRequest;
 import org.v1.domain.auth.dto.request.NicknameCheckRequest;
 import org.v1.domain.auth.dto.request.UserLoginRequest;
 import org.v1.domain.auth.dto.response.OnlyAccessTokenResponse;
 import org.v1.domain.auth.dto.response.TokenResponse;
-import org.v1.domain.auth.service.AuthService;
 import org.v1.domain.user.domain.User;
 import org.v1.domain.auth.dto.request.UserRegisterRequest;
 import org.v1.global.config.security.jwt.JwtService;
@@ -32,8 +32,9 @@ public class AuthController {
             @RequestHeader("Authorization") final String jwt
     ){
         jwtService.isRefreshTokenValid(jwt);
-        final String userId = jwtService.extractRefreshUsername(jwt);
-        String accessToken = jwtService.generateAccessToken(userId);
+        final String userId = jwtService.extractRefreshUserId(jwt);
+        final String nickname = jwtService.extractRefreshNickname(jwt);
+        String accessToken = jwtService.generateAccessToken(userId,nickname);
         OnlyAccessTokenResponse response= OnlyAccessTokenResponse.from(accessToken);
         return HttpResponse.success(response);
     }
@@ -63,8 +64,8 @@ public class AuthController {
     ) {
         User user = request.toUser();
         User savedUser = authService.loginDefaultUser(user);
-        String refreshToken = jwtService.generateRefreshToken(String.valueOf(savedUser.getId()));
-        String accessToken = jwtService.generateAccessToken(String.valueOf(savedUser.getId()));
+        String refreshToken = jwtService.generateRefreshToken(String.valueOf(savedUser.getId().value()),savedUser.getNickname());
+        String accessToken = jwtService.generateAccessToken(String.valueOf(savedUser.getId().value()), savedUser.getNickname());
         return HttpResponse.success(TokenResponse.from(refreshToken,accessToken));
     }
     @PostMapping("/auth/login/oAuth")
@@ -74,8 +75,8 @@ public class AuthController {
     ) {
         User user = request.toUser();
         User savedUser = authService.loginOAuthUser(user);
-        String refreshToken = jwtService.generateRefreshToken(String.valueOf(savedUser.getId()));
-        String accessToken = jwtService.generateAccessToken(String.valueOf(savedUser.getId()));
+        String refreshToken = jwtService.generateRefreshToken(String.valueOf(savedUser.getId().value()),savedUser.getNickname());
+        String accessToken = jwtService.generateAccessToken(String.valueOf(savedUser.getId().value()),savedUser.getNickname());
         return HttpResponse.success(TokenResponse.from(refreshToken,accessToken));
     }
     @PostMapping("/auth/register/email")

@@ -2,7 +2,6 @@ package org.v1.domain.user.implementation;
 
 import lombok.RequiredArgsConstructor;
 import org.v1.domain.user.domain.User;
-import org.v1.domain.user.domain.UserJpaEntity;
 import org.v1.domain.user.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
@@ -10,14 +9,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserAppender {
     private final UserRepository userRepository;
-    public User appendUser(
+    public void appendUser(
             final User user
     ){
-        return userRepository.save(UserJpaEntity.ofWithoutId(user)).toUser();
+        userRepository.save(user);
     }
-    public User updateUser(
+    public void updateUser(
             final User user
     ){
-        return userRepository.save(UserJpaEntity.ofWithId(user)).toUser();
+        userRepository.update(user);
     }
 }
