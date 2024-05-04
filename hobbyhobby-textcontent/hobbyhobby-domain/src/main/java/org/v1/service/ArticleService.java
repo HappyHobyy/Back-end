@@ -3,6 +3,8 @@ package org.v1.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.v1.model.Article;
+import org.v1.model.ArticleDetail;
+import org.v1.model.Content;
 import org.v1.model.Search;
 import org.v1.implementaion.ArticleReader;
 
@@ -17,5 +19,8 @@ public class ArticleService {
     }
     public List<Article> getTenSearchArticle(Search search) {
         return articleReader.readTenSearchArticle(search);
+    }
+    public void createArticle(Article article, Content content) {
+        
     }
 }

@@ -3,6 +3,7 @@ package org.v1.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.v1.model.ArticleDetail;
 import org.v1.model.Comment;
+import org.v1.model.Content;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -22,7 +23,7 @@ public record ArticleDetailResponse(
             @Schema(description = "텍스트", example = "hobbyhobby..")
             String text
     ) {
-        public static TextResponse of(ArticleDetail.Text text) {
+        public static TextResponse of(Content.Text text) {
             return new TextResponse(text.index(), text.text());
         }
     }
@@ -33,7 +34,7 @@ public record ArticleDetailResponse(
             @Schema(description = "경로", example = "http://....")
             String path
     ) {
-        public static ImageResponse of(ArticleDetail.Image image) {
+        public static ImageResponse of(Content.Image image) {
             return new ImageResponse(image.index(), image.path());
         }
     }
@@ -58,10 +59,10 @@ public record ArticleDetailResponse(
     public static List<ArticleDetailResponse> of(ArticleDetail articleDetail) {
         return Optional.ofNullable(articleDetail)
                 .map(detail -> new ArticleDetailResponse(
-                        Optional.ofNullable(detail.getTexts())
+                        Optional.ofNullable(detail.getContent().getTexts())
                                 .map(texts -> texts.stream().map(TextResponse::of).toList())
                                 .orElse(Collections.emptyList()),
-                        Optional.ofNullable(detail.getImages())
+                        Optional.ofNullable(detail.getContent().getImages())
                                 .map(images -> images.stream().map(ImageResponse::of).toList())
                                 .orElse(Collections.emptyList()),
                         Optional.ofNullable(detail.getComments())

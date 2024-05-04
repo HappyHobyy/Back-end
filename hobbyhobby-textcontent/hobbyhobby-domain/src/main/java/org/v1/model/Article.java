@@ -15,4 +15,7 @@ public class Article {
     private final LocalDateTime date;
     private final User user;
     private final Integer likes;
+    public static Article withoutId(String title, LocalDateTime date, User user, Integer likes){
+        return new Article(null,title,date,user,likes);
+    }
 }

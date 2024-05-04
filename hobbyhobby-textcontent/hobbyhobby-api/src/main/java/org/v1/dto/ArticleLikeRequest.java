@@ -10,6 +10,6 @@ public record ArticleLikeRequest(
         Long articleId
 ) {
     public Like toLike(Long userId){
-        return new Like(userId,articleId);
+        return new Like(userId,this.articleId);
     }
 }

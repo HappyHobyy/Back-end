@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.v1.dto.ArticleRequest;
@@ -17,7 +18,7 @@ import java.util.List;
 @Tag(name = "H-Board", description = "H-Board API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/articles")
+@RequestMapping("/api/article")
 public class ArticleController {
     private final ArticleService articleService;
     @GetMapping("/latest")
@@ -37,5 +38,16 @@ public class ArticleController {
     ) {
         List<Article> articleList = articleService.getTenSearchArticle(articleRequest.toSearch());
         return HttpResponse.success(ArticleResponse.of(articleList));
+    }
+    @PostMapping("/detail")
+    @Operation(summary = "h-board 게시글 저장")
+    @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
+    public HttpResponse<Object> createArticle(
+            @RequestBody ArticleRequest.CreateRequest articleRequest,
+            @Parameter(hidden = true) @Valid @RequestHeader Long userId,
+            @Parameter(hidden = true) @Valid @RequestHeader String nickname
+    ) {
+        articleService.createArticle(articleRequest.toArticle(userId,nickname),articleRequest.toContent());
+        return HttpResponse.successOnly();
     }
 }

@@ -7,13 +7,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.v1.dto.ArticleCommentRequest;
-import org.v1.dto.ArticleDetailResponse;
-import org.v1.dto.ArticleLikeRequest;
+import org.v1.dto.*;
+import org.v1.model.Article;
 import org.v1.model.ArticleDetail;
 import org.v1.model.Like;
 import org.v1.service.ArticleDetailService;
 import response.HttpResponse;
+
+import java.util.List;
 
 @Tag(name = "H-Board", description = "H-Board API")
 @RestController
