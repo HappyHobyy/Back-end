@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.v1.dto.ArticleCommentRequest;
 import org.v1.dto.ArticleDetailResponse;
+import org.v1.dto.ArticleLikeRequest;
 import org.v1.model.ArticleDetail;
 import org.v1.model.Like;
 import org.v1.service.ArticleDetailService;
@@ -28,17 +29,17 @@ public class ArticleDetailController {
             @RequestBody Long articleId,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        ArticleDetail articleDetail = articleDetailService.getArticleDetail(articleId);
+        ArticleDetail articleDetail = articleDetailService.getArticleDetail(articleId,userId);
         return HttpResponse.success(ArticleDetailResponse.of(articleDetail));
     }
     @PostMapping("/detail/like")
     @Operation(summary = "h-board 게시글 좋아요 누르기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> createLikeArticle(
-            @RequestBody Long articleId,
+            @RequestBody ArticleLikeRequest articleLikeRequest,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        articleDetailService.createArticleLike(new Like(articleId,userId));
+        articleDetailService.createArticleLike(articleLikeRequest.toLike(userId));
         return HttpResponse.successOnly();
     }
     @DeleteMapping("/detail/like")
@@ -56,9 +57,10 @@ public class ArticleDetailController {
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> createArticleComment(
             @RequestBody ArticleCommentRequest.Create articleCommentRequest,
-            @Parameter(hidden = true) @Valid @RequestHeader Long userId
+            @Parameter(hidden = true) @Valid @RequestHeader Long userId,
+            @Parameter(hidden = true) @Valid @RequestHeader String nickname
     ) {
-        articleDetailService.createArticleComment(articleCommentRequest.toComment(userId));
+        articleDetailService.createArticleComment(articleCommentRequest.toComment(userId,nickname),articleCommentRequest.articleId());
         return HttpResponse.successOnly();
     }
     @DeleteMapping("/detail/comment")

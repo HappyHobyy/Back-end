@@ -14,6 +14,22 @@ public class ArticleDetailEntityJpaRepository implements ArticleDetailRepository
     }
 
     @Override
+    public ArticleDetail.UserStatus checkArticleUserRelation(Long articleId, Long userId) {
+        return null;
+    }
+
+    @Override
+    public boolean checkArticleExist(Long articleId) {
+        return false;
+    }
+
+    @Override
+    public boolean checkArticleLike(Like like) {
+        return false;
+    }
+
+
+    @Override
     public void saveLike(Like like) {
 
     }
@@ -29,7 +45,7 @@ public class ArticleDetailEntityJpaRepository implements ArticleDetailRepository
     }
 
     @Override
-    public void saveComment(Comment comment) {
+    public void saveComment(Comment comment, Long articleId) {
 
     }
 }
