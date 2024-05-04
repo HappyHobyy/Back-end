@@ -19,6 +19,4 @@ public class ArticleDetail {
     }
     public record Text(Integer index, String text) {
     }
-    public record Comment(Long id, User user, LocalDateTime date, String text,boolean isUserCommentOwner) {
-    }
 }

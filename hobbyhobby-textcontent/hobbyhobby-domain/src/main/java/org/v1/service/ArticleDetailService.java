@@ -6,6 +6,7 @@ import org.v1.implementaion.ArticleDetailAppender;
 import org.v1.implementaion.ArticleDetailRemover;
 import org.v1.model.ArticleDetail;
 import org.v1.implementaion.ArticleDetailReader;
+import org.v1.model.Comment;
 import org.v1.model.Like;
 
 @Service
@@ -17,16 +18,16 @@ public class ArticleDetailService {
     public ArticleDetail getArticleDetail(Long textContentId) {
         return articleDetailReader.read(textContentId);
     }
-    public void postArticleLike(Like like) {
+    public void createArticleLike(Like like) {
         articleDetailAppender.appendLike(like);
     }
-    public void postArticleComment(ArticleDetail.Comment comment) {
+    public void createArticleComment(Comment comment) {
         articleDetailAppender.appendComment(comment);
     }
     public void deleteArticleLike(Like like) {
         articleDetailRemover.removeLike(like);
     }
-    public void deleteArticleComment(ArticleDetail.Comment comment) {
-        articleDetailRemover.removeComment(comment);
+    public void deleteArticleComment(Long CommentId) {
+        articleDetailRemover.removeComment(CommentId);
     }
 }

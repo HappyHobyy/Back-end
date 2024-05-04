@@ -25,4 +25,9 @@ public class ArticleEntityJpaRepository implements ArticleRepository {
     public void saveArticle(Community community) {
 
     }
+
+    @Override
+    public void removeArticle(Long articleId) {
+
+    }
 }

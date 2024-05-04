@@ -2,6 +2,7 @@ package org.v1.jparepository;
 
 import org.springframework.stereotype.Repository;
 import org.v1.model.ArticleDetail;
+import org.v1.model.Comment;
 import org.v1.model.Like;
 import org.v1.repository.ArticleDetailRepository;
 
@@ -23,12 +24,12 @@ public class ArticleDetailEntityJpaRepository implements ArticleDetailRepository
     }
 
     @Override
-    public void removeComment(ArticleDetail.Comment comment) {
+    public void removeComment(Long CommentId) {
 
     }
 
     @Override
-    public void saveComment(ArticleDetail.Comment comment) {
+    public void saveComment(Comment comment) {
 
     }
 }

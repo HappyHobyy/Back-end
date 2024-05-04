@@ -3,6 +3,7 @@ package org.v1.implementaion;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.v1.model.ArticleDetail;
+import org.v1.model.Comment;
 import org.v1.model.Like;
 import org.v1.repository.ArticleDetailRepository;
 
@@ -14,7 +15,7 @@ public class ArticleDetailRemover {
         articleDetailRepository.removeLike(like);
     }
 
-    public void removeComment(final ArticleDetail.Comment comment) {
-        articleDetailRepository.removeComment(comment);
+    public void removeComment(final Long CommentId) {
+        articleDetailRepository.removeComment(CommentId);
     }
 }
