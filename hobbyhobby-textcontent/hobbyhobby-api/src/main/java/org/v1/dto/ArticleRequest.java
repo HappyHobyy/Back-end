@@ -2,11 +2,19 @@ package org.v1.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.web.multipart.MultipartFile;
 import org.v1.model.*;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import static org.v1.global.util.FileUtil.convertMultipartFileToFile;
 
 public record ArticleRequest(
         LatestRequest latest,
@@ -18,6 +26,7 @@ public record ArticleRequest(
             @NotNull(message = "커뮤니티Id는 필수 입력값입니다.")
             Long communityId
     ) {}
+
     public record SearchRequest(
             @Schema(description = "커뮤니티Id", example = "123")
             @NotNull(message = "커뮤니티Id는 필수 입력값입니다.")
@@ -30,6 +39,7 @@ public record ArticleRequest(
             return new Search(communityId, search);
         }
     }
+
     public record CreateRequest(
             @Schema(description = "커뮤니티Id", example = "123")
             @NotNull(message = "필수")
@@ -40,8 +50,7 @@ public record ArticleRequest(
             @Schema(description = "게시글 날짜", example = "2024-05-06T15:23:45.123456789")
             @NotNull(message = "필수")
             LocalDateTime date,
-            List<TextRequest> textList,
-            List<ImageRequest> imageList
+            List<TextRequest> textList
     ){
         public record TextRequest(
                 @Schema(description = "순서", example = "1")
@@ -51,29 +60,30 @@ public record ArticleRequest(
                 @NotNull(message = "필수")
                 String text
         ){};
-        public record ImageRequest(
-                @Schema(description = "순서", example = "1")
-                @NotNull(message = "필수")
-                Integer index,
-                @Schema(description = "바이트 인코딩한 데이터", example = "1")
-                @NotNull(message = "필수")
-                byte[] imageData
-        ) {}
-        public Content toContent() {
+
+        public Content toContent(List<MultipartFile> multipartFiles) {
+
             List<Content.Text> textList = this.textList() != null ?
                     this.textList().stream()
                             .map(textRequest -> new Content.Text(textRequest.index(), textRequest.text()))
                             .toList() :
                     Collections.emptyList();
 
-            List<Content.Image> imageList = this.imageList() != null ?
-                    this.imageList().stream()
-                            .map(imageRequest -> Content.Image.withoutPath(imageRequest.index(), imageRequest.imageData()))
-                            .toList() :
+            List<Content.Image> imageList = multipartFiles != null ?
+                    multipartFiles.stream()
+                            .map(file -> {
+                                try {
+                                    File convertedFile = convertMultipartFileToFile(file);
+                                    return Content.Image.withoutPath(multipartFiles.indexOf(file), convertedFile);
+                                } catch (IOException e) {
+                                    throw new RuntimeException("MultipartFile -> File로 전환이 실패했습니다.",e);
+                                }
+                            })
+                            .collect(Collectors.toList()):
                     Collections.emptyList();
-
             return new Content(textList, imageList);
         }
+
         public Article toArticle(Long userId, String nickname) {
             return Article.withoutId(this.title(), this.date(), new User(userId, nickname), 0);
         }
