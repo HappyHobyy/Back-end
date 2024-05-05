@@ -71,7 +71,7 @@ public class UserJpaEntity  extends BaseEntity {
                 this.nickname,
                 this.email,
                 this.type,
-                new User.Password(this.password),
+                this.password != null ? new User.Password(this.password) : null,
                 this.role,
                 this.gender,
                 this.nationality,
