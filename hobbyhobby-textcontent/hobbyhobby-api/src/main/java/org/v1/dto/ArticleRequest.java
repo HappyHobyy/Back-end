@@ -19,13 +19,19 @@ import static org.v1.global.util.FileUtil.convertMultipartFileToFile;
 public record ArticleRequest(
         LatestRequest latest,
         SearchRequest search,
-        CreateRequest create
+        CreateRequest create,
+        DeleteRequest delete
 ) {
     public record LatestRequest(
             @Schema(description = "커뮤니티Id", example = "123")
             @NotNull(message = "커뮤니티Id는 필수 입력값입니다.")
             Long communityId
     ) {}
+    public record DeleteRequest(
+            @Schema(description = "게시글Id", example = "123")
+            @NotNull(message = "게시글Id는 필수 입력값입니다.")
+            Long articleId
+    ){}
 
     public record SearchRequest(
             @Schema(description = "커뮤니티Id", example = "123")

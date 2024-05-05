@@ -3,6 +3,7 @@ package org.v1.s3;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,11 @@ public class ExternalS3Handler implements S3Repository {
         removeNewFile(uploadFile);
         return uploadImageUrl;
     }
+    public void removeImage(String fileUrl) {
+        String splitStr = ".com/";
+        String fileName = fileUrl.substring(fileUrl.lastIndexOf(splitStr) + splitStr.length());
+        amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, fileName));
+    }
 
     private String putS3(File uploadFile, String fileName) {
         amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
@@ -40,4 +46,5 @@ public class ExternalS3Handler implements S3Repository {
             log.info("파일이 삭제되지 못했습니다.");
         }
     }
+
 }

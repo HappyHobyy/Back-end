@@ -2,6 +2,7 @@ package org.v1.repository;
 
 import org.v1.model.ArticleDetail;
 import org.v1.model.Comment;
+import org.v1.model.Content;
 import org.v1.model.Like;
 
 public interface ArticleDetailRepository {
@@ -13,4 +14,5 @@ public interface ArticleDetailRepository {
     void removeLike(Like like);
     void removeComment(Long CommentId);
     void saveComment(Comment comment,Long articleId);
+    Content readContent(Long articleId);
 }

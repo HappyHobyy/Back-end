@@ -3,6 +3,7 @@ package org.v1.jparepository;
 import org.springframework.stereotype.Repository;
 import org.v1.model.ArticleDetail;
 import org.v1.model.Comment;
+import org.v1.model.Content;
 import org.v1.model.Like;
 import org.v1.repository.ArticleDetailRepository;
 
@@ -47,5 +48,10 @@ public class ArticleDetailEntityJpaRepository implements ArticleDetailRepository
     @Override
     public void saveComment(Comment comment, Long articleId) {
 
+    }
+
+    @Override
+    public Content readContent(Long articleId) {
+        return null;
     }
 }

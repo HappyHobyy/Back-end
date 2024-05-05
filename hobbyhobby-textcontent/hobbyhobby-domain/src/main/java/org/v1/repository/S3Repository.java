@@ -4,4 +4,5 @@ import java.io.File;
 
 public interface S3Repository {
     String uploadImage(File uploadFile, String dirName);
+    void removeImage(String fileUrl);
 }
