@@ -26,10 +26,12 @@ public class AuthServiceTest {
     private UserReader userReader;
     @InjectMocks
     private AuthService authService;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
+
     @Test
     @DisplayName("회원가입 성공")
     void registerUser_WithNonDuplicateEmail_ShouldRegisterUser() {
@@ -44,7 +46,7 @@ public class AuthServiceTest {
 
     @Test
     @DisplayName("회원가입 실패")
-    void registerUser_WithDuplicateEmail_ShouldThrowException(){
+    void registerUser_WithDuplicateEmail_ShouldThrowException() {
         //given
         User user = createUser1();
         when(userChecker.isUserEmailDuplicate(user)).thenReturn(true);
@@ -72,7 +74,17 @@ public class AuthServiceTest {
     @DisplayName("기존 소셜 유저 로그인 성공")
     void loginUserWithOAuth_ExistingUser_ShouldReturnUser() {
         // Given
-        User user = createUser1();
+        User user = User.withId(
+                new User.UserId(123L),
+                "testNickname",
+                "testEmail",
+                User.UserType.OAUTH_KAKAO,
+                null,
+                User.UserRole.ROLE_USER,
+                User.UserGender.MAN,
+                User.Nationality.DOMESTIC,
+                null
+        );
         User savedUser = createUser2();
         when(userReader.readUserByTypeAndEmail(savedUser)).thenReturn(user);
         // When
@@ -82,8 +94,8 @@ public class AuthServiceTest {
     }
 
 
-    User createUser1(){
-        return  User.withId(
+    User createUser1() {
+        return User.withId(
                 new User.UserId(123L),
                 "testNickname",
                 "testEmail",
@@ -95,8 +107,9 @@ public class AuthServiceTest {
                 null
         );
     }
-    User createUser2(){
-        return  User.withId(
+
+    User createUser2() {
+        return User.withId(
                 new User.UserId(123L),
                 "testNickname",
                 "testEmail",

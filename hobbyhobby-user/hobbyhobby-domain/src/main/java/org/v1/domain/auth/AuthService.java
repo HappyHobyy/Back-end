@@ -13,7 +13,8 @@ import org.v1.error.ErrorCode;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class
+AuthService {
     private final UserAppender userAppender;
     private final UserReader userReader;
     private final UserChecker userChecker;
