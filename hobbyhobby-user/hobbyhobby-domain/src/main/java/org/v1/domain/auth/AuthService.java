@@ -68,7 +68,7 @@ public class AuthService {
                 savedUser.getNickname(),
                 savedUser.getEmail(),
                 savedUser.getUserType(),
-                savedUser.getPassword(),
+                null,
                 savedUser.getUserRole(),
                 savedUser.getUserGender(),
                 savedUser.getNationality(),

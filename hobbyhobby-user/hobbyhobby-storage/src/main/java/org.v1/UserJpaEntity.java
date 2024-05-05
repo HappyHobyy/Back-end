@@ -58,7 +58,7 @@ public class UserJpaEntity  extends BaseEntity {
                 .email(user.getEmail())
                 .nationality(user.getNationality())
                 .nickname(user.getNickname())
-                .password(user.getPassword().password())
+                .password(user.getPassword() != null ? user.getPassword().password() : null)
                 .type(user.getUserType())
                 .deviceToken(user.getDeviceToken())
                 .build();
