@@ -47,7 +47,7 @@ public class ArticleController {
         List<Article> articleList = articleService.getTenSearchArticle(articleRequest.toSearch());
         return HttpResponse.success(ArticleResponse.of(articleList));
     }
-    @PostMapping("")
+    @DeleteMapping("")
     @Operation(summary = "h-board 게시글 삭제")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> deleteArticle(
