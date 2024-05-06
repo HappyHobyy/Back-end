@@ -69,7 +69,8 @@ jobs:
           script: |
             docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
             cd /home/${{ env.EC2_SSH_USER }}
-            docker-compose down --volumes community
+            docker rmi $(docker images -q)
+            docker-compose stop community
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/community
             docker-compose up -d community
   
