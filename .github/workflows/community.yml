@@ -1,4 +1,4 @@
-name: Java CI ,CD with Gradle and Docker
+name: HobbyHobby Community CI
 
 on:
   push:
@@ -69,8 +69,7 @@ jobs:
           script: |
             docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
             cd /home/${{ env.EC2_SSH_USER }}
-            docker rmi $(docker images -q)
-            docker-compose stop community
+            docker-compose down --volumes --remove-orphans community
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/community
             docker-compose up -d community
   
