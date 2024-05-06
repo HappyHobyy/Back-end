@@ -70,7 +70,7 @@ jobs:
             docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
             cd /home/${{ env.EC2_SSH_USER }}
             docker-compose stop community
-            docker-compose rm community
+            docker-compose rm -f community
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/community
             docker-compose up -d community
   
