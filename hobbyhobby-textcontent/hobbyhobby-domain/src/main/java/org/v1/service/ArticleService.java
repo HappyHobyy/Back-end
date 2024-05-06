@@ -7,7 +7,7 @@ import org.v1.model.Article;
 import org.v1.model.Content;
 import org.v1.model.Search;
 import org.v1.model.User;
-import org.v1.repository.S3Repository;
+import org.v1.repository.ImageRepository;
 
 import java.io.File;
 import java.util.List;
@@ -19,7 +19,7 @@ public class ArticleService {
     private final ArticleReader articleReader;
     private final ArticleDetailReader articleDetailReader;
     private final ArticleAppender articleAppender;
-    private final S3Repository s3Repository;
+    private final ImageRepository imageRepository;
     private final ImageAppender imageAppender;
     private final ArticleRemover articleRemover;
     private final UserReader userReader;
@@ -56,11 +56,11 @@ public class ArticleService {
     }
     public void deleteArticle(Long articleId){
         articleDetailReader.readContent(articleId).getImages().forEach(image -> {
-            s3Repository.removeImage(image.path());
+            imageRepository.removeImage(image.path());
         });
         articleRemover.removeArticle(articleId);
     }
     public void createImage(File file) {
-        s3Repository.uploadImage(file, "123");
+        imageRepository.uploadImage(file, "123");
     }
 }

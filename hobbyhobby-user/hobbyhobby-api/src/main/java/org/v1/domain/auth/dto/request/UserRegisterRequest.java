@@ -25,7 +25,7 @@ public record UserRegisterRequest(
             User.UserType oAuth
     ) {
         public User toUser() {
-            return User.withoutId(nickname, email, oAuth, new User.Password(null), User.UserRole.ROLE_USER, gender, nationality, null);
+            return User.withoutId(nickname, email, oAuth, new User.Password(null), User.UserRole.ROLE_USER, gender, nationality, null,null);
         }
     }
 
@@ -47,7 +47,7 @@ public record UserRegisterRequest(
             User.Nationality nationality
     ) {
         public User toUser() {
-            return User.withoutId(nickname, email, User.UserType.OAUTH_DEFAULT, new User.Password(password), User.UserRole.ROLE_USER, gender, nationality, null);
+            return User.withoutId(nickname, email, User.UserType.OAUTH_DEFAULT, new User.Password(password), User.UserRole.ROLE_USER, gender, nationality, null,null);
         }
     }
 }

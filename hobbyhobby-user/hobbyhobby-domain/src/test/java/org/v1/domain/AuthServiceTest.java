@@ -83,6 +83,7 @@ public class AuthServiceTest {
                 User.UserRole.ROLE_USER,
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
+                null,
                 null
         );
         User savedUser = createUser2();
@@ -104,6 +105,7 @@ public class AuthServiceTest {
                 User.UserRole.ROLE_USER,
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
+                null,
                 null
         );
     }
@@ -118,7 +120,8 @@ public class AuthServiceTest {
                 User.UserRole.ROLE_USER,
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
-                "testDeviceToken"
+                "testDeviceToken",
+                null
         );
     }
 }

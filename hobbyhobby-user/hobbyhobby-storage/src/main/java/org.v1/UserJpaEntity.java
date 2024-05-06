@@ -38,6 +38,8 @@ public class UserJpaEntity  extends BaseEntity {
     private User.Nationality nationality;
     @Column(name = "deviceToken")
     private String deviceToken;
+    @Column(name = "imageUrl")
+    private String imageUrl;
     public static UserJpaEntity ofWithoutId(User user) {
         return UserJpaEntity.builder()
                 .gender(user.getUserGender())
@@ -74,7 +76,8 @@ public class UserJpaEntity  extends BaseEntity {
                 this.role,
                 this.gender,
                 this.nationality,
-                this.deviceToken
+                this.deviceToken,
+                this.imageUrl
         );
         return Optional.of(user);
     }

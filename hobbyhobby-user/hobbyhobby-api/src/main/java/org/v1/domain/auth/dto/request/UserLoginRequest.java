@@ -22,7 +22,7 @@ public record UserLoginRequest(
 
     ) {
         public User toUser() {
-            return User.withoutId(null, email, User.UserType.OAUTH_DEFAULT, new User.Password(password), User.UserRole.ROLE_USER, null, null, deviceToken);
+            return User.withoutId(null, email, User.UserType.OAUTH_DEFAULT, new User.Password(password), User.UserRole.ROLE_USER, null, null, deviceToken,null);
         }
     }
 
@@ -38,7 +38,7 @@ public record UserLoginRequest(
             String deviceToken
     ) {
         public User toUser() {
-            return User.withoutId(null, email,oAuth, null, User.UserRole.ROLE_USER, null, null, deviceToken);
+            return User.withoutId(null, email,oAuth, null, User.UserRole.ROLE_USER, null, null, deviceToken,null);
         }
     }
 }

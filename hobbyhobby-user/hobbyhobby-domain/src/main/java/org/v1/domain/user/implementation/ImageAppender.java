@@ -1,8 +1,8 @@
-package org.v1.implementaion;
+package org.v1.domain.user.implementation;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.v1.repository.ImageRepository;
+import org.v1.domain.user.repository.ImageRepository;
 
 import java.io.File;
 

@@ -31,6 +31,7 @@ AuthService {
                 user.getUserRole(),
                 user.getUserGender(),
                 user.getNationality(),
+                null,
                 null
         );
         userAppender.appendUser(hashedUser);
@@ -56,7 +57,8 @@ AuthService {
                 savedUser.getUserRole(),
                 savedUser.getUserGender(),
                 savedUser.getNationality(),
-                user.getDeviceToken()
+                user.getDeviceToken(),
+                savedUser.getImageUrl()
         );
         userAppender.updateUser(updateUser);
         return updateUser;
@@ -73,7 +75,8 @@ AuthService {
                 savedUser.getUserRole(),
                 savedUser.getUserGender(),
                 savedUser.getNationality(),
-                user.getDeviceToken()
+                user.getDeviceToken(),
+                savedUser.getImageUrl()
         );
         userAppender.updateUser(updateUser);
         return updateUser;
