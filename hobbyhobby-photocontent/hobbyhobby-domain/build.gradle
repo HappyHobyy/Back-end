@@ -1,0 +1,6 @@
+dependencies {
+    implementation project(':hobbyhobby-common')
+    compileOnly('org.springframework:spring-context')
+}
+bootJar { enabled = false }
+jar { enabled = true }
