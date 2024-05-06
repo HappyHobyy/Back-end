@@ -141,7 +141,7 @@ jobs:
             docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
             cd /home/${{ env.EC2_SSH_USER }}
             docker rmi $(docker images -q)
-            docker-compose down --volumes --remove-orphans
+            docker-compose down --volumes
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/eureka
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/gateway
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/user
