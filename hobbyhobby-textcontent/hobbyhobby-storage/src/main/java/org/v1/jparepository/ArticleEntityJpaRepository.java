@@ -1,10 +1,8 @@
 package org.v1.jparepository;
 
 import org.springframework.stereotype.Repository;
-import org.v1.model.Article;
+import org.v1.model.*;
 import org.v1.repository.ArticleRepository;
-import org.v1.model.Community;
-import org.v1.model.Search;
 
 import java.util.List;
 
@@ -22,7 +20,12 @@ public class ArticleEntityJpaRepository implements ArticleRepository {
     }
 
     @Override
-    public void saveArticle(Community community) {
+    public Long appendArticle(Article article) {
+        return 1L;
+    }
+
+    @Override
+    public void appendArticleContent(Content content, Long articleId) {
 
     }
 

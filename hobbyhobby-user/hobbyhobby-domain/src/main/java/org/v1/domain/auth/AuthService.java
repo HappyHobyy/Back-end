@@ -13,7 +13,8 @@ import org.v1.error.ErrorCode;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class
+AuthService {
     private final UserAppender userAppender;
     private final UserReader userReader;
     private final UserChecker userChecker;
@@ -30,6 +31,7 @@ public class AuthService {
                 user.getUserRole(),
                 user.getUserGender(),
                 user.getNationality(),
+                null,
                 null
         );
         userAppender.appendUser(hashedUser);
@@ -55,7 +57,8 @@ public class AuthService {
                 savedUser.getUserRole(),
                 savedUser.getUserGender(),
                 savedUser.getNationality(),
-                user.getDeviceToken()
+                user.getDeviceToken(),
+                savedUser.getImageUrl()
         );
         userAppender.updateUser(updateUser);
         return updateUser;
@@ -68,11 +71,12 @@ public class AuthService {
                 savedUser.getNickname(),
                 savedUser.getEmail(),
                 savedUser.getUserType(),
-                savedUser.getPassword(),
+                null,
                 savedUser.getUserRole(),
                 savedUser.getUserGender(),
                 savedUser.getNationality(),
-                user.getDeviceToken()
+                user.getDeviceToken(),
+                savedUser.getImageUrl()
         );
         userAppender.updateUser(updateUser);
         return updateUser;

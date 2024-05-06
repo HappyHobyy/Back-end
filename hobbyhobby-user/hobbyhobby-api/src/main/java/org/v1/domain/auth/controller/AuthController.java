@@ -13,18 +13,21 @@ import org.v1.domain.auth.dto.request.NicknameCheckRequest;
 import org.v1.domain.auth.dto.request.UserLoginRequest;
 import org.v1.domain.auth.dto.response.OnlyAccessTokenResponse;
 import org.v1.domain.auth.dto.response.TokenResponse;
+import org.v1.domain.email.EmailService;
 import org.v1.domain.user.domain.User;
 import org.v1.domain.auth.dto.request.UserRegisterRequest;
+import org.v1.domain.user.dto.request.UserResetPasswordRequest;
 import org.v1.global.config.security.jwt.JwtService;
 import response.HttpResponse;
 
 @Tag(name = "auth", description = "인증 API")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 public class AuthController {
     private final JwtService jwtService;
     private final AuthService authService;
+    private final EmailService emailService;
     @GetMapping("/auth/token/access")
     @Operation(summary = "Access토큰 재발급")
     @Parameter(name = "Authorization", description = "Refresh token", required = true, in = ParameterIn.HEADER)
@@ -38,7 +41,7 @@ public class AuthController {
         OnlyAccessTokenResponse response= OnlyAccessTokenResponse.from(accessToken);
         return HttpResponse.success(response);
     }
-    @PostMapping("/auth/register/default")
+    @PostMapping("/register/default")
     @Operation(summary = "일반 유저 회원가입")
     public HttpResponse<Object> defaultRegister(
             @Valid @RequestBody UserRegisterRequest.DefaultRegister request
@@ -47,7 +50,7 @@ public class AuthController {
         authService.registerDefaultUser(user);
         return HttpResponse.successOnly();
     }
-    @PostMapping("/auth/register/oAuth")
+    @PostMapping("/register/oAuth")
     @Operation(summary = "소셜 유저 회원가입")
     public HttpResponse<Object> oAuthRegister(
             @Valid @RequestBody UserRegisterRequest.OAuthRegister request
@@ -57,7 +60,7 @@ public class AuthController {
         return HttpResponse.successOnly();
     }
 
-    @PostMapping("/auth/login/default")
+    @PostMapping("/login/default")
     @Operation(summary = "일반 유저 로그인")
     public HttpResponse<TokenResponse> defaultLogin(
             @Valid @RequestBody UserLoginRequest.DefaultLogin request
@@ -68,7 +71,7 @@ public class AuthController {
         String accessToken = jwtService.generateAccessToken(String.valueOf(savedUser.getId().value()), savedUser.getNickname());
         return HttpResponse.success(TokenResponse.from(refreshToken,accessToken));
     }
-    @PostMapping("/auth/login/oAuth")
+    @PostMapping("/login/oAuth")
     @Operation(summary = "소셜 유저 로그인")
     public HttpResponse<TokenResponse> oAuthLogin(
             @Valid @RequestBody UserLoginRequest.OAuthLogin request
@@ -79,7 +82,7 @@ public class AuthController {
         String accessToken = jwtService.generateAccessToken(String.valueOf(savedUser.getId().value()),savedUser.getNickname());
         return HttpResponse.success(TokenResponse.from(refreshToken,accessToken));
     }
-    @PostMapping("/auth/register/email")
+    @PostMapping("/register/email")
     @Operation(summary = "이메일 중복 확인")
     public HttpResponse<Object> checkEmail(
             @Valid @RequestBody EmailCheckRequest request
@@ -88,13 +91,21 @@ public class AuthController {
         authService.checkEmailDuplicate(user);
         return HttpResponse.successOnly();
     }
-    @PostMapping("/auth/register/nickName")
+    @PostMapping("/register/nickName")
     @Operation(summary = "닉네임 중복 확인")
     public HttpResponse<Object> checkNickname(
             @Valid @RequestBody NicknameCheckRequest request
     ) {
         User user = request.toUser();
         authService.checkNicknameDuplicate(user);
+        return HttpResponse.successOnly();
+    }
+    @Operation(summary = "비밀번호 초기화", description = "email 이용하여 마이페이지를 조회합니다.")
+    @PostMapping("/resetPassword")
+    public HttpResponse<Object> sendEmail(
+            @Valid @RequestBody UserResetPasswordRequest request
+    ){
+        emailService.sendEmailAndChangePassword(request.email());
         return HttpResponse.successOnly();
     }
 }

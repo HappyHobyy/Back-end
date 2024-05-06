@@ -45,7 +45,8 @@ public class UserServiceTest {
                 User.UserRole.ROLE_USER,
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
-                "testDeviceToken"
+                "testDeviceToken",
+                null
         );
     }
 }

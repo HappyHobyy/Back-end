@@ -26,7 +26,8 @@ public class EmailService {
                 user.getUserRole(),
                 user.getUserGender(),
                 user.getNationality(),
-                user.getDeviceToken()
+                user.getDeviceToken(),
+                user.getImageUrl()
         );
         userAppender.appendUser(hashedUser);
         Mail mail = Mail.from(user,randomPassword.password());

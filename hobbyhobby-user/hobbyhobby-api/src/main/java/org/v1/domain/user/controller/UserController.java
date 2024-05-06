@@ -6,13 +6,22 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 import org.v1.domain.email.EmailService;
 import org.v1.domain.user.dto.request.UserResetPasswordRequest;
 import org.v1.domain.user.dto.response.UserGetMyPageResponse;
 import org.v1.domain.user.domain.User;
 import org.springframework.web.bind.annotation.*;
 import org.v1.domain.user.service.UserService;
+import org.v1.global.util.FileUtil;
+import response.DefaultId;
 import response.HttpResponse;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import static org.v1.global.util.FileUtil.convertMultipartFileToFile;
 
 @Tag(name = "user", description = "회원 API")
 @RestController
@@ -20,7 +29,6 @@ import response.HttpResponse;
 @RequestMapping("/api/user")
 public class UserController {
     private final UserService userService;
-    private final EmailService emailService;
     @DeleteMapping("/delete")
     @Operation(summary = "유저 정보 삭제")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
@@ -40,12 +48,18 @@ public class UserController {
         UserGetMyPageResponse response =UserGetMyPageResponse.of(user);
         return HttpResponse.success(response);
     }
-    @Operation(summary = "비밀번호 초기화", description = "email 이용하여 마이페이지를 조회합니다.")
-    @PostMapping("/resetPassword")
-    public HttpResponse<Object> sendEmail(
-            @Valid @RequestBody UserResetPasswordRequest request
-            ){
-        emailService.sendEmailAndChangePassword(request.email());
+    @Operation(summary = "유저 프로필 사진 변경 혹은 추가", description = "")
+    @PostMapping("/profileImage")
+    public HttpResponse<Object> changeProfileImage(
+            @RequestPart("file") MultipartFile file,
+            @RequestHeader("userId") Long userId
+    ) {
+        try {
+            File convertedFile = convertMultipartFileToFile(file);
+            userService.changeProfileImage(convertedFile, userId);
+        } catch (IOException e) {
+            throw new RuntimeException("MultipartFile을 File로 변환하는데 실패했습니다.", e);
+        }
         return HttpResponse.successOnly();
     }
 }

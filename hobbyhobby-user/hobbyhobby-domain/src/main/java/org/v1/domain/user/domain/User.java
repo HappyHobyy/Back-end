@@ -18,12 +18,13 @@ public class User {
     private final UserGender userGender;
     private final Nationality nationality;
     private final String deviceToken;
+    private final String imageUrl;
 
-    public static User withoutId(String userNickname, String userEmail, UserType userType, Password password,UserRole userRole,UserGender userGender,Nationality nationality,String deviceToken) {
-        return new User(null, userNickname, userEmail, userType, password,userRole,userGender,nationality,deviceToken);
+    public static User withoutId(String userNickname, String userEmail, UserType userType, Password password,UserRole userRole,UserGender userGender,Nationality nationality,String deviceToken, String imageUrl) {
+        return new User(null, userNickname, userEmail, userType, password,userRole,userGender,nationality,deviceToken,imageUrl);
     }
-    public static User withId(UserId userId, String userNickname, String userEmail, UserType userType, Password password,UserRole userRole,UserGender userGender,Nationality nationality,String deviceToken) {
-        return new User(userId, userNickname, userEmail, userType, password,userRole,userGender,nationality, deviceToken);
+    public static User withId(UserId userId, String userNickname, String userEmail, UserType userType, Password password,UserRole userRole,UserGender userGender,Nationality nationality,String deviceToken,String imageUrl) {
+        return new User(userId, userNickname, userEmail, userType, password,userRole,userGender,nationality, deviceToken,imageUrl);
     }
     public record UserId(Long value) {}
 

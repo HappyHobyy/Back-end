@@ -24,44 +24,66 @@ spring:
             showPreLogger: true
             showPostLogger: true
       routes:
-        - id: user-service
+        - id: user-service-jwt
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/user-service/api/user/mypage, /user-service/api/user/delete
+            - Path=/user-service/api/user/**
           filters:
             - CustomFilter
             - LoggingFilter
             - AuthorizationHeaderFilter
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-        - id: user-service
+        - id: user-service-default
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/**
+            - Path=/user-service/**
           filters:
             - CustomFilter
             - LoggingFilter
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-        - id: textcontent-service
+        - id: textcontent-service-api
           uri: lb://TEXTCONTENT-SERVICE
           predicates:
             - Path=/textcontent-service/api/**
           filters:
             - CustomFilter
             - LoggingFilter
-            - AuthorizationHeaderFilter
             - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-        - id: textcontent-service
+            - AuthorizationHeaderFilter
+            - RewritePath=/textcontent-service/(?<segment>.*), /$\{segment}
+
+        - id: textcontent-service-default
           uri: lb://TEXTCONTENT-SERVICE
           predicates:
-            - Path=/**
+            - Path=/textcontent-service/**
           filters:
             - CustomFilter
             - LoggingFilter
             - RemoveRequestHeader=Cookie
             - RewritePath=/textcontent-service/(?<segment>.*), /$\{segment}
+
+        - id: photocontent-service-api
+          uri: lb://PHOTOCONTENT-SERVICE
+          predicates:
+            - Path=/photocontent-service/api/**
+          filters:
+            - CustomFilter
+            - LoggingFilter
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+            - RewritePath=/photocontent-service/(?<segment>.*), /$\{segment}
+
+        - id: photocontent-service-default
+          uri: lb://PHOTOCONTENT-SERVICE
+          predicates:
+            - Path=/photocontent-service/**
+          filters:
+            - CustomFilter
+            - LoggingFilter
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/photocontent-service/(?<segment>.*), /$\{segment}
 
 management:
   endpoints:
@@ -86,3 +108,5 @@ springdoc:
         name: user Service
       - url: /textcontent-service/v3/api-docs
         name: textcontent Service
+      - url: /photocontent-service/v3/api-docs
+        name: photocontent Service

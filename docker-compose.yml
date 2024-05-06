@@ -1,5 +1,13 @@
 version: '3.8'
 services:
+  photocontent:
+    image: hobbyhobby/photocontent:latest
+    container_name: photocontent
+    ports:
+      - "8082:8080"
+    networks:
+      dockernet:
+        ipv4_address: 10.10.20.141
   textcontent:
     image: hobbyhobby/textcontent:latest
     container_name: textcontent
