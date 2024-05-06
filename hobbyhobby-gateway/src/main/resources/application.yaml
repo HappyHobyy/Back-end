@@ -24,17 +24,17 @@ spring:
             showPreLogger: true
             showPostLogger: true
       routes:
-        - id: user-service
+        - id: user-service-jwt
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/user-service/api/user/mypage, /user-service/api/user/delete
+            - Path=/user-service/api/user/**
           filters:
             - CustomFilter
             - LoggingFilter
             - AuthorizationHeaderFilter
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-        - id: user-service
+        - id: user-service-default
           uri: lb://USER-SERVICE
           predicates:
             - Path=/user-service/**

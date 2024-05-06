@@ -29,7 +29,6 @@ import static org.v1.global.util.FileUtil.convertMultipartFileToFile;
 @RequestMapping("/api/user")
 public class UserController {
     private final UserService userService;
-    private final EmailService emailService;
     @DeleteMapping("/delete")
     @Operation(summary = "유저 정보 삭제")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
@@ -48,14 +47,6 @@ public class UserController {
         User user = userService.getMyPage(userId);
         UserGetMyPageResponse response =UserGetMyPageResponse.of(user);
         return HttpResponse.success(response);
-    }
-    @Operation(summary = "비밀번호 초기화", description = "email 이용하여 마이페이지를 조회합니다.")
-    @PostMapping("/resetPassword")
-    public HttpResponse<Object> sendEmail(
-            @Valid @RequestBody UserResetPasswordRequest request
-            ){
-        emailService.sendEmailAndChangePassword(request.email());
-        return HttpResponse.successOnly();
     }
     @Operation(summary = "유저 프로필 사진 변경 혹은 추가", description = "")
     @PostMapping("/profileImage")
