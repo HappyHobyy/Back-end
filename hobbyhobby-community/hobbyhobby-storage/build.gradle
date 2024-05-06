@@ -1,0 +1,16 @@
+dependencies {
+    //common,domain 모듈 의존
+    implementation project(':hobbyhobby-common')
+    compileOnly project(':hobbyhobby-community:hobbyhobby-domain')
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly('com.mysql:mysql-connector-j')
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}

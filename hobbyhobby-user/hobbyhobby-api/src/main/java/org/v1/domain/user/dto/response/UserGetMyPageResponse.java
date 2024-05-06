@@ -15,14 +15,17 @@ public record UserGetMyPageResponse(
         @Schema(description = "성별", example = "MAN/WOMAN")
         User.UserGender gender,
         @Schema(description = "내국인/외국인", example = "DOMESTIC/FOREIGNER")
-        User.Nationality nationality
+        User.Nationality nationality,
+        @Schema(description = "이미지 URL", example = "https://asdfsadf.com/123")
+        String imageUrl
 ) {
     public static UserGetMyPageResponse of(final User user) {
         return new UserGetMyPageResponse(
                 user.getEmail(),
                 user.getNickname(),
                 user.getUserGender(),
-                user.getNationality()
+                user.getNationality(),
+                user.getImageUrl()
         );
     }
 }
