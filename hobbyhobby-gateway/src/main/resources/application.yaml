@@ -84,6 +84,27 @@ spring:
             - LoggingFilter
             - RemoveRequestHeader=Cookie
             - RewritePath=/photocontent-service/(?<segment>.*), /$\{segment}
+            -
+        - id: community-service-api
+          uri: lb://COMMUNITY-SERVICE
+          predicates:
+            - Path=/community-service/api/**
+          filters:
+            - CustomFilter
+            - LoggingFilter
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+            - RewritePath=/community-service/(?<segment>.*), /$\{segment}
+
+        - id: community-service-default
+          uri: lb://COMMUNITY-SERVICE
+          predicates:
+            - Path=/community-service/**
+          filters:
+            - CustomFilter
+            - LoggingFilter
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/community-service/(?<segment>.*), /$\{segment}
 
 management:
   endpoints:
@@ -110,3 +131,5 @@ springdoc:
         name: textcontent Service
       - url: /photocontent-service/v3/api-docs
         name: photocontent Service
+      - url: /community-service/v3/api-docs
+        name: community Service
