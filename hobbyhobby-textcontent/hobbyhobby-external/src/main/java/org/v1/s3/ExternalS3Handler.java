@@ -23,7 +23,7 @@ public class ExternalS3Handler implements S3Repository {
     private String bucket;
 
     public String uploadImage(File uploadFile, String dirName) {
-        String fileName = dirName + "/" + uploadFile.getName();
+        String fileName = "H-BOARD"+dirName + "/" + uploadFile.getName();
         String uploadImageUrl = putS3(uploadFile, fileName);
         removeNewFile(uploadFile);
         return uploadImageUrl;
