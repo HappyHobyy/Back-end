@@ -17,11 +17,18 @@ hobbyhobby-textcontent/.idea
 hobbyhobby-textcontent/.gradle
 hobbyhobby-textcontent/hobbyhobby-domain/build
 hobbyhobby-textcontent/hobbyhobby-external/build
-hobbyhobby-photocontent/hobbyhobby-api/build
 hobbyhobby-photocontent/build
 hobbyhobby-photocontent/gradlew.bat
 hobbyhobby-photocontent/.idea
 hobbyhobby-photocontent/.gradle
+hobbyhobby-photocontent/hobbyhobby-api/build
 hobbyhobby-photocontent/hobbyhobby-domain/build
 hobbyhobby-photocontent/hobbyhobby-external/build
+hobbyhobby-community/hobbyhobby-api/build
+hobbyhobby-community/build
+hobbyhobby-community/gradlew.bat
+hobbyhobby-community/.idea
+hobbyhobby-community/.gradle
+hobbyhobby-community/hobbyhobby-domain/build
+hobbyhobby-community/hobbyhobby-external/build
 

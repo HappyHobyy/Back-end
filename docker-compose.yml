@@ -1,5 +1,13 @@
 version: '3.8'
 services:
+  community:
+    image: hobbyhobby/community:latest
+    container_name: community
+    ports:
+      - "8083:8080"
+    networks:
+      dockernet:
+        ipv4_address: 10.10.20.140
   photocontent:
     image: hobbyhobby/photocontent:latest
     container_name: photocontent
