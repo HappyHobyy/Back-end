@@ -4,6 +4,6 @@ import org.v1.domain.user.domain.User;
 
 public record UserProfileResponse(Long userId, String userName, String imageUrl) {
     public static UserProfileResponse ofUser(User user) {
-        return new UserProfileResponse(userId, userName, imageUrl);
+        return new UserProfileResponse(user.getId().value(), user.getNickname(), user.getImageUrl());
     }
 }
