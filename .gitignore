@@ -17,4 +17,11 @@ hobbyhobby-textcontent/.idea
 hobbyhobby-textcontent/.gradle
 hobbyhobby-textcontent/hobbyhobby-domain/build
 hobbyhobby-textcontent/hobbyhobby-external/build
+hobbyhobby-photocontent/hobbyhobby-api/build
+hobbyhobby-photocontent/build
+hobbyhobby-photocontent/gradlew.bat
+hobbyhobby-photocontent/.idea
+hobbyhobby-photocontent/.gradle
+hobbyhobby-photocontent/hobbyhobby-domain/build
+hobbyhobby-photocontent/hobbyhobby-external/build
 
