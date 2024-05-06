@@ -84,7 +84,6 @@ spring:
             - LoggingFilter
             - RemoveRequestHeader=Cookie
             - RewritePath=/photocontent-service/(?<segment>.*), /$\{segment}
-            -
         - id: community-service-api
           uri: lb://COMMUNITY-SERVICE
           predicates:
@@ -95,7 +94,6 @@ spring:
             - RemoveRequestHeader=Cookie
             - AuthorizationHeaderFilter
             - RewritePath=/community-service/(?<segment>.*), /$\{segment}
-
         - id: community-service-default
           uri: lb://COMMUNITY-SERVICE
           predicates:
