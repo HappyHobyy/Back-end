@@ -8,26 +8,27 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.v1.repository.ImageVideoRepository;
 
 import java.io.File;
 
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class ExternalS3Handler
+public class ExternalS3Handler implements ImageVideoRepository
 {
     private final AmazonS3Client amazonS3Client;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    public String uploadImage(File uploadFile, String dirName) {
+    public String uploadFile(File uploadFile, String dirName) {
         String fileName = "user"+dirName + "/" + uploadFile.getName();
         String uploadImageUrl = putS3(uploadFile, fileName);
         removeNewFile(uploadFile);
         return uploadImageUrl;
     }
-    public void removeImage(String fileUrl) {
+    public void removeFile(String fileUrl) {
         String splitStr = ".com/";
         String fileName = fileUrl.substring(fileUrl.lastIndexOf(splitStr) + splitStr.length());
         amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, fileName));
