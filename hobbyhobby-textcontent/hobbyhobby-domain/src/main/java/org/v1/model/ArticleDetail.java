@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class ArticleDetail {
     private final List<Comment> comments;
     private final Content content;
@@ -18,7 +18,4 @@ public class ArticleDetail {
     public record UserStatus(boolean isUserLiked, boolean isUserArticleOwner) {
     }
 
-    public ArticleDetail changeUserStatus(UserStatus userStatus) {
-        return new ArticleDetail(this.comments, this.content,userStatus);
-    }
 }

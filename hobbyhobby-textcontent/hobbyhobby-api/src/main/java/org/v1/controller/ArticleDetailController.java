@@ -8,10 +8,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.v1.dto.*;
-import org.v1.model.Article;
 import org.v1.model.ArticleDetail;
-import org.v1.model.Like;
 import org.v1.service.ArticleDetailService;
+import response.DefaultId;
 import response.HttpResponse;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class ArticleDetailController {
     @GetMapping("/detail")
     @Operation(summary = "h-board 게시글 내용 가져오기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> getArticle(
+    public HttpResponse<List<ArticleDetailResponse>> getArticle(
             @RequestBody Long articleId,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
@@ -47,29 +46,28 @@ public class ArticleDetailController {
     @Operation(summary = "h-board 게시글 좋아요 취소하기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> deleteArticleLike(
-            @RequestBody Long articleId,
+            @RequestBody ArticleLikeRequest articleLikeRequest,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        articleDetailService.deleteArticleLike(new Like(articleId,userId));
+        articleDetailService.deleteArticleLike(articleLikeRequest.toLike(userId));
         return HttpResponse.successOnly();
     }
     @PostMapping("/detail/comment")
     @Operation(summary = "h-board 게시글 댓글 추가")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> createArticleComment(
+    public HttpResponse<DefaultId> createArticleComment(
             @RequestBody ArticleCommentRequest.Create articleCommentRequest,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId,
             @Parameter(hidden = true) @Valid @RequestHeader String nickname
     ) {
-        articleDetailService.createArticleComment(articleCommentRequest.toComment(userId,nickname),articleCommentRequest.articleId());
-        return HttpResponse.successOnly();
+        Long commentId = articleDetailService.createArticleComment(articleCommentRequest.toComment(userId),articleCommentRequest.articleId());
+        return HttpResponse.success(DefaultId.of(commentId));
     }
     @DeleteMapping("/detail/comment")
     @Operation(summary = "h-board 게시글 댓글 삭제")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> deleteArticleComment(
-            @RequestBody ArticleCommentRequest.Delete articleCommentRequest,
-            @Parameter(hidden = true) @Valid @RequestHeader Long userId
+            @RequestBody ArticleCommentRequest.Delete articleCommentRequest
     ) {
         articleDetailService.deleteArticleComment(articleCommentRequest.commentId());
         return HttpResponse.successOnly();

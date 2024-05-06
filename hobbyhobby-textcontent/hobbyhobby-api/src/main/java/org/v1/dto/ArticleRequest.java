@@ -90,8 +90,8 @@ public record ArticleRequest(
             return new Content(textList, imageList);
         }
 
-        public Article toArticle(Long userId, String nickname) {
-            return Article.withoutId(this.title(), this.date(), new User(userId, nickname), 0);
+        public Article toArticle(Long userId) {
+            return Article.withoutId(this.title(), this.date(),User.onlyUserId(userId) , 0,0);
         }
     }
 }

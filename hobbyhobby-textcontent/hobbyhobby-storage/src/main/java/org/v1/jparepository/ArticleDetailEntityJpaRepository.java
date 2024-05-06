@@ -7,6 +7,8 @@ import org.v1.model.Content;
 import org.v1.model.Like;
 import org.v1.repository.ArticleDetailRepository;
 
+import java.util.List;
+
 @Repository
 public class ArticleDetailEntityJpaRepository implements ArticleDetailRepository {
     @Override
@@ -46,12 +48,17 @@ public class ArticleDetailEntityJpaRepository implements ArticleDetailRepository
     }
 
     @Override
-    public void saveComment(Comment comment, Long articleId) {
-
+    public Long saveComment(Comment comment, Long articleId) {
+        return 1L;
     }
 
     @Override
     public Content readContent(Long articleId) {
+        return null;
+    }
+
+    @Override
+    public List<Comment> readComments(Long articleId) {
         return null;
     }
 }

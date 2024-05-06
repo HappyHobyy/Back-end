@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 @FeignClient(name = "user-service")
 public interface ExternalUserClient {
-    @GetMapping("/user/community")
-    UserCommunityResponse getResource(@RequestHeader(value = "userId")   UserCommunityRequest userCommunityRequest);
+    @GetMapping("/user/mypage")
+    UserResponse getUser(@RequestHeader(value = "userId")   UserRequest userRequest);
 }

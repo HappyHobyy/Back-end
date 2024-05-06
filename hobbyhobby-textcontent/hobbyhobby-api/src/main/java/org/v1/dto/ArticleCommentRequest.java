@@ -19,8 +19,8 @@ public record ArticleCommentRequest(
             @NotNull(message = "댓글 내용은 필수 입력값입니다.")
             String comment
     ) {
-        public Comment toComment(Long userId,String nickname) {
-            return Comment.withoutId(new User(userId,nickname), LocalDateTime.now(), comment, false);
+        public Comment toComment(Long userId) {
+            return Comment.withoutId(User.onlyUserId(userId), LocalDateTime.now(), comment, false);
         }
     }
     public record Delete(Long commentId) {}

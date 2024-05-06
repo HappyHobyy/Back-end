@@ -14,6 +14,7 @@ import org.v1.dto.ArticleResponse;
 import org.v1.model.Article;
 import org.v1.model.Content;
 import org.v1.service.ArticleService;
+import response.DefaultId;
 import response.HttpResponse;
 
 import java.io.File;
@@ -47,7 +48,7 @@ public class ArticleController {
         List<Article> articleList = articleService.getTenSearchArticle(articleRequest.toSearch());
         return HttpResponse.success(ArticleResponse.of(articleList));
     }
-    @PostMapping("")
+    @DeleteMapping("")
     @Operation(summary = "h-board 게시글 삭제")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> deleteArticle(
@@ -62,11 +63,10 @@ public class ArticleController {
     public HttpResponse<Object> createArticle(
             @RequestPart ArticleRequest.CreateRequest articleRequest,
             @RequestPart("files") List<MultipartFile> files,
-            @Parameter(hidden = true) @Valid @RequestHeader Long userId,
-            @Parameter(hidden = true) @Valid @RequestHeader String nickname
+            @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        articleService.createArticle(articleRequest.toArticle(userId,nickname),articleRequest.toContent(files));
-        return HttpResponse.successOnly();
+        Long articleId = articleService.createArticle(articleRequest.toArticle(userId),articleRequest.toContent(files));
+        return HttpResponse.success(DefaultId.of(articleId));
     }
     @PostMapping("/detail/test")
     @Operation(summary = "h-board 게시글 저장 테스트")

@@ -2,15 +2,16 @@ package org.v1.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.v1.model.Community;
-
-import java.util.List;
+import org.v1.model.User;
+import org.v1.repository.UserRepository;
 
 @Component
 @AllArgsConstructor
-public class ExternalUserHandler {
+public class ExternalUserHandler implements UserRepository {
     private ExternalUserClient externalUserClient;
-    public List<Community> getUserCommunity(Long userId) {
-        return externalUserClient.getResource(new UserCommunityRequest(userId)).toCommunityList();
+
+    @Override
+    public User readUser(Long userId) {
+        return externalUserClient.getUser(new UserRequest(userId)).toUser();
     }
 }

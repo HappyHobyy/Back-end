@@ -16,4 +16,7 @@ public class Comment {
     public static Comment withoutId(User user, LocalDateTime date, String text, boolean isUserCommentOwner) {
         return new Comment(null, user, date, text, isUserCommentOwner);
     }
+    public Comment changeUser(User user,Long commandUserId) {
+        return new Comment(id, user, date, text, commandUserId.equals(user.id()));
+    }
 }

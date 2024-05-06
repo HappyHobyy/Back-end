@@ -18,7 +18,9 @@ public record ArticleResponse(
         @Schema(description = "게시글 작성자 닉네임", example = "hobbyhobby")
         String nickname,
         @Schema(description = "게시글 좋아요 갯수", example = "12")
-        Integer likes
+        Integer likes,
+        @Schema(description = "게시글 댓글 갯수", example = "12")
+        Integer comments
 ) {
     public static List<ArticleResponse> of(List<Article> articleList) {
         if (articleList == null) {
@@ -31,7 +33,8 @@ public record ArticleResponse(
                         textContent.getTitle(),
                         textContent.getDate(),
                         textContent.getUser().nickname(),
-                        textContent.getLikes()
+                        textContent.getLikes(),
+                        textContent.getComments()
                 ))
                 .collect(Collectors.toList());
     }
