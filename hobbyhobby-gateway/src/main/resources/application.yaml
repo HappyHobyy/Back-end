@@ -64,6 +64,27 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/textcontent-service/(?<segment>.*), /$\{segment}
 
+        - id: photocontent-service-api
+          uri: lb://PHOTOCONTENT-SERVICE
+          predicates:
+            - Path=/photocontent-service/api/**
+          filters:
+            - CustomFilter
+            - LoggingFilter
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+            - RewritePath=/photocontent-service/(?<segment>.*), /$\{segment}
+
+        - id: photocontent-service-default
+          uri: lb://PHOTOCONTENT-SERVICE
+          predicates:
+            - Path=/photocontent-service/**
+          filters:
+            - CustomFilter
+            - LoggingFilter
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/photocontent-service/(?<segment>.*), /$\{segment}
+
 management:
   endpoints:
     web:
@@ -87,3 +108,5 @@ springdoc:
         name: user Service
       - url: /textcontent-service/v3/api-docs
         name: textcontent Service
+      - url: /photocontent-service/v3/api-docs
+        name: photocontent Service
