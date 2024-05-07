@@ -13,13 +13,13 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
 public class UserController {
-    private final ExternalTextContentHandler externalTextContentHandler;
+    private final UserHandler userHandler;
 
     @PostMapping("/test")
     public HttpResponse<Object> changeProfileImage(
             @RequestHeader("userId") Long userId
     ) {
-        CompletableFuture<MessageDto> future = externalTextContentHandler.sendMessage(new MessageDto(userId, "test"));
+        CompletableFuture<MessageDto> future = userHandler.sendMessage(new MessageDto(userId, "test"));
         MessageDto message = future.join();
         return HttpResponse.success(message);
     }
