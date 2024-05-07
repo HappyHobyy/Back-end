@@ -10,5 +10,6 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Category {
     private final Long id;
+    private final String categoryName;
     private final List<Community> communities;
 }
