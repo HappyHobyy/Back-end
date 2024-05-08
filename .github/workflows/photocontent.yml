@@ -2,7 +2,7 @@ name: HobbyHobby PhotoContent CI
 
 on:
   push:
-    branches: [ "feature/photocontent" ]
+    branches: [ "feature/photo-content" ]
 
 env:
   EC2_HOST: 52.79.143.36
