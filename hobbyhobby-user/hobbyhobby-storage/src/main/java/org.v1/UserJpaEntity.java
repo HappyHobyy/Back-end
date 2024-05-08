@@ -50,6 +50,7 @@ public class UserJpaEntity  extends BaseEntity {
                 .password(user.getPassword().password())
                 .type(user.getUserType())
                 .deviceToken(user.getDeviceToken())
+                .imageUrl(user.getImageUrl())
                 .build();
     }
     public static UserJpaEntity ofWithId(User user) {
@@ -63,6 +64,7 @@ public class UserJpaEntity  extends BaseEntity {
                 .password(user.getPassword() != null ? user.getPassword().password() : null)
                 .type(user.getUserType())
                 .deviceToken(user.getDeviceToken())
+                .imageUrl(user.getImageUrl())
                 .build();
     }
 
