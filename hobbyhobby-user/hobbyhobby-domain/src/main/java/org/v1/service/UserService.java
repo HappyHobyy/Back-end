@@ -46,7 +46,7 @@ public class UserService {
                 imageAppender.appendImage(file, userId.toString()
                 ));
         userAppender.updateUser(updatedUser);
-        photoContentHandler.sendUserCreate(updatedUser);
-        textContentHandler.sendUserCreate(updatedUser);
+        photoContentHandler.sendUserUpdate(updatedUser);
+        textContentHandler.sendUserUpdate(updatedUser);
     }
 }
