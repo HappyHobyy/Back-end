@@ -5,7 +5,7 @@ import org.v1.model.User;
 import java.util.Optional;
 
 public interface UserRepository {
-    void save(User user);
+    Optional<User> appendUser(User user);
     void update(User user);
 
     Optional<User> readByTypeAndEmail(User user);

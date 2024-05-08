@@ -16,8 +16,8 @@ public class UserEntityJpaRepository implements UserRepository {
     }
 
     @Override
-    public void save(User user) {
-        userJpaRepository.save(UserJpaEntity.ofWithoutId(user)).toUser();
+    public Optional<User> appendUser(User user) {
+        return userJpaRepository.save(UserJpaEntity.ofWithoutId(user)).toUser();
     }
 
     @Override
