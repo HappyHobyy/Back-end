@@ -1,5 +1,6 @@
 package org.v1.jparepository;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.v1.jpaentity.UserJpaEntity;
@@ -23,6 +24,7 @@ public class UserEntityJpaRepository implements UserRepository {
     }
 
     @Override
+    @Transactional
     public void updateUser(User user) {
         userJpaRepository.updateUser(user.id(),user.nickname(),user.imageUrl());
     }
