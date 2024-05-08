@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
-public class UserCommunity {
+public class CommunityStatusInfo
+{
     private final Community community;
-    private final Integer userHistoryCount;
+    private final UserStatus userStatus;
 }

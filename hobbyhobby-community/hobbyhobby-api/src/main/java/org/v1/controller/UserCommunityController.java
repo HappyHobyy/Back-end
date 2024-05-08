@@ -7,23 +7,39 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.v1.dto.CommunityListResponse;
+import org.v1.dto.UserCommunityRequest;
+import org.v1.model.Community;
+import org.v1.model.CommunityStatusInfo;
 import org.v1.service.UserCommunityService;
 import response.HttpResponse;
 
-@Tag(name = "userCommunity", description = "유저 커뮤니티 API")
+import java.util.List;
+
+@Tag(name = "Community", description = "유저 커뮤니티 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user/community")
+@RequestMapping("/api/community/user")
 public class UserCommunityController {
     private final UserCommunityService userCommunityService;
-
-    @GetMapping("")
-    @Operation(summary = "유저 즐겨찾기 커뮤니티 가져오기")
+    @PostMapping("")
+    @Operation(summary = "유저 커뮤니티에 즐겨찾기하기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> removeUser(
-            @Parameter(hidden = true) @Valid @RequestHeader Long userId
+    public HttpResponse<Object> createUserCommunity(
+            @Parameter(hidden = true) @Valid @RequestHeader Long userId,
+            @RequestBody UserCommunityRequest userCommunityRequest
     ) {
-        userCommunityService.getCommunityList(userId);
+        userCommunityService.createUserToCommunity(userId,userCommunityRequest.communityId());
+        return HttpResponse.successOnly();
+    }
+    @DeleteMapping("")
+    @Operation(summary = "유저 커뮤니티에서 즐겨찾기 해제하기")
+    @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
+    public HttpResponse<Object> removeUserCommunity(
+            @Parameter(hidden = true) @Valid @RequestHeader Long userId,
+            @RequestBody UserCommunityRequest userCommunityRequest
+    ) {
+        userCommunityService.removeUserFromCommunity(userId,userCommunityRequest.communityId());
         return HttpResponse.successOnly();
     }
 }

@@ -1,8 +1,14 @@
 package org.v1.implementation;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.v1.repository.UserCommunityRepository;
 
 @Component
+@AllArgsConstructor
 public class UserCommunityRemover {
-
+    private final UserCommunityRepository userCommunityRepository;
+    public void removeUserFromCommunity(Long userId, Long communityId) {
+        userCommunityRepository.removeUserFromCommunity(userId, communityId);
+    }
 }
