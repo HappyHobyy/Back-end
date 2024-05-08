@@ -29,6 +29,7 @@ public class MessageQueueSender {
         int attempt = 0;
         while (attempt < maxAttempts) {
             try {
+                log.info(routingKey, new String(bytes),"sending message");
                 rabbitTemplate.convertAndSend("amq.direct", routingKey, bytes, correlationData);
                 break;
             } catch (AmqpException e) {
