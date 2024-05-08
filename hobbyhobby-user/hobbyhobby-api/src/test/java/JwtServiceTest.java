@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.v1.domain.user.domain.User;
+import org.v1.model.User;
 import org.v1.global.config.security.jwt.JwtService;
 import org.v1.global.config.security.jwt.JwtToken;
 import io.jsonwebtoken.JwtException;

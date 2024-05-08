@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAsync
 @SpringBootApplication
 @EnableScheduling
-@ConfigurationPropertiesScan({"org.v1.global.config.security.jwt","org.v1.domain.auth"})
+@ConfigurationPropertiesScan({"org.v1.global.config.security.jwt"})
 public class HobbyHobbyApplication {
     public static void main(String[] args) {
         SpringApplication.run(HobbyHobbyApplication.class, args);

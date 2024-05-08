@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.v1.domain.user.repository.ImageRepository;
+import org.v1.repository.ImageRepository;
 
 import java.io.File;
 
