@@ -18,9 +18,9 @@ public class ExternalUserHandler {
     private final UserService userService;
     @RabbitListener(
             bindings = @QueueBinding(
-                    value = @Queue(value = "textcontent"),
+                    value = @Queue(value = "photocontent"),
                     exchange = @Exchange(value = "amq.direct", type = "direct"),
-                    key = "textContent.userCreate"
+                    key = "photoContent.userCreate"
             )
     )
     public void receiveUserCreate(byte[] payload) {
@@ -34,9 +34,9 @@ public class ExternalUserHandler {
     }
     @RabbitListener(
             bindings = @QueueBinding(
-                    value = @Queue(value = "textcontent"),
+                    value = @Queue(value = "photocontent"),
                     exchange = @Exchange(value = "amq.direct", type = "direct"),
-                    key = "textContent.userDelete"
+                    key = "photoContent.userDelete"
             )
     )
     public void receiveUserDelete(byte[] payload) {
@@ -50,9 +50,9 @@ public class ExternalUserHandler {
     }
     @RabbitListener(
             bindings = @QueueBinding(
-                    value = @Queue(value = "textcontent"),
+                    value = @Queue(value = "photocontent"),
                     exchange = @Exchange(value = "amq.direct", type = "direct"),
-                    key = "textContent.userUpdate"
+                    key = "photoContent.userUpdate"
             )
     )
     public void receiveUserUpdate(byte[] payload) {
