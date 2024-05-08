@@ -36,7 +36,7 @@ public class ExternalUserHandler {
             bindings = @QueueBinding(
                     value = @Queue(value = "textcontent"),
                     exchange = @Exchange(value = "amq.direct", type = "direct"),
-                    key = "textContent.userCreate"
+                    key = "textContent.userDelete"
             )
     )
     public void receiveUserDelete(byte[] payload) {
@@ -52,7 +52,7 @@ public class ExternalUserHandler {
             bindings = @QueueBinding(
                     value = @Queue(value = "textcontent"),
                     exchange = @Exchange(value = "amq.direct", type = "direct"),
-                    key = "textContent.userCreate"
+                    key = "textContent.userUpdate"
             )
     )
     public void receiveUserUpdate(byte[] payload) {

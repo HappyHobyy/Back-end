@@ -37,17 +37,17 @@ AuthService {
                 null,
                 null
         );
-        userAppender.appendUser(hashedUser);
-        photoContentHandler.sendUserCreate(user);
-        textContentHandler.sendUserCreate(user);
+        User savedUser = userAppender.appendUser(hashedUser);
+        photoContentHandler.sendUserCreate(savedUser);
+        textContentHandler.sendUserCreate(savedUser);
     }
     public void registerOAuthUser(User user) {
         if (userChecker.isUserEmailDuplicate(user)) {
             throw new BusinessException(ErrorCode.USER_EMAIL_DUPLICATED);
         }
-        userAppender.appendUser(user);
-        photoContentHandler.sendUserCreate(user);
-        textContentHandler.sendUserCreate(user);
+        User savedUser = userAppender.appendUser(user);
+        photoContentHandler.sendUserCreate(savedUser);
+        textContentHandler.sendUserCreate(savedUser);
     }
     @Transactional
     public User loginDefaultUser(User user) {
