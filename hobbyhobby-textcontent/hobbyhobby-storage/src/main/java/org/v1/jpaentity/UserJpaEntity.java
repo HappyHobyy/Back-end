@@ -14,7 +14,6 @@ import java.util.Optional;
 @Table(name = "text_content_user")
 public class UserJpaEntity extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
