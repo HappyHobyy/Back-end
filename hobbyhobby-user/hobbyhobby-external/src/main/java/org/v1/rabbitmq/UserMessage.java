@@ -2,7 +2,7 @@ package org.v1.rabbitmq;
 
 import org.v1.model.User;
 
-public record UserMessageRequest(
+public record UserMessage(
         Long userId,
         String userNickName,
         String imageUrl
