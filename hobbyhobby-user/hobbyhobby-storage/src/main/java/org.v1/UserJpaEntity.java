@@ -2,7 +2,7 @@ package org.v1;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.v1.domain.user.domain.User;
+import org.v1.model.User;
 import java.util.Optional;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
