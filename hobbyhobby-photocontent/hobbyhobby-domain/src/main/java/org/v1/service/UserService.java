@@ -14,6 +14,7 @@ public class UserService {
     private final UserRemover userRemover;
     private final UserUpdater userUpdater;
     private final UserAppender userAppender;
+    @Transactional
     public void removeUser(final Long userId) {
         userRemover.removeUser(userId);
     }
