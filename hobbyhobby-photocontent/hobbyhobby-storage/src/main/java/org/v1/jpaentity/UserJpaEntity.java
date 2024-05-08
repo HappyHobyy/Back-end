@@ -14,7 +14,6 @@ import java.util.Optional;
 @Table(name = "photo_content_user")
 public class UserJpaEntity extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -30,7 +29,6 @@ public class UserJpaEntity extends BaseEntity {
                 .imageUrl(user.imageUrl())
                 .build();
     }
-
     public Optional<User> toUser() {
         User user = User.withId(
                 this.id,

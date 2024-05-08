@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserAppender {
     private final UserRepository userRepository;
-    public void appendUser(
+    public User appendUser(
             final User user
     ){
-        userRepository.save(user);
+        return userRepository.appendUser(user).orElseThrow();
     }
     public void updateUser(
             final User user
