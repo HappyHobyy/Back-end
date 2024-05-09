@@ -6,5 +6,8 @@ import java.util.List;
 
 @AllArgsConstructor
 public class Contents {
-    List<PhotoArticle> photoArticle;
+    PhotoArticles photoArticles;
+    GroupArticles groupArticles;
+    public record PhotoArticles(List<PhotoArticle> popularPhotoArticle, List<PhotoArticle> nonePopular){}
+    public record GroupArticles(List<GroupArticle> popularGroupArticle, List<GroupArticle> nonePopularGroupArticle){}
 }

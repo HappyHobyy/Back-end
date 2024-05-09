@@ -7,14 +7,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.v1.dto.CommunityListResponse;
 import org.v1.dto.UserCommunityRequest;
-import org.v1.model.Community;
-import org.v1.model.CommunityStatusInfo;
 import org.v1.service.UserCommunityService;
 import response.HttpResponse;
-
-import java.util.List;
 
 @Tag(name = "Community", description = "유저 커뮤니티 API")
 @RestController

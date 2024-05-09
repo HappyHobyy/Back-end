@@ -1,24 +1,21 @@
 package org.v1.dto;
 
 import org.v1.model.Community;
-import org.v1.model.CommunityStatusInfo;
 
 import java.util.List;
 
 public record CommunityListResponse(
         Long communityId,
         String communityName,
-        String imageUrl,
-        Integer userHistoryCount
+        String imageUrl
 ) {
-    public static List<CommunityListResponse> ofUserCommunityList(List<CommunityStatusInfo> communityList) {
+    public static List<CommunityListResponse> ofCommunityList(List<Community> communityList) {
         return communityList.stream()
-                .map(communityStatusInfo -> new CommunityListResponse(
-                        communityStatusInfo.getCommunity().getId(),
-                        communityStatusInfo.getCommunity().getCommunityName(),
-                        communityStatusInfo.getCommunity().getImageUrl(),
-                        communityStatusInfo.getUserStatus().userHistoryCount())
-                )
+                .map(community -> new CommunityListResponse(
+                        community.getId(),
+                        community.getCommunityName(),
+                        community.getImageUrl()
+                ))
                 .toList();
     }
 }

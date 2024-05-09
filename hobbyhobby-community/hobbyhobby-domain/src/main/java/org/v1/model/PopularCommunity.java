@@ -4,12 +4,9 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
 @Getter
-@AllArgsConstructor
-public class CommunityStatusInfo
-{
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class PopularCommunity {
+    private final Integer hotness;
     private final Community community;
-    private final UserStatus userStatus;
 }

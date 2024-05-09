@@ -5,10 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class PhotoArticle {
+public class GroupArticle {
     private final Long id;
     private final User user;
     private final Integer likes;
