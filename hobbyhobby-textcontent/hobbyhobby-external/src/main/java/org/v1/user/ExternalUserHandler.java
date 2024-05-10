@@ -27,35 +27,6 @@ public class ExternalUserHandler {
     private final ObjectMapper objectMapper;
     private final UserService userService;
 
-
-    @RabbitListener(queues = "textcontent")
-    public void receiveMessage(byte[] payload, @Header(AmqpHeaders.RECEIVED_ROUTING_KEY) String routingKey) {
-        try {
-            switch (routingKey) {
-                case "textContent.userCreate":
-                    UserMessage.CreateUserMessage createUserMessage = objectMapper.readValue(payload, UserMessage.CreateUserMessage.class);
-                    log.info("Received message: {}", createUserMessage);
-                    userService.appendUser(createUserMessage.toUser());
-                    break;
-                case "textContent.userDelete":
-                    UserMessage.DeleteUserMessage deleteUserMessage = objectMapper.readValue(payload, UserMessage.DeleteUserMessage.class);
-                    log.info("Received message: {}", deleteUserMessage);
-                    userService.removeUser(deleteUserMessage.userId());
-                    break;
-                case "textContent.userUpdate":
-                    UserMessage.UpdateUserMessage updateUserMessage = objectMapper.readValue(payload, UserMessage.UpdateUserMessage.class);
-                    log.info("Received message: {}", updateUserMessage);
-                    userService.updateUser(updateUserMessage.toUser());
-                    break;
-                default:
-                    log.warn("Unhandled routing key: {}", routingKey);
-                    break;
-            }
-        } catch (IOException e) {
-            log.error("Error processing received message.", e);
-        }
-    }
-
     @Bean
     public Consumer<Message<byte[]>> user() {
         return message -> {
