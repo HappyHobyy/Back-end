@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+spring:
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
+
+  config:
+    import:
+      - mail.yml
+      - rabbitmq.yml
+      - db.yml
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+
+openapi:
+  service:
+    title: user-service doc
+    version: 1.0.0
+    url: http://localhost:8080
+
+cloud:
+  aws:
+    s3:
+      bucket: hobbyhobby
+    credentials:
+      access-key: AKIAW3MD6XA7Y4FN4DPF
+      secret-key: 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
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://52.79.143.36:8761/eureka

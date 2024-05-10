@@ -1,0 +1,13 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 465
+    username: hobbyhobby2401@gmail.com
+    password: wqtf chji haza abuh
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+          trust: smtp.gmail.com
