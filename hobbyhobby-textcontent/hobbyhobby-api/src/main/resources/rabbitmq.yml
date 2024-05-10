@@ -5,13 +5,11 @@ spring:
     stream:
       bindings:
         userCached-out-0:
-          destination: allUser
+          destination: allTextContent
         userCached-in-0:
-          destination: allUser
-        user-out-0:
+          destination: allTextContent
+        user-in-0:
           destination: textContent
-        user-out-1:
-          destination: photoContent
       rabbit:
         bindings:
           userCached-out-0:
@@ -22,11 +20,7 @@ spring:
             consumer:
               exchangeType: direct
               binding-routing-key: UserCached
-          user-out-0:
-            producer:
-              exchangeType: direct
-              routing-key: User
-          user-out-1:
+          user-in-0:
             producer:
               exchangeType: direct
               routing-key: User
