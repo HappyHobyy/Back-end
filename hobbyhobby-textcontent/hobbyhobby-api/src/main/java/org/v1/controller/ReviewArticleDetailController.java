@@ -6,22 +6,16 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.v1.dto.request.ReviewArticleCommentRequest;
-import org.v1.dto.request.TextArticleCommentRequest;
 import org.v1.dto.response.ReviewArticleDetailResponse;
-import org.v1.dto.response.TextArticleDetailResponse;
 import org.v1.global.util.FileUtil;
 import org.v1.model.ReviewArticleDetail;
 import org.v1.model.ReviewComment;
-import org.v1.model.TextArticleDetail;
 import org.v1.service.ReviewArticleDetailService;
 import response.DefaultId;
 import response.HttpResponse;
-
-import java.util.List;
 
 @Tag(name = "Review", description = "Review API")
 @RestController
@@ -34,7 +28,7 @@ public class ReviewArticleDetailController {
     @GetMapping("/detail")
     @Operation(summary = "장비 리뷰 게시글 내용 가져오기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<List<ReviewArticleDetailResponse>> getArticle(
+    public HttpResponse<ReviewArticleDetailResponse> getArticle(
             @RequestBody Long articleId,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
@@ -48,9 +42,9 @@ public class ReviewArticleDetailController {
     public HttpResponse<DefaultId> createArticleComment(
             @RequestBody ReviewArticleCommentRequest.Create request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId,
-            @RequestPart("files") List<MultipartFile> files
+            @RequestPart("file") MultipartFile file
     ) {
-        ReviewComment comment = request.toReviewComment(fileUtil.convertMultipartFiles(files),userId);
+        ReviewComment comment = request.toReviewComment(fileUtil.convertMultipartFile(file),userId);
         Long commentId = reviewArticleDetailService.commentOnArticle(comment,request.articleId());
         return HttpResponse.success(DefaultId.of(commentId));
     }

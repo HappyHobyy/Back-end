@@ -29,20 +29,20 @@ public class ReviewArticleDetailService {
 
     public void deleteArticleComment(Long commentId) {
         ReviewComment comment = reviewCommentReader.readComment(commentId);
-        imageProcessor.removeImages(comment.getContent().getImages());
+        imageProcessor.removeImage(comment.getImage());
         reviewCommentRemover.removeComment(commentId);
     }
     public Long commentOnArticle(ReviewComment comment, Long articleId) {
-        Long commentId = reviewCommentAppender.appendComment(comment.getComment(), articleId);
-        Content content = new Content(comment.getContent().getTexts(), imageProcessor.appendImages("REVIEW-COMMENT",commentId, comment.getContent().getImages()));
-        reviewCommentAppender.appendContent(content.calculateIndex(), articleId);
+        Long commentId = reviewCommentAppender.appendComment(comment, articleId);
+        Content.Image image = imageProcessor.appendImage("REVIEW-COMMENT",commentId, comment.getImage());
+        reviewCommentAppender.appendImage(image, commentId);
         return commentId;
     }
     public ReviewArticleDetail getArticleDetail(Long articleId, Long userId) {
         UserStatus userStatus = reviewArticleChecker.checkArticleUserRelation(articleId, userId);
         List<ReviewComment> comments = reviewCommentReader.readComments(articleId);
         List<ReviewComment> updatedComments = reviewCommentValidator.validateComments(comments, userId);
-        Content content = reviewArticleReader.readContent(articleId);
+        ReviewContent content = reviewArticleReader.readContent(articleId);
         return new ReviewArticleDetail(updatedComments, content, userStatus);
     }
 

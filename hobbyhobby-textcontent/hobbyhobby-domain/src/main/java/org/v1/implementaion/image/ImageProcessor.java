@@ -24,4 +24,11 @@ public class ImageProcessor {
     public void removeImages(List<Content.Image> images) {
         images.forEach(image -> imageRemover.removeImage(image.path()));
     }
+    public void removeImage(Content.Image image) {
+        imageRemover.removeImage(image.path());
+    }
+    public Content.Image appendImage(String prefix, Long id,Content.Image image) {
+        String path = imageAppender.appendImage(image.data(), image.index().toString());
+        return Content.Image.withoutData(image.index(), path);
+    }
 }

@@ -3,20 +3,12 @@ package org.v1.service;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.v1.implementaion.image.ImageAppender;
 import org.v1.implementaion.image.ImageProcessor;
-import org.v1.implementaion.image.ImageRemover;
 import org.v1.implementaion.reviewarticle.ReviewArticleAppender;
 import org.v1.implementaion.reviewarticle.ReviewArticleReader;
 import org.v1.implementaion.reviewarticle.ReviewArticleRemover;
-import org.v1.implementaion.textarticle.TextArticleAppender;
-import org.v1.implementaion.textarticle.TextArticleReader;
-import org.v1.implementaion.textarticle.TextArticleRemover;
 import org.v1.model.Content;
 import org.v1.model.ReviewArticle;
-import org.v1.model.Search;
-import org.v1.model.TextArticle;
-import org.v1.repository.ImageRepository;
 
 import java.util.List;
 @Service
@@ -37,7 +29,7 @@ public class ReviewArticleService {
         return articleId;
     }
     public void deleteReviewArticle(Long articleId){
-        imageProcessor.removeImages(reviewArticleReader.readContent(articleId).getImages());
+        imageProcessor.removeImage(reviewArticleReader.readContent(articleId).image());
         reviewArticleRemover.removeArticle(articleId);
     }
 }

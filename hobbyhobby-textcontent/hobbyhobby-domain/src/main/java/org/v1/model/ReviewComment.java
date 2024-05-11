@@ -11,14 +11,14 @@ public class ReviewComment {
     private final Long id;
     private final Comment comment;
     private double stars;
-    private final Content content;
-    public static ReviewComment withoutId(Comment comment,double stars, Content content) {
-        return new ReviewComment(null,comment,stars, content);
+    private final Content.Image image;
+    public static ReviewComment withoutId(Comment comment,double stars, Content.Image image) {
+        return new ReviewComment(null,comment,stars, image);
     }
-    public static ReviewComment withId(Long id,Comment comment,double stars, Content content) {
-        return new ReviewComment(id,comment,stars, content);
+    public static ReviewComment withId(Long id,Comment comment,double stars, Content.Image image) {
+        return new ReviewComment(id,comment,stars, image);
     }
     public ReviewComment changeComment(Comment comment) {
-        return new ReviewComment(id,comment,stars, content);
+        return new ReviewComment(id,comment,stars,image);
     }
 }

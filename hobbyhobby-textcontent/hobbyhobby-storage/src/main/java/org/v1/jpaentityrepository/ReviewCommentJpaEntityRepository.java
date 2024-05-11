@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public class ReviewCommentJpaEntityRepository implements ReviewCommentRepository {
     @Override
-    public Long appendComment(Comment comment, Long articleId) {
-        return 1L;
+    public Long appendComment(ReviewComment comment, Long articleId) {
+        return null;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class ReviewCommentJpaEntityRepository implements ReviewCommentRepository
     }
 
     @Override
-    public void appendContent(Content content, Long commentId) {
+    public void appendImage(Content.Image image, Long commentId) {
 
     }
 

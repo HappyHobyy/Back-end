@@ -17,7 +17,7 @@ public class ReviewArticleJpaEntityRepository implements ReviewArticleRepository
     }
 
     @Override
-    public Content readTextContent(Long articleId) {
+    public ReviewContent readReviewContent(Long articleId) {
         return null;
     }
 
