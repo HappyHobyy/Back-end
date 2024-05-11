@@ -1,10 +1,11 @@
 package org.v1.service;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.v1.implementaion.comment.TextCommentAppender;
-import org.v1.implementaion.comment.TextCommentReader;
-import org.v1.implementaion.comment.TextCommentRemover;
+import org.v1.implementaion.textcomment.TextCommentAppender;
+import org.v1.implementaion.textcomment.TextCommentReader;
+import org.v1.implementaion.textcomment.TextCommentRemover;
 import org.v1.implementaion.like.LikeAppender;
 import org.v1.implementaion.like.LikeChecker;
 import org.v1.implementaion.like.LikeRemover;
@@ -26,6 +27,7 @@ public class TextArticleDetailService {
     private final TextCommentReader textCommentReader;
     private final TextCommentAppender textCommentAppender;
     private final TextCommentRemover textCommentRemover;
+
     public TextArticleDetail getArticleDetail(Long articleId, Long userId) {
         UserStatus userStatus = textArticleChecker.checkArticleUserRelation(articleId, userId);
         List<TextComment> comments = textCommentReader.readComments(articleId);
@@ -40,7 +42,6 @@ public class TextArticleDetailService {
         likeAppender.appendLike(like);
     }
     public Long commentOnArticle(TextComment comment, Long articleId) {
-        textArticleChecker.checkArticleExist(articleId);
         return textCommentAppender.appendComment(comment, articleId);
     }
     public void unlikeArticle(Like like) {

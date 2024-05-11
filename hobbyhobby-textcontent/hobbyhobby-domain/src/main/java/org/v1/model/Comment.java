@@ -10,9 +10,8 @@ import java.time.LocalDateTime;
 public class Comment {
     private User user;
     private LocalDateTime date;
-    private String text;
-    private boolean isUserCommentOwner;
+    private UserStatus userStatus;
     public Comment validateUserComment(Long commandUserId) {
-        return new Comment(user, date, text, commandUserId.equals(user.id()));
+        return new Comment(user, date, UserStatus.onlyIsUserArticleOwner(commandUserId.equals(getUser().id())));
     }
 }

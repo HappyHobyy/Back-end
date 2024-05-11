@@ -11,5 +11,5 @@ import java.util.List;
 public class ReviewArticleDetail {
     private final List<ReviewComment> comments;
     private final Content content;
-    private final boolean isUserArticleOwner;
+    private final UserStatus userStatus;
 }

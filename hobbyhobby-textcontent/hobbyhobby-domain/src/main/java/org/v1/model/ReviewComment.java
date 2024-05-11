@@ -10,9 +10,15 @@ import java.time.LocalDateTime;
 public class ReviewComment {
     private final Long id;
     private final Comment comment;
-    private Float stars;
-    private final Content.Image image;
-    public static ReviewComment withoutId(Comment comment,Float stars, Content.Image image) {
-        return new ReviewComment(null,comment,stars, image);
+    private double stars;
+    private final Content content;
+    public static ReviewComment withoutId(Comment comment,double stars, Content content) {
+        return new ReviewComment(null,comment,stars, content);
+    }
+    public static ReviewComment withId(Long id,Comment comment,double stars, Content content) {
+        return new ReviewComment(id,comment,stars, content);
+    }
+    public ReviewComment changeComment(Comment comment) {
+        return new ReviewComment(id,comment,stars, content);
     }
 }

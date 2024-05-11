@@ -3,6 +3,7 @@ package org.v1.service;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.v1.implementaion.image.ImageProcessor;
 import org.v1.implementaion.image.ImageRemover;
 import org.v1.implementaion.textarticle.TextArticleAppender;
 import org.v1.implementaion.textarticle.TextArticleReader;
@@ -24,6 +25,7 @@ public class TextArticleService {
     private final ImageAppender imageAppender;
     private final ImageRemover imageRemover;
     private final TextArticleRemover textArticleRemover;
+    private final ImageProcessor imageProcessor;
     public List<TextArticle> getRecentTextArticles(Long communityId) {
         return textArticleReader.readTenArticle(communityId);
     }
@@ -33,19 +35,12 @@ public class TextArticleService {
     @Transactional
     public Long createTextArticle(TextArticle article, Content content) {
         Long articleId = textArticleAppender.appendTextArticle(article);
-        List<Content.Image> imageList = content.getImages().stream()
-                .map(image -> {
-                    String path = imageAppender.appendImage(image.data(), articleId.toString());
-                    return Content.Image.withoutData(image.index(), path);
-                })
-                .toList();
+        List<Content.Image> imageList = imageProcessor.appendImages("H-BOARD",articleId, content.getImages());
         textArticleAppender.appendTextArticleContent(new Content(content.getTexts(), imageList).calculateIndex(), articleId);
         return articleId;
     }
     public void deleteTextArticle(Long articleId){
-        textArticleReader.readContent(articleId).getImages().forEach(image -> {
-            imageRemover.removeImage(image.path());
-        });
+        imageProcessor.removeImages(textArticleReader.readContent(articleId).getImages());
         textArticleRemover.removeArticle(articleId);
     }
 }
