@@ -9,4 +9,6 @@ import lombok.Getter;
 public class Community {
     private final Long id;
     private final String communityName;
+    private final String imageUrl;
+    private final Category category;
 }

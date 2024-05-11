@@ -2,6 +2,11 @@ package org.v1.repository;
 
 import org.v1.model.User;
 
+import java.util.Optional;
+
 public interface UserRepository {
-    User readUser(Long userId);
+    Optional<User> readUser(Long userId);
+    void appendUser(User user);
+    void updateUser(User user);
+    void removeUser(Long userId);
 }

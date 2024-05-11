@@ -2,8 +2,8 @@ package org.v1;
 
 
 import org.springframework.stereotype.Repository;
-import org.v1.domain.user.domain.User;
-import org.v1.domain.user.repository.UserRepository;
+import org.v1.model.User;
+import org.v1.repository.UserRepository;
 
 import java.util.Optional;
 
@@ -16,8 +16,8 @@ public class UserEntityJpaRepository implements UserRepository {
     }
 
     @Override
-    public void save(User user) {
-        userJpaRepository.save(UserJpaEntity.ofWithoutId(user)).toUser();
+    public Optional<User> appendUser(User user) {
+        return userJpaRepository.save(UserJpaEntity.ofWithoutId(user)).toUser();
     }
 
     @Override

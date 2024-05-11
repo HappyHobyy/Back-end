@@ -2,7 +2,7 @@ package org.v1;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.v1.domain.user.domain.User;
+import org.v1.model.User;
 import java.util.Optional;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -50,6 +50,7 @@ public class UserJpaEntity  extends BaseEntity {
                 .password(user.getPassword().password())
                 .type(user.getUserType())
                 .deviceToken(user.getDeviceToken())
+                .imageUrl(user.getImageUrl())
                 .build();
     }
     public static UserJpaEntity ofWithId(User user) {
@@ -63,6 +64,7 @@ public class UserJpaEntity  extends BaseEntity {
                 .password(user.getPassword() != null ? user.getPassword().password() : null)
                 .type(user.getUserType())
                 .deviceToken(user.getDeviceToken())
+                .imageUrl(user.getImageUrl())
                 .build();
     }
 

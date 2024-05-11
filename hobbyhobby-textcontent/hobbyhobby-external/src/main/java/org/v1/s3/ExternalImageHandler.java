@@ -22,7 +22,7 @@ public class ExternalImageHandler implements ImageRepository {
     private String bucket;
 
     public String uploadImage(File uploadFile, String dirName) {
-        String fileName = "H-BOARD"+dirName + "/" + uploadFile.getName();
+        String fileName = dirName + "/" + uploadFile.getName();
         String uploadImageUrl = putS3(uploadFile, fileName);
         removeNewFile(uploadFile);
         return uploadImageUrl;
