@@ -10,6 +10,6 @@ public interface ReviewArticleRepository {
     boolean checkArticleExist(Long articleId);
     UserStatus checkUserRelation(Long articleId, Long userId);
     Long appendArticle(ReviewArticle article);
-    void appendArticleContent(Content content, Long articleId);
+    void appendArticleContent(ReviewContent content, Long articleId);
     void removeArticle(Long articleId);
 }

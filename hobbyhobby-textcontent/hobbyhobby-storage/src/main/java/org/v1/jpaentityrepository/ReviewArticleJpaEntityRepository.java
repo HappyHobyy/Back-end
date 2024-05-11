@@ -37,7 +37,7 @@ public class ReviewArticleJpaEntityRepository implements ReviewArticleRepository
     }
 
     @Override
-    public void appendArticleContent(Content content, Long articleId) {
+    public void appendArticleContent(ReviewContent content, Long articleId) {
 
     }
 

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.v1.model.Content;
 import org.v1.model.ReviewArticle;
+import org.v1.model.ReviewContent;
 import org.v1.model.TextArticle;
 import org.v1.repository.ReviewArticleRepository;
 import org.v1.repository.TextArticleRepository;
@@ -15,7 +16,7 @@ public class ReviewArticleAppender {
     public Long appendArticle(ReviewArticle article) {
         return reviewArticleRepository.appendArticle(article);
     }
-    public void appendArticleContent(Content content, Long articleId) {
+    public void appendArticleContent(ReviewContent content, Long articleId) {
         reviewArticleRepository.appendArticleContent(content, articleId);
     }
 }

@@ -48,10 +48,10 @@ public class ReviewArticleController {
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> createArticle(
             @RequestPart ReviewArticleRequest.CreateRequest request,
-            @RequestPart("files") List<MultipartFile> files,
+            @RequestPart("file") MultipartFile file,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        Long articleId = reviewArticleService.createReviewArticle(request.toArticle(userId),request.toContent(fileUtil.convertMultipartFiles(files)));
+        Long articleId = reviewArticleService.createReviewArticle(request.toArticle(userId),request.toContent(fileUtil.convertMultipartFile(file)));
         return HttpResponse.success(DefaultId.of(articleId));
     }
 }
