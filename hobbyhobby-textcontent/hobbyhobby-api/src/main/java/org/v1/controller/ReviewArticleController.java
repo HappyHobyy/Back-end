@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.v1.dto.request.ReviewArticleRequest;
 import org.v1.dto.response.ReviewArticleResponse;
 import org.v1.global.util.FileUtil;
+import org.v1.model.Content;
 import org.v1.model.ReviewArticle;
 import org.v1.service.ReviewArticleService;
 import response.DefaultId;
@@ -51,7 +52,7 @@ public class ReviewArticleController {
             @RequestPart("file") MultipartFile file,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        Long articleId = reviewArticleService.createReviewArticle(request.toArticle(userId),request.toContent(fileUtil.convertMultipartFile(file)));
+        Long articleId = reviewArticleService.createReviewArticle(request.toArticle(userId),request.toContent(fileUtil.convertMultipartFile(file, Content.ImageType.REVIEW)));
         return HttpResponse.success(DefaultId.of(articleId));
     }
 }

@@ -13,6 +13,8 @@ import org.v1.implementaion.reviewcomment.ReviewCommentRemover;
 import org.v1.implementaion.reviewcomment.ReviewCommentValidator;
 import org.v1.model.*;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -29,13 +31,15 @@ public class ReviewArticleDetailService {
 
     public void deleteArticleComment(Long commentId) {
         ReviewComment comment = reviewCommentReader.readComment(commentId);
-        imageProcessor.removeImage(comment.getImage());
+        comment.getImage().ifPresent(imageProcessor::removeImage);
         reviewCommentRemover.removeComment(commentId);
     }
     public Long commentOnArticle(ReviewComment comment, Long articleId) {
         Long commentId = reviewCommentAppender.appendComment(comment, articleId);
-        Content.Image image = imageProcessor.appendImage("REVIEW-COMMENT",commentId, comment.getImage());
-        reviewCommentAppender.appendImage(image, commentId);
+        comment.getImage().ifPresent(image -> {
+            Content.Image processedImage = imageProcessor.appendImage(articleId, image);
+            reviewCommentAppender.appendImage(processedImage, commentId);
+        });
         return commentId;
     }
     public ReviewArticleDetail getArticleDetail(Long articleId, Long userId) {

@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.v1.dto.request.TextArticleRequest;
 import org.v1.dto.response.TextArticleResponse;
 import org.v1.global.util.FileUtil;
+import org.v1.model.Content;
 import org.v1.model.TextArticle;
 import org.v1.service.TextArticleService;
 import response.DefaultId;
@@ -55,12 +56,12 @@ public class TextArticleController {
     @PostMapping("")
     @Operation(summary = "h-board 게시글 저장")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> createArticle(
+    public HttpResponse<DefaultId> createArticle(
             @RequestPart TextArticleRequest.CreateRequest request,
             @RequestPart("files") List<MultipartFile> files,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        Long articleId = textArticleService.createTextArticle(request.toArticle(userId),request.toContent(fileUtil.convertMultipartFiles(files)));
+        Long articleId = textArticleService.createTextArticle(request.toArticle(userId),request.toContent(fileUtil.convertMultipartFiles(files, Content.ImageType.H_BOARD)));
         return HttpResponse.success(DefaultId.of(articleId));
     }
 }

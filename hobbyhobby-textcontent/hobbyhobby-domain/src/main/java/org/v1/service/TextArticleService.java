@@ -22,8 +22,6 @@ import java.util.List;
 public class TextArticleService {
     private final TextArticleReader textArticleReader;
     private final TextArticleAppender textArticleAppender;
-    private final ImageAppender imageAppender;
-    private final ImageRemover imageRemover;
     private final TextArticleRemover textArticleRemover;
     private final ImageProcessor imageProcessor;
     public List<TextArticle> getRecentTextArticles(Long communityId) {
@@ -35,7 +33,7 @@ public class TextArticleService {
     @Transactional
     public Long createTextArticle(TextArticle article, Content content) {
         Long articleId = textArticleAppender.appendTextArticle(article);
-        List<Content.Image> imageList = imageProcessor.appendImages("H-BOARD",articleId, content.getImages());
+        List<Content.Image> imageList = imageProcessor.appendImages(articleId, content.getImages());
         textArticleAppender.appendTextArticleContent(new Content(content.getTexts(), imageList).calculateIndex(), articleId);
         return articleId;
     }

@@ -29,16 +29,23 @@ public class ReviewArticleService {
         return reviewArticleReader.readTenArticle(communityId);
     }
     @Transactional
-    public Long createReviewArticle(ReviewArticle article,ReviewContent content) {
+    public Long createReviewArticle(ReviewArticle article, final ReviewContent content) {
         Long articleId = reviewArticleAppender.appendArticle(article);
-        Content.Image image = imageProcessor.appendImage("REVIEW",articleId, content.image());
-        reviewArticleAppender.appendArticleContent(new ReviewContent(content.text(),image),articleId);
+        ReviewContent finalContent = content.getImage()
+                .map(image -> {
+                    Content.Image processedImage = imageProcessor.appendImage(articleId, image);
+                    return ReviewContent.content(content.getText().orElse(null), processedImage);
+                })
+                .orElse(content);
+        reviewArticleAppender.appendArticleContent(finalContent, articleId);
         return articleId;
     }
+
     public void deleteReviewArticle(Long articleId) {
         reviewCommentReader.readComments(articleId).stream()
                 .map(ReviewComment::getImage)
                 .filter(Objects::nonNull)
+                .flatMap(Optional::stream)
                 .forEach(imageProcessor::removeImage);
         ReviewContent content = reviewArticleReader.readContent(articleId);
         content.getImage().ifPresent(imageProcessor::removeImage);

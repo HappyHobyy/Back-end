@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 public class ImageProcessor {
     private final ImageRemover imageRemover;
     private final ImageAppender imageAppender;
-    public List<Content.Image> appendImages(String prefix, Long id, List<Content.Image> images) {
+    public List<Content.Image> appendImages(Long id, List<Content.Image> images) {
         return images.stream()
                 .map(image -> {
-                    String path = imageAppender.appendImage(image.data(), prefix + id.toString());
-                    return Content.Image.withoutData(image.index(), path);
+                    String path = imageAppender.appendImage(image.data(), image.type() + id.toString());
+                    return Content.Image.withoutData(image.index(), path,image.type());
                 })
                 .collect(Collectors.toList());
     }
@@ -27,8 +27,8 @@ public class ImageProcessor {
     public void removeImage(Content.Image image) {
         imageRemover.removeImage(image.path());
     }
-    public Content.Image appendImage(String prefix, Long id,Content.Image image) {
-        String path = imageAppender.appendImage(image.data(), image.index().toString());
-        return Content.Image.withoutData(image.index(), path);
+    public Content.Image appendImage(Long id,Content.Image image) {
+        String path = imageAppender.appendImage(image.data(), image.type() + id.toString());
+        return Content.Image.withoutData(image.index(), path, image.type());
     }
 }

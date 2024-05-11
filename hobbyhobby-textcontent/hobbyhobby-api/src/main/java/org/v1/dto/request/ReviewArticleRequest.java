@@ -41,7 +41,7 @@ public record ReviewArticleRequest(
             String text
     ){
         public ReviewContent toContent(Content.Image image){
-            return new ReviewContent(new Content.Text(0,text),image);
+            return ReviewContent.content(new Content.Text(0,text),image);
         }
         public ReviewArticle toArticle(Long userId) {
             return ReviewArticle.initialize(new Article(title,date, User.onlyUserId(userId),0));

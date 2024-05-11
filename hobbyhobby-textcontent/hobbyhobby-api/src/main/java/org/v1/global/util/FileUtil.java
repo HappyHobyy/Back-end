@@ -29,13 +29,13 @@ public class FileUtil {
         return convertFile;
     }
 
-    public List<Content.Image> convertMultipartFiles(List<MultipartFile> multipartFiles) {
+    public List<Content.Image> convertMultipartFiles(List<MultipartFile> multipartFiles, Content.ImageType type) {
         return multipartFiles != null ?
                 multipartFiles.stream()
                         .map(file -> {
                             try {
                                 File convertedFile = convertMultipartFileToFile(file);
-                                return Content.Image.withoutPath(multipartFiles.indexOf(file), convertedFile);
+                                return Content.Image.withoutPath(multipartFiles.indexOf(file), convertedFile,type);
                             } catch (IOException e) {
                                 throw new RuntimeException("MultipartFile -> File로 전환이 실패했습니다.", e);
                             }
@@ -43,9 +43,9 @@ public class FileUtil {
                         .collect(Collectors.toList()) :
                 Collections.emptyList();
     }
-    public Content.Image convertMultipartFile(MultipartFile multipartFile) {
+    public Content.Image convertMultipartFile(MultipartFile multipartFile, Content.ImageType type) {
         try {
-            return multipartFile != null ? Content.Image.withoutPath(0, convertMultipartFileToFile(multipartFile)) : null;
+            return multipartFile != null ? Content.Image.withoutPath(0, convertMultipartFileToFile(multipartFile),type) : null;
         } catch (IOException e) {
             throw new RuntimeException("MultipartFile을 File로 변환하는데 실패했습니다.", e);
         }

@@ -40,7 +40,9 @@ public record ReviewArticleDetailResponse(
                     comment.getComment().getDate(),
                     comment.getComment().getUserStatus().isUserArticleOwner(),
                     comment.getComment().getText(),
-                    comment.getImage().path(),
+                    comment.getImage()
+                            .map(Content.Image::path)
+                            .orElse(null),
                     comment.getStars()
             );
         }
@@ -51,8 +53,12 @@ public record ReviewArticleDetailResponse(
             return null;
         }
         return new ReviewArticleDetailResponse(
-                reviewArticleDetail.getReviewContent().text().text(),
-                reviewArticleDetail.getReviewContent().image().path(),
+                reviewArticleDetail.getReviewContent().getText()
+                        .map(Content.Text::text)
+                        .orElse(null),
+                reviewArticleDetail.getReviewContent().getImage()
+                        .map(Content.Image::path)
+                        .orElse(null),
                 reviewArticleDetail.getComments().stream()
                         .map(CommentResponse::of)
                         .collect(Collectors.toList()),

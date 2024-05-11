@@ -13,16 +13,21 @@ public class Content {
     private final List<Text> texts;
     private final List<Image> images;
 
-    public record Image(Integer index, String path, File data) {
-        public static Image withoutPath(Integer index, File data) {
-            return new Image(index,null, data);
+    public record Image(Integer index, String path, File data,ImageType type) {
+        public static Image withoutPath(Integer index, File data,ImageType type) {
+            return new Image(index,null, data,type);
         }
-        public static Image withoutData(Integer index, String path) {
-            return new Image(index,path, null);
+        public static Image withoutData(Integer index, String path,ImageType type) {
+            return new Image(index,path, null,type);
         }
         public Image updateIndex(Integer index) {
-            return new Image(index, this.path(), this.data());
+            return new Image(index, this.path(), this.data(),this.type());
         }
+    }
+    public enum ImageType {
+        REVIEW,
+        REVIEW_COMMENT,
+        H_BOARD
     }
 
     public record Text(Integer index, String text) {

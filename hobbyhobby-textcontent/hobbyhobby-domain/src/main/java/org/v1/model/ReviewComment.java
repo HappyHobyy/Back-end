@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
+
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ReviewComment {
@@ -20,5 +22,8 @@ public class ReviewComment {
     }
     public ReviewComment changeComment(Comment comment) {
         return new ReviewComment(id,comment,stars,image);
+    }
+    public Optional<Content.Image> getImage() {
+        return Optional.ofNullable(image);
     }
 }
