@@ -1,7 +1,7 @@
 spring:
   cloud:
     function:
-      definition: photoContent;
+      definition: allCommunity,photoContent;
     stream:
       bindings:
         photoContent-in-0:
@@ -19,12 +19,11 @@ spring:
           allCommunity-out-0:
             producer:
               exchangeType: direct
-              binding-routing-key: AllCommunity
+              routing-key: AllCommunity
           allCommunity-in-0:
-            producer:
+            consumer:
               exchangeType: direct
               binding-routing-key: AllCommunity
-
   rabbitmq:
     host: 52.79.143.36
     username: root
