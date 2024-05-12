@@ -23,7 +23,7 @@ public record PhotoArticleRequest(
     public record GetRequest(
             @Schema(description = "커뮤니티Id", example = "123")
             @NotNull(message = "커뮤니티Id는 필수 입력값입니다.")
-            Long communityId
+            Integer communityId
     ) {}
     public record DeleteRequest(
             @Schema(description = "게시글Id", example = "123")
@@ -33,7 +33,7 @@ public record PhotoArticleRequest(
     public record CreateRequest(
             @Schema(description = "커뮤니티Id", example = "123")
             @NotNull(message = "필수")
-            Long communityId,
+            Integer communityId,
             @Schema(description = "게시글 날짜", example = "2024-05-06T15:23:45.123456789")
             @NotNull(message = "필수")
             LocalDateTime date,
@@ -47,7 +47,7 @@ public record PhotoArticleRequest(
                             .map(file -> {
                                 try {
                                     File convertedFile = convertMultipartFileToFile(file);
-                                    return Content.ImageVideo.withoutPath(multipartFiles.indexOf(file), convertedFile);
+                                    return Content.ImageVideo.withoutPath(multipartFiles.indexOf(file), convertedFile, Content.FileType.H_LOG);
                                 } catch (IOException e) {
                                     throw new RuntimeException("MultipartFile -> File로 전환이 실패했습니다.",e);
                                 }
@@ -58,7 +58,7 @@ public record PhotoArticleRequest(
         }
 
         public PhotoArticle toArticle(Long userId) {
-            return PhotoArticle.withoutId(this.date(),User.onlyUserId(userId) , 0,0);
+            return PhotoArticle.withoutId(this.date(),User.onlyUserId(userId));
         }
     }
 }

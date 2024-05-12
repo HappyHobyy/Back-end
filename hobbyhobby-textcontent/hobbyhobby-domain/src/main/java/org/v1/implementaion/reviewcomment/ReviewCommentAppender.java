@@ -11,10 +11,10 @@ import org.v1.repository.ReviewCommentRepository;
 @AllArgsConstructor
 public class ReviewCommentAppender {
     private final ReviewCommentRepository reviewCommentRepository;
-    public Long appendComment(final Comment comment, final Long articleId) {
+    public Long appendComment(final ReviewComment comment, final Long articleId) {
         return reviewCommentRepository.appendComment(comment,articleId);
     }
-    public void appendContent(final Content content, final Long commentId) {
-        reviewCommentRepository.appendContent(content,commentId);
+    public void appendImage(final Content.Image image, final Long commentId) {
+        reviewCommentRepository.appendImage(image,commentId);
     }
 }

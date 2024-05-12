@@ -42,7 +42,7 @@ public record PhotoArticleDetailResponse(
             boolean isUserCommentOwner
     ) {
         public static CommentResponse of(Comment comment) {
-            return new CommentResponse(comment.getId(), comment.getUser().nickname(), comment.getDate(), comment.getText(), comment.isUserCommentOwner());
+            return new CommentResponse(comment.getId(), comment.getUser().nickname(), comment.getDate(), comment.getText(), comment.getUserStatus().isUserOwner());
         }
     }
 
@@ -56,7 +56,7 @@ public record PhotoArticleDetailResponse(
                         Optional.ofNullable(detail.getComments())
                                 .map(comments -> comments.stream().map(CommentResponse::of).toList())
                                 .orElse(Collections.emptyList()),
-                        Optional.of(detail.getUserStatus().isUserArticleOwner()).orElse(false),
+                        Optional.of(detail.getUserStatus().isUserOwner()).orElse(false),
                         Optional.of(detail.getUserStatus().isUserLiked()).orElse(false)
                 ))
                 .map(List::of)

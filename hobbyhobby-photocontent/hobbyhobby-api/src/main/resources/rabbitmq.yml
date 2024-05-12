@@ -1,25 +1,19 @@
 spring:
   cloud:
     function:
-      definition: userCached;
+      definition: community;user;
     stream:
       bindings:
-        userCached-out-0:
-          destination: allPhotoContent
-        userCached-in-0:
-          destination: allPhotoContent
+        photoContent-out-0:
+          destination: community
         user-in-0:
           destination: photoContent
       rabbit:
         bindings:
-          userCached-out-0:
+          photoContent-out-0:
             producer:
               exchangeType: direct
-              routing-key: UserCached
-          userCached-in-0:
-            consumer:
-              exchangeType: direct
-              binding-routing-key: UserCached
+              routing-key: PhotoContent
           user-in-0:
             producer:
               exchangeType: direct

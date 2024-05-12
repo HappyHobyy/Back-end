@@ -12,13 +12,14 @@ public class PhotoArticle {
     private final Long id;
     private final LocalDateTime date;
     private final User user;
-    private final Integer likes;
-    private final Integer comments;
-    private final String firstImageUrl;
-    public static PhotoArticle withoutId(LocalDateTime date, User user, Integer likes, Integer comments){
-        return new PhotoArticle(null,date,user,likes,comments,null);
+    private final LikesComments likesComments;
+    private final String mainImageUrl;
+    public static PhotoArticle withoutId(LocalDateTime date, User user){
+        return new PhotoArticle(null,date,user,null,null);
     }
-    public PhotoArticle changeUser(User user){
-        return new PhotoArticle(this.id,this.date,user,this.likes,this.comments,this.firstImageUrl);
+    public record LikesComments(Integer likes, Integer comments) {
+    }
+    public PhotoArticle withLikesComments(LikesComments likesComments) {
+        return new PhotoArticle(this.id, this.date, this.user, likesComments,this.mainImageUrl);
     }
 }

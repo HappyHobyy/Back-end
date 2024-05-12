@@ -56,7 +56,7 @@ public record TextArticleDetailResponse(
                     textComment.getId(),
                     textComment.getComment().getUser().nickname(),
                     textComment.getComment().getDate(),
-                    textComment.getText(),
+                    textComment.getComment().getText(),
                     textComment.getComment().getUserStatus().isUserArticleOwner());
         }
     }

@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.v1.global.util.FileUtil.convertMultipartFileToFile;
 
 public record ReviewArticleCommentRequest(
         Create create,
@@ -25,34 +24,23 @@ public record ReviewArticleCommentRequest(
             @Schema(description = "별점", example = "4.512321")
             @NotNull(message = "리뷰 별점는 필수 입력값입니다.")
             double star,
-            List<TextRequest> textList
-    ){
-        public record TextRequest(
-                @Schema(description = "순서", example = "1")
-                @NotNull(message = "필수")
-                Integer index,
-                @Schema(description = "내용", example = "text")
-                @NotNull(message = "필수")
-                String text
-        ){}
-        private Content toContent(List<Content.Image> imageList) {
-            List<Content.Text> textList = this.textList() != null ?
-                    this.textList().stream()
-                            .map(textRequest -> new Content.Text(textRequest.index(), textRequest.text()))
-                            .toList() :
-                    Collections.emptyList();
-            return new Content(textList, imageList);
-        }
+            @Schema(description = "댓글 내용", example = "testComment")
+            @NotNull(message = "댓글 내용은 필수 입력값입니다.")
+            String comment
+    ) {
         private Comment toComment(Long userId) {
-            return new Comment(User.onlyUserId(userId),LocalDateTime.now(),null);
+            return new Comment(User.onlyUserId(userId), LocalDateTime.now(), comment,null);
         }
-        public ReviewComment toReviewComment(List<Content.Image> imageList, Long userId) {
-            return ReviewComment.withoutId(toComment(userId),star,toContent(imageList));
+
+        public ReviewComment toReviewComment(Content.Image image, Long userId) {
+            return ReviewComment.withoutId(toComment(userId), star, image);
         }
     }
+
     public record Delete(
             @Schema(description = "댓글Id", example = "456")
             @NotNull(message = "댓글Id는 필수 입력값입니다.")
             Long commentId
-    ) {}
+    ) {
+    }
 }

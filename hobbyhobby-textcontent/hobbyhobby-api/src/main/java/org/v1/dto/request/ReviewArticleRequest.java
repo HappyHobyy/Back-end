@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.v1.global.util.FileUtil.convertMultipartFileToFile;
 
 public record ReviewArticleRequest(
         LatestRequest latest,
@@ -39,24 +38,10 @@ public record ReviewArticleRequest(
             @Schema(description = "게시글 날짜", example = "2024-05-06T15:23:45.123456789")
             @NotNull(message = "필수")
             LocalDateTime date,
-            List<TextRequest> textList
+            String text
     ){
-        public record TextRequest(
-                @Schema(description = "순서", example = "1")
-                @NotNull(message = "필수")
-                Integer index,
-                @Schema(description = "내용", example = "text")
-                @NotNull(message = "필수")
-                String text
-        ){};
-
-        public Content toContent(List<Content.Image> images) {
-            List<Content.Text> textList = this.textList() != null ?
-                    this.textList().stream()
-                            .map(textRequest -> new Content.Text(textRequest.index(), textRequest.text()))
-                            .toList() :
-                    Collections.emptyList();
-            return new Content(textList, images);
+        public ReviewContent toContent(Content.Image image){
+            return ReviewContent.content(new Content.Text(0,text),image);
         }
         public ReviewArticle toArticle(Long userId) {
             return ReviewArticle.initialize(new Article(title,date, User.onlyUserId(userId),0));
