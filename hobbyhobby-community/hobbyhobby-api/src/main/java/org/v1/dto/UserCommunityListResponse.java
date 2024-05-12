@@ -1,6 +1,6 @@
 package org.v1.dto;
 
-import org.v1.model.UserCommunity;
+import org.v1.model.community.UserCommunity;
 
 import java.util.List;
 

@@ -1,7 +1,9 @@
 package org.v1.model;
 
+import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
+@Getter
 public class LikeEvent extends ApplicationEvent {
     private final Integer communityId;
     private final LikeType likeType;
@@ -11,12 +13,7 @@ public class LikeEvent extends ApplicationEvent {
         this.communityId =communityId;
         this.likeType = likeType;
     }
-    public Integer getCommunityId() {
-        return communityId;
-    }
-    public LikeType getLikeType() {
-        return likeType;
-    }
+
     public enum LikeType {
         LIKE,
         DISLIKE

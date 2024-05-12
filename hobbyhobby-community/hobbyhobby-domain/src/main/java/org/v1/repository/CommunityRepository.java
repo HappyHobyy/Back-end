@@ -1,7 +1,7 @@
 package org.v1.repository;
 
-import org.v1.model.Community;
-import org.v1.model.UserCommunity;
+import org.v1.model.community.Community;
+import org.v1.model.community.UserCommunity;
 
 import java.util.List;
 

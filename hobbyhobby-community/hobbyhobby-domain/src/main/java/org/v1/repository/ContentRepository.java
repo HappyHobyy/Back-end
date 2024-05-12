@@ -1,10 +1,7 @@
 package org.v1.repository;
 
-import org.v1.model.Community;
-import org.v1.model.Contents;
-import org.v1.model.PhotoArticle;
-
-import java.util.List;
+import org.v1.model.community.Community;
+import org.v1.model.content.Contents;
 
 public interface ContentRepository {
     Contents.PhotoArticles readPopularPhotoContent(Community community);

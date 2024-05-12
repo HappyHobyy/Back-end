@@ -1,6 +1,5 @@
 package org.v1.rabbitmq;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,15 +7,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Component;
-import org.v1.model.Contents;
-import org.v1.model.PhotoArticle;
+import org.v1.model.content.Contents;
+import org.v1.model.content.PhotoArticle;
 import org.v1.service.CommunityService;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -41,7 +39,7 @@ public class ExternalPhotoContentMessageReceiver {
                             .parallelStream()
                             .map(PhotoArticleMessage::toArticle)
                             .toList();
-                    communityService.refreshPhotoArticle(new Contents.PhotoArticles(popularCommunityArticle,notPopularCommunityArticle));
+                    communityService.updatePhotoArticle(new Contents.PhotoArticles(popularCommunityArticle,notPopularCommunityArticle));
                 } else {
                     log.warn("Unhandled routing key: {}", payload);
                 }
