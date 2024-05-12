@@ -5,6 +5,5 @@ import org.v1.model.PhotoArticle;
 import java.util.List;
 
 public interface ExternalCommunitySender {
-    void sendPopularCommunityArticle(List<PhotoArticle> photos);
-    void sendNotPopularCommunityArticle(List<PhotoArticle> photos);
+    void sendCommunityPopularArticle(List<PhotoArticle> popularCommunity,List<PhotoArticle> notPopularCommunity );
 }

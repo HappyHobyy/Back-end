@@ -24,8 +24,7 @@ public class ScheduleService {
         Integer communityId = communityManager.readPopulistCommunity();
         List<PhotoArticle> popularCommunityHotArticles = photoArticleReader.readPopularCommunityHotArticle(communityId);
         List<PhotoArticle> notPopularCommunityHotArticles = photoArticleReader.readNotPopularCommunityHotArticle(communityId);
-        communityManager.sendPopularCommunityArticle(popularCommunityHotArticles);
-        communityManager.sendNotPopularCommunityArticle(notPopularCommunityHotArticles);
+        communityManager.sendCommunityPopularArticle(popularCommunityHotArticles,notPopularCommunityHotArticles);
     }
     @Scheduled(cron = "0 0 12 * * *", zone = "Asia/Seoul")
     @SchedulerLock(name = "communityHotReset")

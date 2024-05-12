@@ -5,7 +5,7 @@ import org.v1.model.Community;
 import java.util.List;
 
 public record CommunityListResponse(
-        Long communityId,
+        Integer communityId,
         String communityName,
         String imageUrl
 ) {

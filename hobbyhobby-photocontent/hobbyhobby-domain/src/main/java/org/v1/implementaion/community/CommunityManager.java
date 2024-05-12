@@ -26,10 +26,7 @@ public class CommunityManager {
     public Integer readPopulistCommunity(){
         return communityRepository.readPopulistCommunity();
     }
-    public void sendPopularCommunityArticle(List<PhotoArticle> articles){
-        externalCommunitySender.sendPopularCommunityArticle(articles);
-    }
-    public void sendNotPopularCommunityArticle(List<PhotoArticle> articles){
-        externalCommunitySender.sendNotPopularCommunityArticle(articles);
+    public void sendCommunityPopularArticle(List<PhotoArticle> popularCommunity,List<PhotoArticle> notPopularCommunity){
+        externalCommunitySender.sendCommunityPopularArticle(popularCommunity,notPopularCommunity);
     }
 }

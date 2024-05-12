@@ -1,7 +1,9 @@
 package org.v1.rabbitmq;
 
 
+import org.v1.model.Community;
 import org.v1.model.PhotoArticle;
+import org.v1.model.User;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -14,22 +16,14 @@ public record PhotoArticleMessage(
         String nickname,
         Integer likes,
         Integer comments,
-        String url
+        String url,
+        Long userId,
+        String userName,
+        String userImageUrl,
+        Integer communityId
 
 ) {
-    public static List<PhotoArticleMessage> of(List<PhotoArticle> photoArticleList) {
-        if (photoArticleList == null) {
-            return Collections.emptyList();
-        }
-        return photoArticleList.stream()
-                .map(photoArticle -> new PhotoArticleMessage(
-                        photoArticle.getId(),
-                        photoArticle.getDate(),
-                        photoArticle.getUser().nickname(),
-                        photoArticle.getLikesComments().likes(),
-                        photoArticle.getLikesComments().comments(),
-                        photoArticle.getMainImageUrl()
-                ))
-                .collect(Collectors.toList());
+    public PhotoArticle toArticle() {
+        return PhotoArticle.withId(photoArticleId,date,new User(userId,userName,userImageUrl),likes,comments,url, Community.onlyWithId(communityId));
     }
 }

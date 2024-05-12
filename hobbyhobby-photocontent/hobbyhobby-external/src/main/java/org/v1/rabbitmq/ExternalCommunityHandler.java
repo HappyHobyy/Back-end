@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.v1.external.ExternalCommunitySender;
 import org.v1.model.PhotoArticle;
 import org.v1.rabbitmq.dto.PhotoArticleMessage;
+import org.v1.rabbitmq.dto.PhotoArticleMessageList;
 
 import java.util.List;
 
@@ -16,12 +17,7 @@ public class ExternalCommunityHandler implements ExternalCommunitySender {
     private final ExternalCommunityMessageSender messageHandler;
 
     @Override
-    public void sendPopularCommunityArticle(List<PhotoArticle> photos) {
-        messageHandler.sendCommunityFromPhotoContent(PhotoArticleMessage.of(photos),"Popular");
-    }
-
-    @Override
-    public void sendNotPopularCommunityArticle(List<PhotoArticle> photos) {
-        messageHandler.sendCommunityFromPhotoContent(PhotoArticleMessage.of(photos),"NotPopular");
+    public void sendCommunityPopularArticle(List<PhotoArticle> popularCommunity, List<PhotoArticle> notPopularCommunity) {
+        messageHandler.sendCommunityFromPhotoContent(new PhotoArticleMessageList(PhotoArticleMessage.of(popularCommunity),PhotoArticleMessage.of(notPopularCommunity)),"photo");
     }
 }

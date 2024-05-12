@@ -5,7 +5,7 @@ import org.v1.model.UserCommunity;
 import java.util.List;
 
 public record UserCommunityListResponse(
-        Long communityId,
+        Integer communityId,
         String communityName,
         String imageUrl,
         Integer userHistoryCount
