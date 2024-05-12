@@ -6,17 +6,13 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class Comment {
-    private Long id;
-    private User user;
-    private LocalDateTime date;
-    private String text;
-    private boolean isUserCommentOwner;
-    public static Comment withoutId(User user, LocalDateTime date, String text, boolean isUserCommentOwner) {
-        return new Comment(null, user, date, text, isUserCommentOwner);
-    }
-    public Comment changeUser(User user,Long commandUserId) {
-        return new Comment(id, user, date, text, commandUserId.equals(user.id()));
+    private final User user;
+    private final LocalDateTime date;
+    private final String text;
+    private final UserStatus userStatus;
+    public Comment validateUserComment(Long commandUserId) {
+        return new Comment(user, date, text,UserStatus.onlyIsUserArticleOwner(commandUserId.equals(getUser().id())));
     }
 }

@@ -3,10 +3,9 @@ package org.v1.service;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.v1.implementaion.UserAppender;
-import org.v1.implementaion.UserReader;
-import org.v1.implementaion.UserRemover;
-import org.v1.implementaion.UserUpdater;
+import org.v1.implementaion.user.UserAppender;
+import org.v1.implementaion.user.UserRemover;
+import org.v1.implementaion.user.UserUpdater;
 import org.v1.model.User;
 
 @Service
