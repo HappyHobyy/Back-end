@@ -5,25 +5,22 @@ import org.v1.model.Contents;
 
 import java.util.concurrent.ConcurrentHashMap;
 @Component
-public class CashedContentReader {
-    private final ConcurrentHashMap<String, Contents> cache;
+public class CachedPhotoArticlesHandler {
+    private final ConcurrentHashMap<String, Object> cache;
 
-    public CashedContentReader() {
+    public CachedPhotoArticlesHandler() {
         this.cache = new ConcurrentHashMap<>();
     }
-    public void put(String key, Contents value) {
+
+    public void put(String key, Object value) {
         cache.put(key, value);
     }
 
-    public Contents get(String key) {
+    public Object get(String key) {
         return cache.get(key);
     }
 
     public void remove(String key) {
         cache.remove(key);
-    }
-
-    public void clear() {
-        cache.clear();
     }
 }
