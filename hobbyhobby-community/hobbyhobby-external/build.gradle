@@ -1,3 +1,4 @@
+
 ext {
     set('springCloudVersion', "2022.0.2")
 }
@@ -7,7 +8,7 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
     implementation project(':hobbyhobby-common')
     implementation project(':hobbyhobby-community:hobbyhobby-domain')
-    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit:4.0.4'
 }
 dependencyManagement {
     imports {
