@@ -11,7 +11,4 @@ public class PhotoArticleDetail {
     private final List<Comment> comments;
     private final Content content;
     private final UserStatus userStatus;
-    public record UserStatus(boolean isUserLiked, boolean isUserArticleOwner) {
-    }
-
 }

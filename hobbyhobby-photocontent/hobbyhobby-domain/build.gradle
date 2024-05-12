@@ -1,5 +1,7 @@
 dependencies {
     implementation project(':hobbyhobby-common')
+    implementation 'net.javacrumbs.shedlock:shedlock-spring:4.14.0'
+    implementation 'net.javacrumbs.shedlock:shedlock-provider-jdbc-template:4.14.0'
     compileOnly('org.springframework:spring-context')
     compileOnly('jakarta.transaction:jakarta.transaction-api:2.0.1')
 }

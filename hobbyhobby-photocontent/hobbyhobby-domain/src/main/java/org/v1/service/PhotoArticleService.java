@@ -2,14 +2,14 @@ package org.v1.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.v1.implementaion.*;
-import org.v1.implementaion.ImageVideoAppender;
-import org.v1.implementaion.ImageVideoRemover;
-import org.v1.implementaion.PhotoArticleAppender;
-import org.v1.implementaion.PhotoArticleReader;
+import org.v1.implementaion.comment.CommentCounter;
+import org.v1.implementaion.imagevideo.ImageVideoProcessor;
+import org.v1.implementaion.like.LikeCounter;
+import org.v1.implementaion.photoarticle.PhotoArticleAppender;
+import org.v1.implementaion.photoarticle.PhotoArticleReader;
+import org.v1.implementaion.photoarticle.PhotoArticleRemover;
 import org.v1.model.PhotoArticle;
 import org.v1.model.Content;
-import org.v1.model.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,46 +18,35 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class PhotoArticleService {
     private final PhotoArticleReader photoArticleReader;
-    private final PhotoArticleDetailReader photoArticleDetailReader;
     private final PhotoArticleAppender photoArticleAppender;
     private final PhotoArticleRemover photoArticleRemover;
-    private final ImageVideoRemover imageVideoRemover;
-    private final ImageVideoAppender imageVideoAppender;
-    private final UserReader userReader;
+    private final ImageVideoProcessor imageVideoProcessor;
+    private final LikeCounter likeCounter;
+    private final CommentCounter commentCounter;
 
-    public List<PhotoArticle> getTenArticleLatest(Long communityId) {
-        List<PhotoArticle> photoArticles = photoArticleReader.readTenArticleLatest(communityId);
-        return photoArticles.stream()
+    public List<PhotoArticle> getTenArticleLatest(Integer communityId) {
+        return photoArticleReader.readTenArticleLatest(communityId)
+                .parallelStream()
                 .map(photoArticle -> {
-                    User user = userReader.readUser(photoArticle.getUser().id());
-                    return photoArticle.changeUser(user);
+                    PhotoArticle.LikesComments likesComments = new PhotoArticle.LikesComments(
+                            likeCounter.countLike(photoArticle.getId()),
+                            commentCounter.countComment(photoArticle.getId())
+                    );
+                    return photoArticle.withLikesComments(likesComments);
                 })
                 .collect(Collectors.toList());
     }
-    public List<PhotoArticle> getTenArticleLikes(Long communityId) {
-        List<PhotoArticle> photoArticles = photoArticleReader.readTenArticleLikes(communityId);
-        return photoArticles.stream()
-                .map(photoArticle -> {
-                    User user = userReader.readUser(photoArticle.getUser().id());
-                    return photoArticle.changeUser(user);
-                })
-                .collect(Collectors.toList());
+    public List<PhotoArticle> getTenArticleLikes(Integer communityId) {
+        return  photoArticleReader.readTenArticleLikes(communityId);
     }
     public Long createArticle(PhotoArticle photoArticle, Content content) {
         Long photoArticleId = photoArticleAppender.appendPhotoArticle(photoArticle);
-        List<Content.ImageVideo> fileList = content.getImages().stream()
-                .map(imageVideo -> {
-                    String path = imageVideoAppender.appendFile(imageVideo.data(), photoArticleId.toString());
-                    return Content.ImageVideo.withoutData(imageVideo.index(), path);
-                })
-                .toList();
-        photoArticleAppender.appendPhotoArticleContent(new Content(content.getText(), fileList), photoArticleId);
+        List<Content.ImageVideo> imageVideos = imageVideoProcessor.appendFiles(photoArticleId, content.getImages());
+        photoArticleAppender.appendPhotoArticleContent(new Content(content.getText(), imageVideos), photoArticleId);
         return photoArticleId;
     }
     public void deleteArticle(Long photoArticleId){
-        photoArticleDetailReader.readContent(photoArticleId).getImages().forEach(imageVideo -> {
-            imageVideoRemover.removeFile(imageVideo.path());
-        });
+        imageVideoProcessor.removeImages(photoArticleReader.readContent(photoArticleId).getImages());
         photoArticleRemover.removeArticle(photoArticleId);
     }
 }
