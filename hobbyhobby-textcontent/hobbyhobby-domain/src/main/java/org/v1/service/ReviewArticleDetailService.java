@@ -13,6 +13,8 @@ import org.v1.implementaion.reviewcomment.ReviewCommentRemover;
 import org.v1.implementaion.reviewcomment.ReviewCommentValidator;
 import org.v1.model.*;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -29,20 +31,22 @@ public class ReviewArticleDetailService {
 
     public void deleteArticleComment(Long commentId) {
         ReviewComment comment = reviewCommentReader.readComment(commentId);
-        imageProcessor.removeImages(comment.getContent().getImages());
+        comment.getImage().ifPresent(imageProcessor::removeImage);
         reviewCommentRemover.removeComment(commentId);
     }
     public Long commentOnArticle(ReviewComment comment, Long articleId) {
-        Long commentId = reviewCommentAppender.appendComment(comment.getComment(), articleId);
-        Content content = new Content(comment.getContent().getTexts(), imageProcessor.appendImages("REVIEW-COMMENT",commentId, comment.getContent().getImages()));
-        reviewCommentAppender.appendContent(content.calculateIndex(), articleId);
+        Long commentId = reviewCommentAppender.appendComment(comment, articleId);
+        comment.getImage().ifPresent(image -> {
+            Content.Image processedImage = imageProcessor.appendImage(articleId, image);
+            reviewCommentAppender.appendImage(processedImage, commentId);
+        });
         return commentId;
     }
     public ReviewArticleDetail getArticleDetail(Long articleId, Long userId) {
         UserStatus userStatus = reviewArticleChecker.checkArticleUserRelation(articleId, userId);
         List<ReviewComment> comments = reviewCommentReader.readComments(articleId);
         List<ReviewComment> updatedComments = reviewCommentValidator.validateComments(comments, userId);
-        Content content = reviewArticleReader.readContent(articleId);
+        ReviewContent content = reviewArticleReader.readContent(articleId);
         return new ReviewArticleDetail(updatedComments, content, userStatus);
     }
 

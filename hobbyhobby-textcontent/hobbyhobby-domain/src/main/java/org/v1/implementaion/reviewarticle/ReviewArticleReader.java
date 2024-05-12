@@ -2,10 +2,9 @@ package org.v1.implementaion.reviewarticle;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.v1.model.Content;
-import org.v1.model.ReviewArticle;
-import org.v1.model.Search;
-import org.v1.model.TextArticle;
+import org.v1.error.BusinessException;
+import org.v1.error.ErrorCode;
+import org.v1.model.*;
 import org.v1.repository.ReviewArticleRepository;
 import org.v1.repository.TextArticleRepository;
 
@@ -18,7 +17,11 @@ public class ReviewArticleReader {
     public List<ReviewArticle> readTenArticle(Long communityId) {
         return reviewArticleRepository.readArticleByCommunity(communityId);
     }
-    public Content readContent(Long articleId) {
-        return reviewArticleRepository.readTextContent(articleId);
+    public ReviewContent readContent(Long articleId) {
+        ReviewContent content = reviewArticleRepository.readReviewContent(articleId);
+        if(content == null){
+            throw new BusinessException(ErrorCode.REVIEW_ARTICLE_NOT_FOUND);
+        }
+        return reviewArticleRepository.readReviewContent(articleId);
     }
 }

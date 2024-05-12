@@ -9,12 +9,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.v1.dto.request.ReviewArticleRequest;
-import org.v1.dto.request.TextArticleRequest;
 import org.v1.dto.response.ReviewArticleResponse;
-import org.v1.dto.response.TextArticleResponse;
 import org.v1.global.util.FileUtil;
+import org.v1.model.Content;
 import org.v1.model.ReviewArticle;
-import org.v1.model.TextArticle;
 import org.v1.service.ReviewArticleService;
 import response.DefaultId;
 import response.HttpResponse;
@@ -51,10 +49,10 @@ public class ReviewArticleController {
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> createArticle(
             @RequestPart ReviewArticleRequest.CreateRequest request,
-            @RequestPart("files") List<MultipartFile> files,
+            @RequestPart("file") MultipartFile file,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        Long articleId = reviewArticleService.createReviewArticle(request.toArticle(userId),request.toContent(fileUtil.convertMultipartFiles(files)));
+        Long articleId = reviewArticleService.createReviewArticle(request.toArticle(userId),request.toContent(fileUtil.convertMultipartFile(file, Content.ImageType.REVIEW)));
         return HttpResponse.success(DefaultId.of(articleId));
     }
 }

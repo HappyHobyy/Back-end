@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableAsync
 @SpringBootApplication
-@EnableFeignClients
 public class HobbyHobbyApplication {
     public static void main(String[] args) {
         SpringApplication.run(HobbyHobbyApplication.class, args);

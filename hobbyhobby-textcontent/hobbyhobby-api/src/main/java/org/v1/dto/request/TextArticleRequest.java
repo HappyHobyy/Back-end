@@ -12,8 +12,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.v1.global.util.FileUtil.convertMultipartFileToFile;
-
 public record TextArticleRequest(
         LatestRequest latest,
         SearchRequest search,

@@ -19,7 +19,7 @@ public record TextArticleCommentRequest(Create create, Delete delete) {
             String comment
     ) {
         public TextComment toComment(Long userId) {
-            return TextComment.withoutId(new Comment(User.onlyUserId(userId), LocalDateTime.now(),UserStatus.onlyIsUserArticleOwner(false)),comment);
+            return TextComment.withoutId(new Comment(User.onlyUserId(userId), LocalDateTime.now(),comment,UserStatus.onlyIsUserArticleOwner(false)));
         }
     }
 

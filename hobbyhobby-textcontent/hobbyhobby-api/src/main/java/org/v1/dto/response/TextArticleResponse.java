@@ -26,7 +26,6 @@ public record TextArticleResponse(
         if (articleList == null) {
             return Collections.emptyList();
         }
-
         return articleList.stream()
                 .map(textContent -> new TextArticleResponse(
                         textContent.getId(),

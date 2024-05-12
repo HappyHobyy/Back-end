@@ -10,6 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ReviewArticleDetail {
     private final List<ReviewComment> comments;
-    private final Content content;
+    private final ReviewContent reviewContent;
     private final UserStatus userStatus;
 }

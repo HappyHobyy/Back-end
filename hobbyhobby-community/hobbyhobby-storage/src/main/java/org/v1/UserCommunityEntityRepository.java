@@ -7,10 +7,6 @@ import java.util.List;
 
 @Repository
 public class UserCommunityEntityRepository implements UserCommunityRepository {
-    @Override
-    public List<CommunityStatusInfo> readUserCommunityList(Long userCommunityId) {
-        return null;
-    }
 
     @Override
     public void appendUserToCommunity(Long userId, Long communityId) {

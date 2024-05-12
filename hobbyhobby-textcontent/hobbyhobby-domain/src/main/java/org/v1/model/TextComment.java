@@ -10,12 +10,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class TextComment {
     private Long id;
-    private String text;
     private Comment comment;
-    public static TextComment withoutId(Comment comment,String text) {
-        return new TextComment(null,text,comment);
+    public static TextComment withoutId(Comment comment) {
+        return new TextComment(null,comment);
     }
     public TextComment changeComment(Comment comment) {
-        return new TextComment(id,text,comment);
+        return new TextComment(id,comment);
     }
 }
