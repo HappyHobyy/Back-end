@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 public class ExternalCommunityMessageSender {
     @Autowired
     private StreamBridge streamBridge;
-    private final ObjectMapper objectMapper;
 
     public void sendAllCommunity(String header) {
         Object payload = new Object();

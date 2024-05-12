@@ -1,7 +1,7 @@
 spring:
   cloud:
     function:
-      definition: allCommunity,photoContent;
+      definition: allCommunity;photoContent;
     stream:
       bindings:
         photoContent-in-0:

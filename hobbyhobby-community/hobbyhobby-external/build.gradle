@@ -4,7 +4,6 @@ ext {
 }
 
 dependencies {
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
     implementation project(':hobbyhobby-common')
     implementation project(':hobbyhobby-community:hobbyhobby-domain')

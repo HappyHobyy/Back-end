@@ -19,9 +19,8 @@ public class ExternalCommunityMessageReceiver {
     private final CommunityService communityService;
 
     @Bean
-    public Consumer<Message<byte[]>> allCommunity() {
+    public Consumer<Message<Objects>> allCommunity() {
         return message -> {
-            byte[] payload = message.getPayload();
             MessageHeaders headers = message.getHeaders();
             String headerValue = (String) headers.get("headerKey");
             switch (Objects.requireNonNull(headerValue)) {
@@ -32,7 +31,7 @@ public class ExternalCommunityMessageReceiver {
                     log.info("Received message: {group}");
                     break;
                 default:
-                    log.warn("Unhandled routing key: {}", payload);
+                    log.warn("Unhandled routing key: {}", message);
                     break;
             }
         };

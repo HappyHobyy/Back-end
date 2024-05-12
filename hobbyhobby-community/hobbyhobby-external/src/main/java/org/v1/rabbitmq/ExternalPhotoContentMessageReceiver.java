@@ -23,7 +23,7 @@ public class ExternalPhotoContentMessageReceiver {
     private final ObjectMapper objectMapper;
     private final CommunityService communityService;
     @Bean
-    public Consumer<Message<byte[]>> user() {
+    public Consumer<Message<byte[]>> photoContent() {
         return message -> {
             try {
                 byte[] payload = message.getPayload();
@@ -39,6 +39,7 @@ public class ExternalPhotoContentMessageReceiver {
                             .parallelStream()
                             .map(PhotoArticleMessage::toArticle)
                             .toList();
+                    log.info("Popular Community Article: {}", popularCommunityArticle);
                     communityService.updatePhotoArticle(new Contents.PhotoArticles(popularCommunityArticle,notPopularCommunityArticle));
                 } else {
                     log.warn("Unhandled routing key: {}", payload);
