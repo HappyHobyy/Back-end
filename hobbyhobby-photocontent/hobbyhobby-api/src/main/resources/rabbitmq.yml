@@ -1,7 +1,7 @@
 spring:
   cloud:
     function:
-      definition: community;user;
+      definition: user;
     stream:
       bindings:
         photoContent-out-0:
