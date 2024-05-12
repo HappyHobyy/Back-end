@@ -12,11 +12,11 @@ public class Comment {
     private User user;
     private LocalDateTime date;
     private String text;
-    private boolean isUserCommentOwner;
-    public static Comment withoutId(User user, LocalDateTime date, String text, boolean isUserCommentOwner) {
-        return new Comment(null, user, date, text, isUserCommentOwner);
+    private UserStatus userStatus;
+    public static Comment withoutId(User user, LocalDateTime date, String text, UserStatus userStatus) {
+        return new Comment(null, user, date, text, userStatus);
     }
-    public Comment changeUser(User user,Long commandUserId) {
-        return new Comment(id, user, date, text, commandUserId.equals(user.id()));
+    public Comment changeUser(Long commandUserId) {
+        return new Comment(id, user, date, text, UserStatus.onlyIsUserArticleOwner(commandUserId.equals(user.id())));
     }
 }

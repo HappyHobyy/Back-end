@@ -8,7 +8,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public record PhotoArticleResponse(
+public record
+PhotoArticleResponse(
         @Schema(description = "게시글 Id", example = "123")
         Long photoArticleId,
         @Schema(description = "게시글 날짜", example = "2024-05-06T15:23:45.123456789")
@@ -29,13 +30,13 @@ public record PhotoArticleResponse(
         }
 
         return photoArticleList.stream()
-                .map(textContent -> new PhotoArticleResponse(
-                        textContent.getId(),
-                        textContent.getDate(),
-                        textContent.getUser().nickname(),
-                        textContent.getLikes(),
-                        textContent.getComments(),
-                        textContent.getFirstImageUrl()
+                .map(photoArticle -> new PhotoArticleResponse(
+                        photoArticle.getId(),
+                        photoArticle.getDate(),
+                        photoArticle.getUser().nickname(),
+                        photoArticle.getLikesComments().likes(),
+                        photoArticle.getLikesComments().comments(),
+                        photoArticle.getMainImageUrl()
                 ))
                 .collect(Collectors.toList());
     }
