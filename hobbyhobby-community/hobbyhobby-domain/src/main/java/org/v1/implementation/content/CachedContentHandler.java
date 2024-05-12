@@ -1,14 +1,13 @@
-package org.v1.implementation;
+package org.v1.implementation.content;
 
 import org.springframework.stereotype.Component;
-import org.v1.model.Contents;
 
 import java.util.concurrent.ConcurrentHashMap;
 @Component
-public class CachedPhotoArticlesHandler {
+public class CachedContentHandler {
     private final ConcurrentHashMap<String, Object> cache;
 
-    public CachedPhotoArticlesHandler() {
+    public CachedContentHandler() {
         this.cache = new ConcurrentHashMap<>();
     }
 

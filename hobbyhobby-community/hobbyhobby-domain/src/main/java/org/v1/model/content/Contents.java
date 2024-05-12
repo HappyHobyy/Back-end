@@ -1,4 +1,4 @@
-package org.v1.model;
+package org.v1.model.content;
 
 import lombok.AllArgsConstructor;
 

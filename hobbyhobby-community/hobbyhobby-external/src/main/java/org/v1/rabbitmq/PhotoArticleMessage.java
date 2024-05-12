@@ -1,14 +1,11 @@
 package org.v1.rabbitmq;
 
 
-import org.v1.model.Community;
-import org.v1.model.PhotoArticle;
-import org.v1.model.User;
+import org.v1.model.community.Community;
+import org.v1.model.content.PhotoArticle;
+import org.v1.model.user.User;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public record PhotoArticleMessage(
         Long photoArticleId,

@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Component;
-import org.v1.model.Contents;
-import org.v1.model.PhotoArticle;
+import org.v1.model.content.Contents;
+import org.v1.model.content.PhotoArticle;
 import org.v1.service.CommunityService;
 
 import java.io.IOException;

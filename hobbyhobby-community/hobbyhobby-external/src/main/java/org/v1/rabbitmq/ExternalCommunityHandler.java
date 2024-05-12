@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.v1.external.ExternalCommunitySender;
-import org.v1.model.ContentEvent;
-import org.v1.model.PhotoArticle;
-
-import java.util.List;
+import org.v1.model.content.ContentEvent;
 
 @Component
 @AllArgsConstructor

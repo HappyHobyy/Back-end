@@ -1,10 +1,11 @@
-package org.v1.model;
+package org.v1.model.content;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.v1.model.user.User;
+import org.v1.model.community.Community;
 
-import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class GroupArticle {

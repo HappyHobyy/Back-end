@@ -1,4 +1,4 @@
-package org.v1.model;
+package org.v1.model.user;
 
 public record User(
         Long id,

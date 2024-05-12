@@ -1,8 +1,8 @@
-package org.v1.implementation;
+package org.v1.implementation.content;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
-import org.v1.model.ContentEvent;
+import org.v1.model.content.ContentEvent;
 
 @Component
 public class ContentEventPublisher {

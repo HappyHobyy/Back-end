@@ -1,4 +1,4 @@
-package org.v1.model;
+package org.v1.model.community;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

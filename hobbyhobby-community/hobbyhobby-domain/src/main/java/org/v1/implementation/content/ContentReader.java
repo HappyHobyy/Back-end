@@ -1,14 +1,10 @@
-package org.v1.implementation;
+package org.v1.implementation.content;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.v1.model.Community;
-import org.v1.model.Contents;
-import org.v1.model.GroupArticle;
-import org.v1.model.PhotoArticle;
+import org.v1.model.community.Community;
+import org.v1.model.content.Contents;
 import org.v1.repository.ContentRepository;
-
-import java.util.List;
 
 @Component
 @AllArgsConstructor

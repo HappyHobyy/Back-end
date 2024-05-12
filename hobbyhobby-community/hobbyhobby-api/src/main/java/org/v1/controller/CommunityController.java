@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.v1.dto.CommunityListResponse;
 import org.v1.dto.UserCommunityListResponse;
-import org.v1.model.Community;
-import org.v1.model.Contents;
-import org.v1.model.UserCommunity;
+import org.v1.model.community.Community;
+import org.v1.model.content.Contents;
+import org.v1.model.community.UserCommunity;
 import org.v1.service.CommunityService;
 import response.HttpResponse;
 
