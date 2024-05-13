@@ -3,7 +3,9 @@ import lombok.*;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.stream.Collectors;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -36,6 +38,10 @@ public class User {
     public User updateUserImage(String imageUrl) {
         return new User(id, nickname, email, userType, password, userRole, userGender, nationality, deviceToken, imageUrl);
     }
+    public User resetUserPassword(){
+        Password resetPassword = this.password.tempPassword();
+        return new User(id, nickname, email, userType, resetPassword, userRole, userGender, nationality, deviceToken, imageUrl);
+    };
     public record UserId(Long value) {}
 
     public record Password(String password) {
@@ -50,6 +56,14 @@ public class User {
         }
         public boolean matches(Password hashedPassword) {
             return this.password.equals(hashedPassword.password);
+        }
+        public Password tempPassword() {
+            SecureRandom random = new SecureRandom();
+            String charSet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^?";
+            return new Password(random.ints(10, 0, charSet.length())
+                    .mapToObj(charSet::charAt)
+                    .map(Object::toString)
+                    .collect(Collectors.joining()));
         }
     }
 
