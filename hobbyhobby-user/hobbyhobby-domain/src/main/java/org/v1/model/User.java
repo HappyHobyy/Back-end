@@ -26,10 +26,20 @@ public class User {
     public static User withId(UserId userId, String userNickname, String userEmail, UserType userType, Password password,UserRole userRole,UserGender userGender,Nationality nationality,String deviceToken,String imageUrl) {
         return new User(userId, userNickname, userEmail, userType, password,userRole,userGender,nationality, deviceToken,imageUrl);
     }
+    public User registDefaultUser(){
+        Password hashedPassword = this.password.hashPassword();
+        return new User(null, nickname, email, userType, hashedPassword, userRole, userGender, nationality, deviceToken, imageUrl);
+    }
+    public User updateUserDeviceToken(String newDeviceToken) {
+        return new User(id, nickname, email, userType, password, userRole, userGender, nationality, newDeviceToken, imageUrl);
+    }
+    public User updateUserImage(String imageUrl) {
+        return new User(id, nickname, email, userType, password, userRole, userGender, nationality, deviceToken, imageUrl);
+    }
     public record UserId(Long value) {}
 
     public record Password(String password) {
-        public Password hashPassword() {
+        public Password hashPassword()  {
             try {
                 MessageDigest digest = MessageDigest.getInstance("SHA-256");
                 byte[] hash = digest.digest(password.getBytes());

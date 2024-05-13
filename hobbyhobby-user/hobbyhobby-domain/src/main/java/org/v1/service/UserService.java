@@ -1,8 +1,8 @@
 package org.v1.service;
 
 import lombok.RequiredArgsConstructor;
-import org.v1.handler.PhotoContentHandler;
-import org.v1.handler.TextContentHandler;
+import org.v1.handler.ExternalPhotoContentSender;
+import org.v1.handler.ExternalTextContentSender;
 import org.v1.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +15,9 @@ import java.io.File;
 public class UserService {
     private final UserReader userReader;
     private final UserRemover userRemover;
-    private final UserAppender userAppender;
+    private final UserUpdater userUpdater;
     private final ImageAppender imageAppender;
     private final ImageRemover imageRemover;
-    private final PhotoContentHandler photoContentHandler;
-    private final TextContentHandler textContentHandler;
     @Transactional
     public void removeUser(Long userId){
         User savedUser = userReader.readById(userId);
@@ -33,20 +31,8 @@ public class UserService {
         if (user.getImageUrl() != null){
             imageRemover.removeImage(user.getImageUrl());
         }
-        User updatedUser = User.withId(
-                user.getId(),
-                user.getNickname(),
-                user.getEmail(),
-                user.getUserType(),
-                user.getPassword(),
-                user.getUserRole(),
-                user.getUserGender(),
-                user.getNationality(),
-                user.getDeviceToken(),
-                imageAppender.appendImage(file, userId.toString()
-                ));
-        userAppender.updateUser(updatedUser);
-        photoContentHandler.sendUserUpdate(updatedUser);
-        textContentHandler.sendUserUpdate(updatedUser);
+        String newImageUrl = imageAppender.appendImage(file, userId.toString());
+        User updatedUser = user.updateUserImage(newImageUrl);
+        userUpdater.updateUser(updatedUser);
     }
 }

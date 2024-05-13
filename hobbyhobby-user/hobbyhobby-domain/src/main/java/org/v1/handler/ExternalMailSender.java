@@ -4,6 +4,6 @@ import org.springframework.stereotype.Service;
 import org.v1.model.Mail;
 
 @Service
-public interface MailHandler {
+public interface ExternalMailSender {
     void sendEmail(Mail mail);
 }

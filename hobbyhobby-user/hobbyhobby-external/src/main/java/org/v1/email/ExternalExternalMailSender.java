@@ -6,14 +6,14 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
-import org.v1.handler.MailHandler;
+import org.v1.handler.ExternalMailSender;
 import org.v1.model.Mail;
 import org.v1.error.BusinessException;
 import org.v1.error.ErrorCode;
 
 @Component
 @RequiredArgsConstructor
-public class ExternalMailHandler implements MailHandler {
+public class ExternalExternalMailSender implements ExternalMailSender {
 
     private final JavaMailSender mailSender;
 
