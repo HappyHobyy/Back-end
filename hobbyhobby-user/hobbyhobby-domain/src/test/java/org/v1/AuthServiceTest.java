@@ -92,7 +92,8 @@ public class AuthServiceTest {
                 "123",
                 "123",
                 "testName",
-                123
+                123,
+                "2001/12/16"
         );
     }
 
@@ -109,7 +110,8 @@ public class AuthServiceTest {
                 "testDeviceToken",
                 "123",
                 "testName",
-                123
+                123,
+                "2001/12/16"
         );
     }
 }

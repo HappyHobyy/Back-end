@@ -40,7 +40,8 @@ public class UserCheckerTest {
                 "testDeviceToken",
                 "testImageUrl",
                 "testName",
-                123
+                123,
+                "2001/12/16"
         );
     }
     @Test

@@ -100,7 +100,8 @@ class JwtServiceTest {
                 "testDeviceToken",
                 "123",
                 "testName",
-                123
+                123,
+                "2001/12/16"
         );
     }
 }

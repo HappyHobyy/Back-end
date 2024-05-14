@@ -44,6 +44,8 @@ public class UserJpaEntity  extends BaseEntity {
     private String name;
     @Column(name = "phoneNumber")
     private Integer phoneNumber;
+    @Column(name = "birth")
+    private String birth;
     public static UserJpaEntity ofWithoutId(User user) {
         return UserJpaEntity.builder()
                 .gender(user.getUserGender())
@@ -57,6 +59,7 @@ public class UserJpaEntity  extends BaseEntity {
                 .imageUrl(user.getImageUrl())
                 .name(user.getUserName())
                 .phoneNumber(user.getPhoneNumber())
+                .birth(user.getBirth())
                 .build();
     }
     public static UserJpaEntity ofWithId(User user) {
@@ -71,6 +74,9 @@ public class UserJpaEntity  extends BaseEntity {
                 .type(user.getUserType())
                 .deviceToken(user.getDeviceToken())
                 .imageUrl(user.getImageUrl())
+                .name(user.getUserName())
+                .phoneNumber(user.getPhoneNumber())
+                .birth(user.getBirth())
                 .build();
     }
 
@@ -87,7 +93,8 @@ public class UserJpaEntity  extends BaseEntity {
                 this.deviceToken,
                 this.imageUrl,
                 this.name,
-                this.phoneNumber
+                this.phoneNumber,
+                this.birth
         );
         return Optional.of(user);
     }
