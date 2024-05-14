@@ -53,7 +53,9 @@ public class UserAppenderTest {
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
                 "testDeviceToken",
-                "testImageUrl"
+                "testImageUrl",
+                "testName",
+                123
         );
     }
 

@@ -68,18 +68,7 @@ public class AuthServiceTest {
     @DisplayName("기존 소셜 유저 로그인 성공")
     void loginUserWithOAuth_ExistingUser_ShouldReturnUser() {
         // Given
-        User user = User.withId(
-                new User.UserId(123L),
-                "testNickname",
-                "testEmail",
-                User.UserType.OAUTH_KAKAO,
-                null,
-                User.UserRole.ROLE_USER,
-                User.UserGender.MAN,
-                User.Nationality.DOMESTIC,
-                null,
-                null
-        );
+        User user = createUser1();
         User savedUser = createUser2();
         when(userReader.readUserByTypeAndEmail(savedUser)).thenReturn(user);
         // When
@@ -101,7 +90,9 @@ public class AuthServiceTest {
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
                 "123",
-                "123"
+                "123",
+                "testName",
+                123
         );
     }
 
@@ -116,7 +107,9 @@ public class AuthServiceTest {
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
                 "testDeviceToken",
-                "123"
+                "123",
+                "testName",
+                123
         );
     }
 }

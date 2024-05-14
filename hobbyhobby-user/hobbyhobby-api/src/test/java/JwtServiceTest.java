@@ -98,7 +98,9 @@ class JwtServiceTest {
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
                 "testDeviceToken",
-                "123"
+                "123",
+                "testName",
+                123
         );
     }
 }

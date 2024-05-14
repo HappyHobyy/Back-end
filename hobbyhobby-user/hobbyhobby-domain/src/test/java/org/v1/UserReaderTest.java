@@ -42,7 +42,9 @@ public class UserReaderTest {
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
                 "testDeviceToken",
-                "testImageUrl"
+                "testImageUrl",
+                "testName",
+                123
         );
     }
 

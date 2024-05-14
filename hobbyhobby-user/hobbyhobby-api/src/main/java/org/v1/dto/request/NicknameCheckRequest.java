@@ -10,6 +10,6 @@ public record NicknameCheckRequest(
         String nickname
 ) {
     public User toUser() {
-        return User.withoutId(nickname, null, null, null, User.UserRole.ROLE_USER, null, null, null,null);
+        return User.withoutId(nickname, null, null, null, User.UserRole.ROLE_USER, null, null, null,null,null,null);
     }
 }

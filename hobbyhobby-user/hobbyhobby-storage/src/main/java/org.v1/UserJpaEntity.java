@@ -40,6 +40,10 @@ public class UserJpaEntity  extends BaseEntity {
     private String deviceToken;
     @Column(name = "imageUrl")
     private String imageUrl;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "phoneNumber")
+    private Integer phoneNumber;
     public static UserJpaEntity ofWithoutId(User user) {
         return UserJpaEntity.builder()
                 .gender(user.getUserGender())
@@ -51,6 +55,8 @@ public class UserJpaEntity  extends BaseEntity {
                 .type(user.getUserType())
                 .deviceToken(user.getDeviceToken())
                 .imageUrl(user.getImageUrl())
+                .name(user.getUserName())
+                .phoneNumber(user.getPhoneNumber())
                 .build();
     }
     public static UserJpaEntity ofWithId(User user) {
@@ -79,7 +85,9 @@ public class UserJpaEntity  extends BaseEntity {
                 this.gender,
                 this.nationality,
                 this.deviceToken,
-                this.imageUrl
+                this.imageUrl,
+                this.name,
+                this.phoneNumber
         );
         return Optional.of(user);
     }

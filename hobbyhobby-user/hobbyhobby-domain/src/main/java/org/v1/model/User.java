@@ -21,26 +21,28 @@ public class User {
     private final Nationality nationality;
     private final String deviceToken;
     private final String imageUrl;
+    private final String userName;
+    private final Integer phoneNumber;
 
-    public static User withoutId(String userNickname, String userEmail, UserType userType, Password password,UserRole userRole,UserGender userGender,Nationality nationality,String deviceToken, String imageUrl) {
-        return new User(null, userNickname, userEmail, userType, password,userRole,userGender,nationality,deviceToken,imageUrl);
+    public static User withoutId(String userNickname, String userEmail, UserType userType, Password password,UserRole userRole,UserGender userGender,Nationality nationality,String deviceToken, String imageUrl,String userName,Integer phoneNumber) {
+        return new User(null, userNickname, userEmail, userType, password,userRole,userGender,nationality,deviceToken,imageUrl,userName,phoneNumber);
     }
-    public static User withId(UserId userId, String userNickname, String userEmail, UserType userType, Password password,UserRole userRole,UserGender userGender,Nationality nationality,String deviceToken,String imageUrl) {
-        return new User(userId, userNickname, userEmail, userType, password,userRole,userGender,nationality, deviceToken,imageUrl);
+    public static User withId(UserId userId, String userNickname, String userEmail, UserType userType, Password password,UserRole userRole,UserGender userGender,Nationality nationality,String deviceToken,String imageUrl,String userName,Integer phoneNumber) {
+        return new User(userId, userNickname, userEmail, userType, password,userRole,userGender,nationality, deviceToken,imageUrl,userName,phoneNumber);
     }
     public User registDefaultUser(){
         Password hashedPassword = this.password.hashPassword();
-        return new User(null, nickname, email, userType, hashedPassword, userRole, userGender, nationality, deviceToken, imageUrl);
+        return new User(null, nickname, email, userType, hashedPassword, userRole, userGender, nationality, deviceToken, imageUrl,userName,phoneNumber);
     }
     public User updateUserDeviceToken(String newDeviceToken) {
-        return new User(id, nickname, email, userType, password, userRole, userGender, nationality, newDeviceToken, imageUrl);
+        return new User(id, nickname, email, userType, password, userRole, userGender, nationality, newDeviceToken, imageUrl,userName,phoneNumber);
     }
     public User updateUserImage(String imageUrl) {
-        return new User(id, nickname, email, userType, password, userRole, userGender, nationality, deviceToken, imageUrl);
+        return new User(id, nickname, email, userType, password, userRole, userGender, nationality, deviceToken, imageUrl,userName,phoneNumber);
     }
     public User resetUserPassword(){
         Password resetPassword = this.password.tempPassword();
-        return new User(id, nickname, email, userType, resetPassword, userRole, userGender, nationality, deviceToken, imageUrl);
+        return new User(id, nickname, email, userType, resetPassword, userRole, userGender, nationality, deviceToken, imageUrl,userName,phoneNumber);
     };
     public record UserId(Long value) {}
 
