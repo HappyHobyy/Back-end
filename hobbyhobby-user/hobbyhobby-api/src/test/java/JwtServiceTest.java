@@ -98,7 +98,10 @@ class JwtServiceTest {
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
                 "testDeviceToken",
-                "123"
+                "123",
+                "testName",
+                123,
+                "2001/12/16"
         );
     }
 }

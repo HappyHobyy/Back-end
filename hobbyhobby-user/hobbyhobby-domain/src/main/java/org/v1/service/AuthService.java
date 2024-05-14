@@ -5,11 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.v1.handler.ExternalPhotoContentSender;
 import org.v1.handler.ExternalTextContentSender;
-import org.v1.implementation.UserUpdater;
+import org.v1.implementation.*;
 import org.v1.model.User;
-import org.v1.implementation.UserAppender;
-import org.v1.implementation.UserChecker;
-import org.v1.implementation.UserReader;
 import org.v1.error.BusinessException;
 import org.v1.error.ErrorCode;
 
@@ -23,6 +20,7 @@ AuthService {
     private final UserReader userReader;
     private final UserChecker userChecker;
     private final UserUpdater userUpdater;
+    private final UserValidator userValidator;
 
     public void registerDefaultUser(User user) {
         userChecker.isUserEmailDuplicate(user);
@@ -34,17 +32,17 @@ AuthService {
     }
     @Transactional
     public User loginDefaultUser(User user) {
-        User savedUser = userReader.readUserByTypeAndEmail(user);
-        if (!savedUser.getPassword().matches(Objects.requireNonNull(user.getPassword().hashPassword()))) {
-            throw new BusinessException(ErrorCode.USER_LOGIN_PASSWORD_FAIL);
-        }
+        User savedUser = userReader.readUserByEmail(user.getEmail());
+        userValidator.validateUserType(user.getUserType(),savedUser);
+        userValidator.validatePasswordCorrect(user,savedUser);
         User updateUser = savedUser.updateUserDeviceToken(user.getDeviceToken());
         userUpdater.updateUser(updateUser);
         return updateUser;
     }
     @Transactional
     public User loginOAuthUser(User user) {
-        User savedUser = userReader.readUserByTypeAndEmail(user);
+        User savedUser = userReader.readUserByEmail(user.getEmail());
+        userValidator.validateUserType(user.getUserType(),savedUser);
         User updateUser = savedUser.updateUserDeviceToken(user.getDeviceToken());
         userUpdater.updateUser(updateUser);
         return updateUser;

@@ -63,7 +63,9 @@ public class EmailServiceTest {
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
                 "testDeviceToken",
-                "testImageUrl"
+                "testImageUrl",
+                "testName",
+                123,"2001/12/16"
         );
     }
 }
