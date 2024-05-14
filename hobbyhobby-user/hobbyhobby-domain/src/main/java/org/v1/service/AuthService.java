@@ -41,7 +41,7 @@ AuthService {
     }
     @Transactional
     public User loginOAuthUser(User user) {
-        User savedUser = userReader.readUserByTypeAndEmail(user);
+        User savedUser = userReader.readUserByEmail(user.getEmail());
         userValidator.validateUserType(user.getUserType(),savedUser);
         User updateUser = savedUser.updateUserDeviceToken(user.getDeviceToken());
         userUpdater.updateUser(updateUser);
