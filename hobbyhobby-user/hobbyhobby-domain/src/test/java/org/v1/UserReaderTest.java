@@ -64,19 +64,6 @@ public class UserReaderTest {
     }
 
     @Test
-    @DisplayName("등록 이메일로 읽기 성공")
-    public void testReadUserByTypeAndEmail() {
-        // Given
-        when(userRepository.readByTypeAndEmail(any(User.class))).thenReturn(Optional.of(sampleUser));
-
-        // When
-        User result = userReader.readUserByTypeAndEmail(sampleUser);
-
-        // Then
-        assertEquals(sampleUser, result);
-    }
-
-    @Test
     @DisplayName("이메일로 읽기 실패")
     public void testReadUserByEmail_UserNotFound() {
         // Given

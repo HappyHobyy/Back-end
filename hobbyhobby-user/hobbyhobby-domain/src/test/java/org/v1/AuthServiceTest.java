@@ -8,10 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.v1.error.BusinessException;
 import org.v1.error.ErrorCode;
-import org.v1.implementation.UserAppender;
-import org.v1.implementation.UserChecker;
-import org.v1.implementation.UserReader;
-import org.v1.implementation.UserUpdater;
+import org.v1.implementation.*;
 import org.v1.model.User;
 import org.v1.service.AuthService;
 
@@ -30,6 +27,8 @@ public class AuthServiceTest {
     private UserReader userReader;
     @Mock
     private UserUpdater userUpdater;
+    @Mock
+    private UserValidator userValidator;
     @InjectMocks
     private AuthService authService;
 
@@ -51,18 +50,6 @@ public class AuthServiceTest {
 
 
 
-    @Test
-    @DisplayName("틀린 비밀번호 확인 후 예외처리")
-    void loginUser_WithIncorrectPassword_ShouldThrowException() {
-        // given
-        User savedUser = createUser2();
-        User user = createUser1();
-        when(userReader.readUserByTypeAndEmail(user)).thenReturn(savedUser);
-        //when
-        BusinessException exception = assertThrows(BusinessException.class, () -> authService.loginDefaultUser(user));
-        //then
-        assertEquals(ErrorCode.USER_LOGIN_PASSWORD_FAIL, exception.getErrorCode());
-    }
 
     @Test
     @DisplayName("기존 소셜 유저 로그인 성공")
@@ -70,7 +57,7 @@ public class AuthServiceTest {
         // Given
         User user = createUser1();
         User savedUser = createUser2();
-        when(userReader.readUserByTypeAndEmail(savedUser)).thenReturn(user);
+        when(userReader.readUserByEmail(savedUser.getEmail())).thenReturn(user);
         // When
         User result = authService.loginOAuthUser(savedUser);
         // Then
