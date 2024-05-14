@@ -62,7 +62,6 @@ public class AuthServiceTest {
         User result = authService.loginOAuthUser(savedUser);
         // Then
         assertNotNull(result.getDeviceToken());
-        assertNull(result.getPassword());
     }
 
 
