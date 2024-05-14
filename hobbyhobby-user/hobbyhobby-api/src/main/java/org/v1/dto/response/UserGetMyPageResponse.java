@@ -1,6 +1,7 @@
 package org.v1.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import org.v1.model.User;
 
 public record UserGetMyPageResponse(
@@ -13,7 +14,12 @@ public record UserGetMyPageResponse(
         @Schema(description = "내국인/외국인", example = "DOMESTIC/FOREIGNER")
         User.Nationality nationality,
         @Schema(description = "이미지 URL", example = "https://asdfsadf.com/123")
-        String imageUrl
+        String imageUrl,
+        @Schema(description = "이름", example = "testName")
+        String userName,
+        @Schema(description = "전화번호", example = "01011111111")
+        Integer phoneNumber
+
 ) {
     public static UserGetMyPageResponse of(final User user) {
         return new UserGetMyPageResponse(
@@ -21,7 +27,9 @@ public record UserGetMyPageResponse(
                 user.getNickname(),
                 user.getUserGender(),
                 user.getNationality(),
-                user.getImageUrl()
+                user.getImageUrl(),
+                user.getUserName(),
+                user.getPhoneNumber()
         );
     }
 }
