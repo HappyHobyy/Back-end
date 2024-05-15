@@ -1,9 +1,9 @@
 package org.v1.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.v1.model.PhotoArticleDetail;
-import org.v1.model.Comment;
-import org.v1.model.Content;
+import org.v1.model.photoartlcle.PhotoArticleDetail;
+import org.v1.model.comment.Comment;
+import org.v1.model.photoartlcle.PhotoAriticleContent;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -24,7 +24,7 @@ public record PhotoArticleDetailResponse(
             @Schema(description = "경로", example = "http://....")
             String path
     ) {
-        public static ImageResponse of(Content.ImageVideo imageVideo) {
+        public static ImageResponse of(PhotoAriticleContent.ImageVideo imageVideo) {
             return new ImageResponse(imageVideo.index(), imageVideo.path());
         }
     }
@@ -49,8 +49,8 @@ public record PhotoArticleDetailResponse(
     public static List<PhotoArticleDetailResponse> of(PhotoArticleDetail photoArticleDetail) {
         return Optional.ofNullable(photoArticleDetail)
                 .map(detail -> new PhotoArticleDetailResponse(
-                        photoArticleDetail.getContent().getText(),
-                        Optional.ofNullable(detail.getContent().getImages())
+                        photoArticleDetail.getPhotoAriticleContent().getText(),
+                        Optional.ofNullable(detail.getPhotoAriticleContent().getImages())
                                 .map(images -> images.stream().map(ImageResponse::of).toList())
                                 .orElse(Collections.emptyList()),
                         Optional.ofNullable(detail.getComments())

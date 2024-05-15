@@ -2,8 +2,8 @@ package org.v1.implementaion.photoarticle;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.v1.model.PhotoArticle;
-import org.v1.model.Content;
+import org.v1.model.photoartlcle.PhotoArticle;
+import org.v1.model.photoartlcle.PhotoAriticleContent;
 import org.v1.repository.PhotoArticleRepository;
 
 @Component
@@ -14,7 +14,7 @@ public class PhotoArticleAppender {
     public Long appendPhotoArticle(PhotoArticle photoArticle) {
         return photoArticleRepository.appendArticle(photoArticle);
     }
-    public void appendPhotoArticleContent(Content content, Long photoArticleId) {
-        photoArticleRepository.appendArticleContent(content, photoArticleId);
+    public void appendPhotoArticleContent(PhotoAriticleContent photoAriticleContent, Long photoArticleId) {
+        photoArticleRepository.appendArticleContent(photoAriticleContent, photoArticleId);
     }
 }

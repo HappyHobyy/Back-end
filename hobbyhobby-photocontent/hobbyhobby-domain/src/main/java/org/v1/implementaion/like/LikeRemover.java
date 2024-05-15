@@ -2,7 +2,7 @@ package org.v1.implementaion.like;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.v1.model.Like;
+import org.v1.model.like.Like;
 import org.v1.repository.LikeRepository;
 
 @Component

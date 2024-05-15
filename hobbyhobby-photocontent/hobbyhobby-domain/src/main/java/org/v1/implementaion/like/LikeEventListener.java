@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.v1.implementaion.community.CommunityManager;
-import org.v1.model.LikeEvent;
+import org.v1.model.like.LikeEvent;
 
 @Component
 @AllArgsConstructor

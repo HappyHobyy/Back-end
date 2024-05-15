@@ -1,4 +1,4 @@
-package org.v1.service;
+package org.v1.service.schdule;
 
 import lombok.AllArgsConstructor;
 import net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock;
@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.v1.implementaion.community.CommunityManager;
 import org.v1.implementaion.photoarticle.PhotoArticleReader;
-import org.v1.model.PhotoArticle;
+import org.v1.model.photoartlcle.PhotoArticle;
 
 import java.util.List;
 

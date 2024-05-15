@@ -1,7 +1,7 @@
 package org.v1.jparepository;
 
 import org.springframework.stereotype.Repository;
-import org.v1.model.Comment;
+import org.v1.model.comment.Comment;
 import org.v1.repository.CommentRepository;
 
 import java.util.List;

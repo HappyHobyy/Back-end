@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.v1.error.BusinessException;
 import org.v1.error.ErrorCode;
-import org.v1.model.Like;
+import org.v1.model.like.Like;
 import org.v1.repository.LikeRepository;
 
 @Component

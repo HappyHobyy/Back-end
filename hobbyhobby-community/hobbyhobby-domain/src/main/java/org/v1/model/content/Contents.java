@@ -10,8 +10,6 @@ import java.util.List;
 public class Contents {
     PhotoArticles photoArticles;
     GroupArticles groupArticles;
-
-
     public record PhotoArticles(List<PhotoArticle> popularPhotoArticle, List<PhotoArticle> nonePopularPhotoArticle){}
     public record GroupArticles(List<GroupArticle> popularGroupArticle, List<GroupArticle> nonePopularGroupArticle){}
 }

@@ -1,6 +1,6 @@
 package org.v1.repository;
 
-import org.v1.model.Like;
+import org.v1.model.like.Like;
 
 public interface LikeRepository {
     boolean checkArticleLike(Like like);
