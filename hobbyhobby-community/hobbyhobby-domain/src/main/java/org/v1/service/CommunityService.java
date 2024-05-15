@@ -30,7 +30,9 @@ public class CommunityService {
         Contents.PhotoArticles cachedPhotoArticles = getCachedPhotoArticles();
         if (cachedPhotoArticles == null) {
             cachedPhotoArticles= contentReader.readPopularPhotoContent(populistCommunity);
-            cachedContentHandler.put("photoArticles",cachedPhotoArticles);
+            if(cachedPhotoArticles != null) {
+                cachedContentHandler.put("photoArticles", cachedPhotoArticles);
+            }
         }
         Contents.GroupArticles cachedGroupArticles = getCachedGroupArticles();
         if (cachedGroupArticles == null) {
