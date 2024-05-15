@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.v1.dto.CommunityListResponse;
+import org.v1.dto.ContentResponse;
 import org.v1.dto.UserCommunityListResponse;
 import org.v1.model.community.Community;
 import org.v1.model.content.Contents;
@@ -47,9 +48,9 @@ public class CommunityController {
     @GetMapping("/popular/contents")
     @Operation(summary = "인기 모임/인기 H-Log 40개 가져오기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Contents> getPopularCommunityPhotoContent(
+    public HttpResponse<ContentResponse> getPopularCommunityPhotoContent(
     ) {
         Contents contents = communityService.getPopularContent();
-        return HttpResponse.success(contents);
+        return HttpResponse.success(ContentResponse.ofContents(contents));
     }
 }
