@@ -1,9 +1,9 @@
 package org.v1.jparepository;
 
 import org.springframework.stereotype.Repository;
-import org.v1.model.PhotoArticle;
-import org.v1.model.Content;
-import org.v1.model.UserStatus;
+import org.v1.model.photoartlcle.PhotoArticle;
+import org.v1.model.photoartlcle.PhotoAriticleContent;
+import org.v1.model.user.UserStatus;
 import org.v1.repository.PhotoArticleRepository;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class PhotoArticleEntityJpaRepository implements PhotoArticleRepository {
     }
 
     @Override
-    public void appendArticleContent(Content content, Long articleId) {
+    public void appendArticleContent(PhotoAriticleContent photoAriticleContent, Long articleId) {
 
     }
 
@@ -47,7 +47,7 @@ public class PhotoArticleEntityJpaRepository implements PhotoArticleRepository {
     }
 
     @Override
-    public Content readContent(Long articleId) {
+    public PhotoAriticleContent readContent(Long articleId) {
         return null;
     }
 }

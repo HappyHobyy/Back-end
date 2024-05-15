@@ -1,10 +1,10 @@
-package org.v1.service;
+package org.v1.service.user;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.v1.implementaion.user.UserManager;
-import org.v1.model.User;
+import org.v1.model.user.User;
 
 @Service
 @AllArgsConstructor

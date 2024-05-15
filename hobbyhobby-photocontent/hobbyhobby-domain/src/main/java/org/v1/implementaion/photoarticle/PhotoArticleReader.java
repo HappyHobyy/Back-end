@@ -2,8 +2,8 @@ package org.v1.implementaion.photoarticle;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.v1.model.Content;
-import org.v1.model.PhotoArticle;
+import org.v1.model.photoartlcle.PhotoAriticleContent;
+import org.v1.model.photoartlcle.PhotoArticle;
 import org.v1.repository.PhotoArticleRepository;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class PhotoArticleReader {
     public List<PhotoArticle> readNotPopularCommunityHotArticle(Integer communityId) {
         return photoArticleRepository.readArticleLikes(communityId);
     }
-    public Content readContent(Long photoArticleId) {
+    public PhotoAriticleContent readContent(Long photoArticleId) {
         return photoArticleRepository.readContent(photoArticleId);
     }
 

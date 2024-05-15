@@ -8,7 +8,7 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Component;
 import org.v1.rabbitmq.dto.UserMessage;
-import org.v1.service.UserService;
+import org.v1.service.user.UserService;
 
 import java.io.IOException;
 import java.util.Objects;

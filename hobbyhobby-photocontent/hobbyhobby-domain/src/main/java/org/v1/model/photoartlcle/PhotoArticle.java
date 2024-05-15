@@ -1,8 +1,9 @@
-package org.v1.model;
+package org.v1.model.photoartlcle;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.v1.model.user.User;
 
 import java.time.LocalDateTime;
 

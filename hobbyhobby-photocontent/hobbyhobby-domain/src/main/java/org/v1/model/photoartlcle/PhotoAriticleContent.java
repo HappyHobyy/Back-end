@@ -1,15 +1,14 @@
-package org.v1.model;
+package org.v1.model.photoartlcle;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.File;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 @AllArgsConstructor
-public class Content {
+public class PhotoAriticleContent {
     private final String text;
     private final List<ImageVideo> images;
 

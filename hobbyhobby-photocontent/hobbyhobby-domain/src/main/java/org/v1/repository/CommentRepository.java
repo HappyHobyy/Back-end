@@ -1,6 +1,6 @@
 package org.v1.repository;
 
-import org.v1.model.Comment;
+import org.v1.model.comment.Comment;
 
 import java.util.List;
 

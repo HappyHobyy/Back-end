@@ -1,8 +1,10 @@
-package org.v1.model;
+package org.v1.model.comment;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.v1.model.user.User;
+import org.v1.model.user.UserStatus;
 
 import java.time.LocalDateTime;
 @Getter
