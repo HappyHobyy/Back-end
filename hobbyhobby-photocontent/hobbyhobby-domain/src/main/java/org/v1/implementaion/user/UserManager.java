@@ -3,7 +3,7 @@ package org.v1.implementaion.user;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.v1.model.user.User;
-import org.v1.repository.UserRepository;
+import org.v1.repository.user.UserRepository;
 @Component
 @AllArgsConstructor
 public class UserManager {

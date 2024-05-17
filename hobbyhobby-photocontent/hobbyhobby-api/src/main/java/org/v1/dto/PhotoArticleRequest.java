@@ -3,8 +3,8 @@ package org.v1.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.web.multipart.MultipartFile;
-import org.v1.model.photoartlcle.PhotoArticle;
-import org.v1.model.photoartlcle.PhotoAriticleContent;
+import org.v1.model.photo.PhotoArticle;
+import org.v1.model.photo.PhotoAriticleContent;
 import org.v1.model.user.User;
 
 import java.io.File;

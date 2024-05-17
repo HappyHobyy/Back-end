@@ -2,7 +2,7 @@ package org.v1.implementaion.imagevideo;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.v1.model.photoartlcle.PhotoAriticleContent;
+import org.v1.model.photo.PhotoAriticleContent;
 
 import java.util.List;
 import java.util.stream.Collectors;

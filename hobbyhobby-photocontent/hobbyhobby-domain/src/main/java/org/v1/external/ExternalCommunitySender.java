@@ -1,6 +1,6 @@
 package org.v1.external;
 
-import org.v1.model.photoartlcle.PhotoArticle;
+import org.v1.model.photo.PhotoArticle;
 
 import java.util.List;
 

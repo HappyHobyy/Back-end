@@ -8,14 +8,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.v1.dto.PhotoArticleCommentRequest;
-import org.v1.service.photoarticle.PhotoArticleCommentService;
+import org.v1.service.photo.PhotoArticleCommentService;
 import response.DefaultId;
 import response.HttpResponse;
 
 @Tag(name = "H-Log", description = "H-Log API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/article/comment")
+@RequestMapping("/api/hlog/comment")
 public class PhotoArticleCommentController {
     private final PhotoArticleCommentService commentService;
     @PostMapping("")

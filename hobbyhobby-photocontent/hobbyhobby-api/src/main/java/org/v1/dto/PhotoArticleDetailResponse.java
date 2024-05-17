@@ -1,9 +1,9 @@
 package org.v1.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.v1.model.photoartlcle.PhotoArticleDetail;
+import org.v1.model.photo.PhotoArticleDetail;
 import org.v1.model.comment.Comment;
-import org.v1.model.photoartlcle.PhotoAriticleContent;
+import org.v1.model.photo.PhotoAriticleContent;
 
 import java.time.LocalDateTime;
 import java.util.Collections;

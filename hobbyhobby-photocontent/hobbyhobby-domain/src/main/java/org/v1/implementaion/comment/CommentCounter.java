@@ -2,13 +2,19 @@ package org.v1.implementaion.comment;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.v1.repository.CommentRepository;
-import org.v1.repository.LikeRepository;
+import org.v1.repository.gathering.GatheringCommentRepository;
+import org.v1.repository.photo.PhotoCommentRepository;
+
 @Component
 @AllArgsConstructor
 public class CommentCounter {
-    private final CommentRepository commentRepository;
-    public Integer countComment(Long articleId) {
-        return commentRepository.countComment(articleId);
+    private final PhotoCommentRepository photoCommentRepository;
+    private final GatheringCommentRepository gatheringCommentRepository;
+    public Integer countPhotoArticleComment(Long articleId) {
+        return photoCommentRepository.countComment(articleId);
     }
+    public Integer countGatheringArticleComment(Long articleId) {
+        return gatheringCommentRepository.countComment(articleId);
+    }
+
 }

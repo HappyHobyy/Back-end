@@ -3,8 +3,8 @@ package org.v1.implementaion.community;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.v1.external.ExternalCommunitySender;
-import org.v1.model.photoartlcle.PhotoArticle;
-import org.v1.repository.CommunityRepository;
+import org.v1.model.photo.PhotoArticle;
+import org.v1.repository.community.CommunityRepository;
 
 import java.util.List;
 

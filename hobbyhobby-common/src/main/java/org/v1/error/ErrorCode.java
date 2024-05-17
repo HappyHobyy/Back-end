@@ -26,8 +26,10 @@ public enum ErrorCode {
     TEXT_ALREADY_DISLIKE("TEXT_ARTICLE_003", "게시물 좋아요를 이미 취소했어요"),
     REVIEW_ARTICLE_NOT_FOUND("REVIEW_ARTICLE_001", "게시물을 찾을 수 없습니다."),
     REVIEW_COMMENT_NOT_FOUND("REVIEW_ARTICLE_002", "댓글을 찾을 수 없습니다."),
-    PHOTO_ALREADY_LIKE("REVIEW_ARTICLE_001","게시물 좋아요를 이미 눌렀어요"),
-    PHOTO_ALREADY_DISLIKE("REVIEW_ARTICLE_002","게시물 좋아요를 이미 취소했어요");
+    PHOTO_ALREADY_LIKE("PHOTO_ARTICLE_001","게시물 좋아요를 이미 눌렀어요"),
+    PHOTO_ALREADY_DISLIKE("PHOTO_ARTICLE_002","게시물 좋아요를 이미 취소했어요"),
+    GATHERING_ALREADY_LIKE("GATHERING_ARTICLE_001","게시물 좋아요를 이미 눌렀어요"),
+    GATHERING_ALREADY_DISLIKE("GATHERING_ARTICLE_002","게시물 좋아요를 이미 취소했어요");
 
 
 

@@ -11,9 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.v1.dto.PhotoArticleDetailResponse;
 import org.v1.dto.PhotoArticleRequest;
 import org.v1.dto.PhotoArticleResponse;
-import org.v1.model.photoartlcle.PhotoArticle;
-import org.v1.model.photoartlcle.PhotoArticleDetail;
-import org.v1.service.photoarticle.PhotoArticleService;
+import org.v1.model.photo.PhotoArticle;
+import org.v1.model.photo.PhotoArticleDetail;
+import org.v1.service.photo.PhotoArticleService;
 import response.DefaultId;
 import response.HttpResponse;
 
@@ -22,7 +22,7 @@ import java.util.List;
 @Tag(name = "H-Log", description = "H-Log API")
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/article")
+@RequestMapping("/api/hlog")
 public class PhotoArticleController {
     private final PhotoArticleService photoArticleService;
     @GetMapping("/latest")

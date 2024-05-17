@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.v1.external.ExternalCommunitySender;
-import org.v1.model.photoartlcle.PhotoArticle;
+import org.v1.model.photo.PhotoArticle;
 import org.v1.rabbitmq.dto.PhotoArticleMessage;
 import org.v1.rabbitmq.dto.PhotoArticleMessageList;
 
