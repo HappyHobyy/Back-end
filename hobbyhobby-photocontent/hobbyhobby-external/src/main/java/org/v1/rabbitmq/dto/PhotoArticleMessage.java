@@ -1,7 +1,7 @@
 package org.v1.rabbitmq.dto;
 
 
-import org.v1.model.photo.PhotoArticle;
+import org.v1.model.article.PhotoArticle;
 
 import java.time.LocalDateTime;
 import java.util.Collections;

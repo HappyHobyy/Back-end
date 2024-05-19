@@ -6,8 +6,10 @@ import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.v1.implementaion.community.CommunityManager;
-import org.v1.implementaion.photo.PhotoArticleReader;
-import org.v1.model.photo.PhotoArticle;
+import org.v1.implementaion.article.GatheringArticleReader;
+import org.v1.implementaion.article.PhotoArticleReader;
+import org.v1.model.article.GatheringArticle;
+import org.v1.model.article.PhotoArticle;
 
 import java.util.List;
 
@@ -18,13 +20,22 @@ public class ScheduleService {
 
     private final CommunityManager communityManager;
     private final PhotoArticleReader photoArticleReader;
+    private final GatheringArticleReader gatheringArticleReader;
     @Scheduled(cron = "0 */5 * * * *",zone = "Asia/Seoul")
-    @SchedulerLock(name = "communityHotArticles")
-    public void findPopularArticle() {
+    @SchedulerLock(name = "communityHotPhotoArticles")
+    public void findPopularPhotoArticle() {
         Integer communityId = communityManager.readPopulistCommunity();
         List<PhotoArticle> popularCommunityHotArticles = photoArticleReader.readPopularCommunityHotArticle(communityId);
         List<PhotoArticle> notPopularCommunityHotArticles = photoArticleReader.readNotPopularCommunityHotArticle(communityId);
-        communityManager.sendCommunityPopularArticle(popularCommunityHotArticles,notPopularCommunityHotArticles);
+        communityManager.sendPopularPhotoArticle(popularCommunityHotArticles,notPopularCommunityHotArticles);
+    }
+    @Scheduled(cron = "0 */5 * * * *",zone = "Asia/Seoul")
+    @SchedulerLock(name = "communityHotGatheringArticles")
+    public void findPopularGatheringArticle() {
+        Integer communityId = communityManager.readPopulistCommunity();
+        List<GatheringArticle> popularCommunityHotArticles = gatheringArticleReader.readPopularCommunityHotArticle(communityId);
+        List<GatheringArticle> notPopularCommunityHotArticles = gatheringArticleReader.readNotPopularCommunityHotArticle(communityId);
+        communityManager.sendPopularGatheringArticle(popularCommunityHotArticles,notPopularCommunityHotArticles);
     }
     @Scheduled(cron = "0 0 12 * * *", zone = "Asia/Seoul")
     @SchedulerLock(name = "communityHotReset")

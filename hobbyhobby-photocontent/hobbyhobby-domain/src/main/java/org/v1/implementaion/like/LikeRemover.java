@@ -3,18 +3,13 @@ package org.v1.implementaion.like;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.v1.model.like.Like;
-import org.v1.repository.gathering.GatheringLikeRepository;
-import org.v1.repository.photo.PhotoLikeRepository;
+import org.v1.repository.like.LikeRepository;
 
 @Component
 @AllArgsConstructor
 public class LikeRemover {
-    private final PhotoLikeRepository photoLikeRepository;
-    private final GatheringLikeRepository gatheringLikeRepository;
-    public Integer removePhotoArticleLike(final Like like) {
-        return photoLikeRepository.removeLike(like);
-    }
-    public Integer removeGatheringArticleLike(final Like like) {
-        return gatheringLikeRepository.removeLike(like);
+    private final LikeRepository repository;
+    public Integer removeArticleLike(final Like like) {
+        return repository.removeLike(like);
     }
 }

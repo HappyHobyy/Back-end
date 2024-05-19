@@ -2,7 +2,7 @@ package org.v1.jparepository.photo;
 
 import org.springframework.stereotype.Repository;
 import org.v1.model.comment.Comment;
-import org.v1.repository.photo.PhotoCommentRepository;
+import org.v1.repository.comment.PhotoCommentRepository;
 
 import java.util.List;
 @Repository

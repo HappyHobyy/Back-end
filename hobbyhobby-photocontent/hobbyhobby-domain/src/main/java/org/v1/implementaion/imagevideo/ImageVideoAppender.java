@@ -9,8 +9,8 @@ import java.io.File;
 @Component
 @AllArgsConstructor
 public class ImageVideoAppender {
-    private final ExternalImageVideoRepository externalImageVideoRepository;
+    private final ExternalImageVideoRepository externalRepository;
     public String appendFile(File file, String dirName) {
-        return externalImageVideoRepository.uploadFile(file,dirName);
+        return externalRepository.uploadFile(file,dirName);
     }
 }

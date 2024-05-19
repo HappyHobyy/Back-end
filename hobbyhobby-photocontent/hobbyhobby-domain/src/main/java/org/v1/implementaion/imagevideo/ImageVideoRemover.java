@@ -7,8 +7,8 @@ import org.v1.external.ExternalImageVideoRepository;
 @Component
 @AllArgsConstructor
 public class ImageVideoRemover {
-    private final ExternalImageVideoRepository externalImageVideoRepository;
+    private final ExternalImageVideoRepository externalRepository;
     public void removeFile(String fileUrl) {
-        externalImageVideoRepository.removeFile(fileUrl);
+        externalRepository.removeFile(fileUrl);
     }
 }

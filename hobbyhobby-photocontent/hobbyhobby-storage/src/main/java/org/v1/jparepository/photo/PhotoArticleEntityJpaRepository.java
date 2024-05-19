@@ -1,10 +1,10 @@
 package org.v1.jparepository.photo;
 
 import org.springframework.stereotype.Repository;
-import org.v1.model.photo.PhotoArticle;
-import org.v1.model.photo.PhotoAriticleContent;
+import org.v1.model.article.PhotoArticle;
+import org.v1.model.article.PhotoAriticleContent;
 import org.v1.model.user.UserStatus;
-import org.v1.repository.photo.PhotoArticleRepository;
+import org.v1.repository.article.PhotoArticleRepository;
 
 import java.util.List;
 
