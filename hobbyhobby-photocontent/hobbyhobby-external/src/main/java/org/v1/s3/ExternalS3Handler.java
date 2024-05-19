@@ -8,14 +8,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.v1.repository.ImageVideoRepository;
+import org.v1.external.ExternalImageVideoRepository;
 
 import java.io.File;
 
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class ExternalS3Handler implements ImageVideoRepository
+public class ExternalS3Handler implements ExternalImageVideoRepository
 {
     private final AmazonS3Client amazonS3Client;
 

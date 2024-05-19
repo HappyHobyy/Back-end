@@ -2,13 +2,13 @@ package org.v1.implementaion.imagevideo;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.v1.repository.ImageVideoRepository;
+import org.v1.external.ExternalImageVideoRepository;
 
 @Component
 @AllArgsConstructor
 public class ImageVideoRemover {
-    private final ImageVideoRepository imageVideoRepository;
+    private final ExternalImageVideoRepository externalRepository;
     public void removeFile(String fileUrl) {
-        imageVideoRepository.removeFile(fileUrl);
+        externalRepository.removeFile(fileUrl);
     }
 }
