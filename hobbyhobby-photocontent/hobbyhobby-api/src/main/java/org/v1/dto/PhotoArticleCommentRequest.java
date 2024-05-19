@@ -2,9 +2,9 @@ package org.v1.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
-import org.v1.model.Comment;
-import org.v1.model.User;
-import org.v1.model.UserStatus;
+import org.v1.model.comment.Comment;
+import org.v1.model.user.User;
+import org.v1.model.user.UserStatus;
 
 import java.time.LocalDateTime;
 

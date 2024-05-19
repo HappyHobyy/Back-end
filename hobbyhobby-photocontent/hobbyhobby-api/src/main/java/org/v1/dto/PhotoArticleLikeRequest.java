@@ -2,7 +2,7 @@ package org.v1.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
-import org.v1.model.Like;
+import org.v1.model.like.Like;
 
 public record PhotoArticleLikeRequest(
         @Schema(description = "게시글Id", example = "123")

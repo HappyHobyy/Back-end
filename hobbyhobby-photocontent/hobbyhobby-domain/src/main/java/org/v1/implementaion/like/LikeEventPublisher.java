@@ -2,8 +2,8 @@ package org.v1.implementaion.like;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
-import org.v1.model.Like;
-import org.v1.model.LikeEvent;
+import org.v1.model.like.LikeEvent;
+
 
 @Component
 public class LikeEventPublisher {

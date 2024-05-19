@@ -1,6 +1,6 @@
 package org.v1.rabbitmq.dto;
 
-import org.v1.model.User;
+import org.v1.model.user.User;
 
 public record UserMessage(
         Long userId,

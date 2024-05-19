@@ -19,30 +19,10 @@ public class EmailService {
     @Transactional
     public void sendEmailAndChangePassword(final String userEmail) {
         User user = userReader.readUserByEmail(userEmail);
-        User.Password randomPassword = new User.Password(getTempPassword());
-        User hashedUser = User.withoutId(
-                user.getNickname(),
-                user.getEmail(),
-                user.getUserType(),
-                randomPassword.hashPassword(),
-                user.getUserRole(),
-                user.getUserGender(),
-                user.getNationality(),
-                user.getDeviceToken(),
-                user.getImageUrl()
-        );
-        userAppender.appendUser(hashedUser);
-        Mail mail = Mail.from(user,randomPassword.password());
+        User updatedUser = user.resetUserPassword();
+        userAppender.appendUser(updatedUser);
+        Mail mail = Mail.from(user, updatedUser.getPassword().password());
         emailSender.sendEmail(mail);
-    }
-
-    public String getTempPassword() {
-        SecureRandom random = new SecureRandom();
-        String charSet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^?";
-        return random.ints(10, 0, charSet.length())
-                .mapToObj(charSet::charAt)
-                .map(Object::toString)
-                .collect(Collectors.joining());
     }
 }
 

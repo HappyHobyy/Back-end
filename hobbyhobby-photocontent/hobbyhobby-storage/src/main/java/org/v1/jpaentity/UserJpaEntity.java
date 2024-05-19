@@ -2,7 +2,7 @@ package org.v1.jpaentity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.v1.model.User;
+import org.v1.model.user.User;
 
 import java.util.Optional;
 

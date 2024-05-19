@@ -18,9 +18,6 @@ public class UserReader {
     public User readById(final Long userId) {
         return userRepository.readById(userId).orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
     }
-    public User readUserByTypeAndEmail(final User user){
-        return userRepository.readByTypeAndEmail(user).orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
-    }
     public User readUserByEmail(final String userEmail){
         return userRepository.readByEmail(userEmail).orElseThrow(() -> new BusinessException(ErrorCode.USER_EMAIL_NOT_FOUND));
     }

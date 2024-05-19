@@ -3,14 +3,14 @@ package org.v1.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.v1.handler.PhotoContentHandler;
-import org.v1.handler.TextContentHandler;
+import org.v1.handler.ExternalPhotoContentSender;
+import org.v1.handler.ExternalTextContentSender;
+import org.v1.implementation.*;
 import org.v1.model.User;
-import org.v1.implementation.UserAppender;
-import org.v1.implementation.UserChecker;
-import org.v1.implementation.UserReader;
 import org.v1.error.BusinessException;
 import org.v1.error.ErrorCode;
+
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -19,83 +19,38 @@ AuthService {
     private final UserAppender userAppender;
     private final UserReader userReader;
     private final UserChecker userChecker;
-    private final PhotoContentHandler photoContentHandler;
-    private final TextContentHandler textContentHandler;
+    private final UserUpdater userUpdater;
+    private final UserValidator userValidator;
 
     public void registerDefaultUser(User user) {
-        if (userChecker.isUserEmailDuplicate(user)) {
-            throw new BusinessException(ErrorCode.USER_EMAIL_DUPLICATED);
-        }
-        User hashedUser = User.withoutId(
-                user.getNickname(),
-                user.getEmail(),
-                user.getUserType(),
-                user.getPassword().hashPassword(),
-                user.getUserRole(),
-                user.getUserGender(),
-                user.getNationality(),
-                null,
-                null
-        );
-        User savedUser = userAppender.appendUser(hashedUser);
-        photoContentHandler.sendUserCreate(savedUser);
-        textContentHandler.sendUserCreate(savedUser);
+        userChecker.isUserEmailDuplicate(user);
+        userAppender.appendUser(user.registDefaultUser());
     }
-    public void registerOAuthUser(User user) {
-        if (userChecker.isUserEmailDuplicate(user)) {
-            throw new BusinessException(ErrorCode.USER_EMAIL_DUPLICATED);
-        }
-        User savedUser = userAppender.appendUser(user);
-        photoContentHandler.sendUserCreate(savedUser);
-        textContentHandler.sendUserCreate(savedUser);
+    public void registerOAuthUser(User oAuthUser) {
+        userChecker.isUserEmailDuplicate(oAuthUser);
+        userAppender.appendUser(oAuthUser);
     }
     @Transactional
     public User loginDefaultUser(User user) {
-        User savedUser = userReader.readUserByTypeAndEmail(user);
-        if (!savedUser.getPassword().matches(user.getPassword().hashPassword())) {
-            throw new BusinessException(ErrorCode.USER_LOGIN_PASSWORD_FAIL);
-        }
-        User updateUser = User.withId(
-                savedUser.getId(),
-                savedUser.getNickname(),
-                savedUser.getEmail(),
-                savedUser.getUserType(),
-                savedUser.getPassword(),
-                savedUser.getUserRole(),
-                savedUser.getUserGender(),
-                savedUser.getNationality(),
-                user.getDeviceToken(),
-                savedUser.getImageUrl()
-        );
-        userAppender.updateUser(updateUser);
+        User savedUser = userReader.readUserByEmail(user.getEmail());
+        userValidator.validateUserType(user.getUserType(),savedUser);
+        userValidator.validatePasswordCorrect(user,savedUser);
+        User updateUser = savedUser.updateUserDeviceToken(user.getDeviceToken());
+        userUpdater.updateUser(updateUser);
         return updateUser;
     }
     @Transactional
     public User loginOAuthUser(User user) {
-        User savedUser = userReader.readUserByTypeAndEmail(user);
-        User updateUser = User.withId(
-                savedUser.getId(),
-                savedUser.getNickname(),
-                savedUser.getEmail(),
-                savedUser.getUserType(),
-                null,
-                savedUser.getUserRole(),
-                savedUser.getUserGender(),
-                savedUser.getNationality(),
-                user.getDeviceToken(),
-                savedUser.getImageUrl()
-        );
-        userAppender.updateUser(updateUser);
+        User savedUser = userReader.readUserByEmail(user.getEmail());
+        userValidator.validateUserType(user.getUserType(),savedUser);
+        User updateUser = savedUser.updateUserDeviceToken(user.getDeviceToken());
+        userUpdater.updateUser(updateUser);
         return updateUser;
     }
     public void checkEmailDuplicate(User user) {
-        if (userChecker.isUserEmailDuplicate(user)) {
-            throw new BusinessException(ErrorCode.USER_EMAIL_DUPLICATED);
-        }
+        userChecker.isUserEmailDuplicate(user);
     }
     public void checkNicknameDuplicate(User user) {
-        if (userChecker.isUserNicknameDuplicate(user)) {
-            throw new BusinessException(ErrorCode.USER_NICKNAME_DUPLICATED);
-        }
+        userChecker.isUserNicknameDuplicate(user);
     }
 }

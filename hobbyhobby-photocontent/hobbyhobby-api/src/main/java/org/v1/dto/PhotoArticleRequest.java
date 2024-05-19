@@ -3,9 +3,9 @@ package org.v1.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.web.multipart.MultipartFile;
-import org.v1.model.PhotoArticle;
-import org.v1.model.Content;
-import org.v1.model.User;
+import org.v1.model.photoartlcle.PhotoArticle;
+import org.v1.model.photoartlcle.PhotoAriticleContent;
+import org.v1.model.user.User;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,20 +41,20 @@ public record PhotoArticleRequest(
             @NotNull(message = "필수")
             String text
     ){
-        public Content toContent(List<MultipartFile> multipartFiles) {
-            List<Content.ImageVideo> fileList = multipartFiles != null ?
+        public PhotoAriticleContent toContent(List<MultipartFile> multipartFiles) {
+            List<PhotoAriticleContent.ImageVideo> fileList = multipartFiles != null ?
                     multipartFiles.stream()
                             .map(file -> {
                                 try {
                                     File convertedFile = convertMultipartFileToFile(file);
-                                    return Content.ImageVideo.withoutPath(multipartFiles.indexOf(file), convertedFile, Content.FileType.H_LOG);
+                                    return PhotoAriticleContent.ImageVideo.withoutPath(multipartFiles.indexOf(file), convertedFile, PhotoAriticleContent.FileType.H_LOG);
                                 } catch (IOException e) {
                                     throw new RuntimeException("MultipartFile -> File로 전환이 실패했습니다.",e);
                                 }
                             })
                             .toList() :
                     Collections.emptyList();
-            return new Content(this.text, fileList);
+            return new PhotoAriticleContent(this.text, fileList);
         }
 
         public PhotoArticle toArticle(Long userId) {

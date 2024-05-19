@@ -2,8 +2,8 @@ package org.v1.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.v1.implementation.UserCommunityAppender;
-import org.v1.implementation.UserCommunityRemover;
+import org.v1.implementation.community.UserCommunityAppender;
+import org.v1.implementation.community.UserCommunityRemover;
 
 @Service
 @AllArgsConstructor

@@ -3,8 +3,7 @@ package org.v1.implementaion.community;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.v1.external.ExternalCommunitySender;
-import org.v1.model.Like;
-import org.v1.model.PhotoArticle;
+import org.v1.model.photoartlcle.PhotoArticle;
 import org.v1.repository.CommunityRepository;
 
 import java.util.List;
@@ -26,10 +25,7 @@ public class CommunityManager {
     public Integer readPopulistCommunity(){
         return communityRepository.readPopulistCommunity();
     }
-    public void sendPopularCommunityArticle(List<PhotoArticle> articles){
-        externalCommunitySender.sendPopularCommunityArticle(articles);
-    }
-    public void sendNotPopularCommunityArticle(List<PhotoArticle> articles){
-        externalCommunitySender.sendNotPopularCommunityArticle(articles);
+    public void sendCommunityPopularArticle(List<PhotoArticle> popularCommunity,List<PhotoArticle> notPopularCommunity){
+        externalCommunitySender.sendCommunityPopularArticle(popularCommunity,notPopularCommunity);
     }
 }

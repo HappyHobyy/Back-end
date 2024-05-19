@@ -1,7 +1,7 @@
 package org.v1.rabbitmq.dto;
 
 
-import org.v1.model.PhotoArticle;
+import org.v1.model.photoartlcle.PhotoArticle;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -14,7 +14,11 @@ public record PhotoArticleMessage(
         String nickname,
         Integer likes,
         Integer comments,
-        String url
+        String url,
+        Long userId,
+        String userName,
+        String userImageUrl,
+        Integer communityId
 
 ) {
     public static List<PhotoArticleMessage> of(List<PhotoArticle> photoArticleList) {
@@ -22,13 +26,17 @@ public record PhotoArticleMessage(
             return Collections.emptyList();
         }
         return photoArticleList.stream()
-                .map(textContent -> new PhotoArticleMessage(
-                        textContent.getId(),
-                        textContent.getDate(),
-                        textContent.getUser().nickname(),
-                        textContent.getLikesComments().likes(),
-                        textContent.getLikesComments().comments(),
-                        textContent.getMainImageUrl()
+                .map(photoArticle -> new PhotoArticleMessage(
+                        photoArticle.getId(),
+                        photoArticle.getDate(),
+                        photoArticle.getUser().nickname(),
+                        photoArticle.getLikesComments().likes(),
+                        photoArticle.getLikesComments().comments(),
+                        photoArticle.getMainImageUrl(),
+                        photoArticle.getUser().id(),
+                        photoArticle.getUser().nickname(),
+                        photoArticle.getUser().imageUrl(),
+                        null
                 ))
                 .collect(Collectors.toList());
     }

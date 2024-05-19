@@ -1,11 +1,11 @@
 package org.v1.dto;
 
-import org.v1.model.Community;
+import org.v1.model.community.Community;
 
 import java.util.List;
 
 public record CommunityListResponse(
-        Long communityId,
+        Integer communityId,
         String communityName,
         String imageUrl
 ) {
