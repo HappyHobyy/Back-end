@@ -29,7 +29,9 @@ public enum ErrorCode {
     REVIEW_ARTICLE_NOT_FOUND("REVIEW_ARTICLE_001", "장비 리뷰 게시물을 찾을 수 없습니다."),
     REVIEW_COMMENT_NOT_FOUND("REVIEW_ARTICLE_002", "장비 리뷰 댓글을 찾을 수 없습니다."),
     PHOTO_ALREADY_LIKE("REVIEW_ARTICLE_003","장비 리뷰 게시물 좋아요를 이미 눌렀어요"),
-    PHOTO_ALREADY_DISLIKE("REVIEW_ARTICLE_004","장비 리뷰 게시물 좋아요를 이미 취소했어요");
+    PHOTO_ALREADY_DISLIKE("REVIEW_ARTICLE_004","장비 리뷰 게시물 좋아요를 이미 취소했어요"),
+    ARTICLE_ALREADY_LIKE("ARTICLE_001","게시물 좋아요를 이미 눌렀어요"),
+    ARTICLE_ALREADY_DISLIKE("ARTICLE_002","게시물 좋아요를 이미 취소했어요");
 
 
 

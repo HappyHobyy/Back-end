@@ -2,13 +2,13 @@ package org.v1.implementaion.comment;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.v1.repository.CommentRepository;
+import org.v1.repository.comment.PhotoCommentRepository;
 
 @Component
 @AllArgsConstructor
 public class CommentRemover {
-    private final CommentRepository commentRepository;
-    public void removeComment(final Long commentId) {
-        commentRepository.removeComment(commentId);
+    private final PhotoCommentRepository repository;
+    public void removePhotoArticleComment(final Long commentId) {
+        repository.removeComment(commentId);
     }
 }

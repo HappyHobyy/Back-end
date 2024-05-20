@@ -2,22 +2,20 @@ package org.v1.implementaion.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.v1.error.BusinessException;
-import org.v1.error.ErrorCode;
-import org.v1.model.User;
-import org.v1.repository.UserRepository;
+import org.v1.model.user.User;
+import org.v1.repository.user.UserRepository;
 @Component
 @AllArgsConstructor
 public class UserManager {
-    private final UserRepository userRepository;
+    private final UserRepository repository;
     public void appendUser(final User user){
-        userRepository.appendUser(user);
+        repository.appendUser(user);
     }
     public void removeUser(final Long userId) {
-        userRepository.removeUser(userId);
+        repository.removeUser(userId);
     }
     public void updateUser(final User user) {
-        userRepository.updateUser(user);
+        repository.updateUser(user);
     }
 
 }

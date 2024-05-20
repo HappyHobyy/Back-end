@@ -1,7 +1,7 @@
 package org.v1.rabbitmq.dto;
 
 
-import org.v1.model.PhotoArticle;
+import org.v1.model.article.PhotoArticle;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -14,7 +14,6 @@ public record PhotoArticleMessage(
         String nickname,
         Integer likes,
         Integer comments,
-        String url,
         Long userId,
         String userName,
         String userImageUrl,
@@ -32,7 +31,6 @@ public record PhotoArticleMessage(
                         photoArticle.getUser().nickname(),
                         photoArticle.getLikesComments().likes(),
                         photoArticle.getLikesComments().comments(),
-                        photoArticle.getMainImageUrl(),
                         photoArticle.getUser().id(),
                         photoArticle.getUser().nickname(),
                         photoArticle.getUser().imageUrl(),

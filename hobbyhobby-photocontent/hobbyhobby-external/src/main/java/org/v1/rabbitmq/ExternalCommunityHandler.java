@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.v1.external.ExternalCommunitySender;
-import org.v1.model.PhotoArticle;
+import org.v1.model.article.GatheringArticle;
+import org.v1.model.article.PhotoArticle;
 import org.v1.rabbitmq.dto.PhotoArticleMessage;
 import org.v1.rabbitmq.dto.PhotoArticleMessageList;
 
@@ -17,7 +18,12 @@ public class ExternalCommunityHandler implements ExternalCommunitySender {
     private final ExternalCommunityMessageSender messageHandler;
 
     @Override
-    public void sendCommunityPopularArticle(List<PhotoArticle> popularCommunity, List<PhotoArticle> notPopularCommunity) {
+    public void sendPopularPhotoArticle(List<PhotoArticle> popularCommunity, List<PhotoArticle> notPopularCommunity) {
         messageHandler.sendCommunityFromPhotoContent(new PhotoArticleMessageList(PhotoArticleMessage.of(popularCommunity),PhotoArticleMessage.of(notPopularCommunity)),"photo");
+    }
+
+    @Override
+    public void sendPopularGatheringArticle(List<GatheringArticle> popularCommunity, List<GatheringArticle> notPopularCommunity) {
+
     }
 }

@@ -4,22 +4,22 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.v1.implementaion.community.CommunityManager;
-import org.v1.model.LikeEvent;
+import org.v1.model.like.LikeEvent;
 
 @Component
 @AllArgsConstructor
 public class LikeEventListener {
 
-    private final CommunityManager communityManager;
+    private final CommunityManager manager;
 
 
     @EventListener
     public void handleLikeEvent(LikeEvent likeEvent) {
         Integer communityId = likeEvent.getCommunityId();
         if (likeEvent.getLikeType() == LikeEvent.LikeType.LIKE) {
-            communityManager.plusCommunityLikes(communityId);
+            manager.plusCommunityLikes(communityId);
         } else {
-            communityManager.minusCommunityLikes(communityId);
+            manager.minusCommunityLikes(communityId);
         }
     }
 }

@@ -17,6 +17,13 @@ spring:
     name: gateway-service
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            maxAge: 3600
       default-filters:
         - name: GlobalFilter
           args:
