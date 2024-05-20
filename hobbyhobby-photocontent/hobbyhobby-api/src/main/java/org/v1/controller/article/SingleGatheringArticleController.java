@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.v1.dto.request.SingleGatheringArticleRequest;
-import org.v1.dto.response.PhotoArticleDetailResponse;
 import org.v1.model.article.ArticleType;
 import org.v1.model.article.GatheringArticleDetail;
 import org.v1.service.article.GatheringArticleService;

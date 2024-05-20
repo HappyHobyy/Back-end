@@ -9,8 +9,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.v1.dto.request.MultiGatheringArticleRequest;
-import org.v1.dto.request.SingleGatheringArticleRequest;
-import org.v1.dto.response.PhotoArticleDetailResponse;
 import org.v1.model.article.ArticleType;
 import org.v1.model.article.GatheringArticleDetail;
 import org.v1.service.article.GatheringArticleService;
@@ -69,7 +67,7 @@ public class MultiGatheringArticleController {
     @GetMapping("/detail")
     @Operation(summary = "연합 모임 게시글 내용 가져오기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<List<PhotoArticleDetailResponse>> getArticle(
+    public HttpResponse<Object> getArticle(
             @RequestBody MultiGatheringArticleRequest.Detail request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
