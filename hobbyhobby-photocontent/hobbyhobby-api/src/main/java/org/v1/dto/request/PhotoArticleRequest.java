@@ -41,7 +41,7 @@ public record PhotoArticleRequest(
             @NotNull(message = "필수")
             String text
     ){
-        public PhotoAriticleContent toContent(List<MultipartFile> multipartFiles) {
+        public PhotoArticle toArticle(List<MultipartFile> multipartFiles,Long userId) {
             List<ImageVideo> fileList = multipartFiles != null ?
                     multipartFiles.stream()
                             .map(file -> {
@@ -54,11 +54,7 @@ public record PhotoArticleRequest(
                             })
                             .toList() :
                     Collections.emptyList();
-            return new PhotoAriticleContent(this.text, fileList);
-        }
-
-        public PhotoArticle toArticle(Long userId) {
-            return PhotoArticle.initial(User.onlyUserId(userId),communityId);
+            return PhotoArticle.initial(User.onlyUserId(userId),communityId,new PhotoAriticleContent(this.text, fileList));
         }
     }
 }

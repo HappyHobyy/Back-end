@@ -8,11 +8,11 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.v1.dto.response.PhotoArticleDetailResponse;
+import org.v1.dto.response.CommentResponse;
 import org.v1.dto.request.PhotoArticleRequest;
 import org.v1.dto.response.PhotoArticleResponse;
 import org.v1.model.article.PhotoArticle;
-import org.v1.model.article.PhotoArticleDetail;
+import org.v1.model.comment.Comment;
 import org.v1.service.article.PhotoArticleService;
 import response.DefaultId;
 import response.HttpResponse;
@@ -25,24 +25,29 @@ import java.util.List;
 @RequestMapping("/api/hlog")
 public class PhotoArticleController {
     private final PhotoArticleService photoArticleService;
+
     @GetMapping("/latest")
     @Operation(summary = "H-Log 게시글 최신순 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> getPhotoArticleLatest(
-            @RequestBody PhotoArticleRequest.Search request
+            @RequestBody PhotoArticleRequest.Search request,
+            @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLatest(request.communityId());
+        List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLatest(request.communityId(),userId);
         return HttpResponse.success(PhotoArticleResponse.of(photoArticleList));
     }
+
     @GetMapping("/likes")
     @Operation(summary = "H-log 게시글 좋아요 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> getPhotoArticleLikes(
-            @RequestBody PhotoArticleRequest.Search request
+            @RequestBody PhotoArticleRequest.Search request,
+            @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLikes(request.communityId());
+        List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLikes(request.communityId(),userId);
         return HttpResponse.success(PhotoArticleResponse.of(photoArticleList));
     }
+
     @DeleteMapping("")
     @Operation(summary = "H-log 게시글 삭제")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
@@ -52,6 +57,7 @@ public class PhotoArticleController {
         photoArticleService.deleteArticle(request.articleId());
         return HttpResponse.successOnly();
     }
+
     @PostMapping("")
     @Operation(summary = "H-log 게시글 저장")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
@@ -60,17 +66,18 @@ public class PhotoArticleController {
             @RequestPart("files") List<MultipartFile> files,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        Long photoArticleId = photoArticleService.createArticle(request.toArticle(userId),request.toContent(files));
+        Long photoArticleId = photoArticleService.createArticle(request.toArticle(files, userId));
         return HttpResponse.success(DefaultId.of(photoArticleId));
     }
+
     @GetMapping("/detail")
-    @Operation(summary = "H-log 게시글 내용 가져오기")
+    @Operation(summary = "H-log 게시글 댓글 가져오기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<List<PhotoArticleDetailResponse>> getArticle(
+    public HttpResponse<List<CommentResponse>> getArticle(
             @RequestBody Long photoArticleId,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        PhotoArticleDetail photoArticleDetail = photoArticleService.getArticleDetail(photoArticleId,userId);
-        return HttpResponse.success(PhotoArticleDetailResponse.of(photoArticleDetail));
+        List<Comment> commentResponses = photoArticleService.getArticleComment(photoArticleId, userId);
+        return HttpResponse.success(CommentResponse.of(commentResponses));
     }
 }
