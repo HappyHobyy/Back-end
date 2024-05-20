@@ -63,7 +63,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - /path/to/local/mysql_data:/var/lib/mysql
 networks:
   dockernet:
     external: true
