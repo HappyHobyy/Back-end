@@ -21,4 +21,7 @@ public class LikeChecker {
             throw new BusinessException(ErrorCode.ARTICLE_ALREADY_DISLIKE);
         };
     }
+    public boolean checkArticleLiked(Like like) {
+        return repository.checkArticleLike(like);
+    }
 }

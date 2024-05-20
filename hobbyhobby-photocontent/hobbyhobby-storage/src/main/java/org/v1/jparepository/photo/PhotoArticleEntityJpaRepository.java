@@ -3,6 +3,7 @@ package org.v1.jparepository.photo;
 import org.springframework.stereotype.Repository;
 import org.v1.model.article.PhotoArticle;
 import org.v1.model.article.PhotoAriticleContent;
+import org.v1.model.imageVideo.ImageVideo;
 import org.v1.model.user.UserStatus;
 import org.v1.repository.article.PhotoArticleRepository;
 
@@ -27,7 +28,7 @@ public class PhotoArticleEntityJpaRepository implements PhotoArticleRepository {
     }
 
     @Override
-    public void appendArticleContent(PhotoAriticleContent photoAriticleContent, Long articleId) {
+    public void appendArticleContent(List<ImageVideo> imageVideoList, Long articleId) {
 
     }
 
