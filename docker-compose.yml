@@ -67,3 +67,5 @@ services:
 networks:
   dockernet:
     external: true
+volumes:
+  mysql_data:
