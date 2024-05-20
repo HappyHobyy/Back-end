@@ -70,15 +70,13 @@ services:
     container_name: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: hobbyhobby
       MYSQL_DATABASE: hobbyhobby
       TZ: Asia/Seoul
-
     ports:
       - "3306:3306"
     volumes:
       - /path/to/local/mysql_data:/var/lib/mysql
-
 networks:
   dockernet:
     external: true
