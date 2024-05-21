@@ -14,4 +14,8 @@ public class Community {
     public static Community onlyWithId(Integer id) {
         return new Community(id,null,null,null);
     }
+    public static Community withId(Integer id,String name, String url) {
+        return new Community(id,name,url,null);
+    }
+
 }
