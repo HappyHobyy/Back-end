@@ -12,15 +12,15 @@ import java.util.stream.Collectors;
 
 public record PhotoArticleResponse(
         @Schema(description = "게시글 Id", example = "123")
-        Long photoArticleId,
+        long photoArticleId,
         @Schema(description = "게시글 날짜", example = "2024-05-06T15:23:45.123456789")
         LocalDateTime date,
         @Schema(description = "게시글 작성자 닉네임", example = "hobbyhobby")
         String nickname,
         @Schema(description = "게시글 좋아요 갯수", example = "12")
-        Integer likes,
+        int likes,
         @Schema(description = "게시글 댓글 갯수", example = "12")
-        Integer comments,
+        int comments,
         @Schema(description = "게시글 내용", example = "배고파")
         String text,
         List<ImageResponse> images,
@@ -31,7 +31,7 @@ public record PhotoArticleResponse(
 ) {
     public record ImageResponse(
             @Schema(description = "이미지 번호", example = "2")
-            Integer index,
+            int index,
             @Schema(description = "경로", example = "http://....")
             String path
     ) {

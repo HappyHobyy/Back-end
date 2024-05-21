@@ -13,17 +13,12 @@ public class PhotoCommentJpaEntityRepository implements PhotoCommentRepository {
     }
 
     @Override
-    public Long appendComment(Comment comment, Long articleId) {
-        return null;
+    public long appendComment(Comment comment, Long articleId) {
+        return 1L;
     }
 
     @Override
     public void removeComment(Long commentId) {
 
-    }
-
-    @Override
-    public Integer countComment(Long articleId) {
-        return null;
     }
 }

@@ -30,7 +30,7 @@ public class PhotoArticleController {
     @Operation(summary = "H-Log 게시글 최신순 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> getPhotoArticleLatest(
-            @RequestBody PhotoArticleRequest.Search request,
+            @RequestBody PhotoArticleRequest.Get request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
         List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLatest(request.communityId(),userId);
@@ -41,7 +41,7 @@ public class PhotoArticleController {
     @Operation(summary = "H-log 게시글 좋아요 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> getPhotoArticleLikes(
-            @RequestBody PhotoArticleRequest.Search request,
+            @RequestBody PhotoArticleRequest.Get request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
         List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLikes(request.communityId(),userId);
@@ -66,7 +66,7 @@ public class PhotoArticleController {
             @RequestPart("files") List<MultipartFile> files,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        Long photoArticleId = photoArticleService.createArticle(request.toArticle(files, userId));
+        long photoArticleId = photoArticleService.createArticle(request.toArticle(files, userId));
         return HttpResponse.success(DefaultId.of(photoArticleId));
     }
 

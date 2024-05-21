@@ -9,7 +9,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.v1.dto.request.MultiGatheringArticleRequest;
+import org.v1.dto.response.GatheringArticleDetailResponse;
+import org.v1.dto.response.MultiGatheringArticleResponse;
 import org.v1.model.article.ArticleType;
+import org.v1.model.article.GatheringArticle;
 import org.v1.model.article.GatheringArticleDetail;
 import org.v1.service.article.GatheringArticleService;
 import response.DefaultId;
@@ -27,21 +30,22 @@ public class MultiGatheringArticleController {
     @GetMapping("")
     @Operation(summary = "연합 모임 게시글 최신순 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> getSingleGatheringLatest(
+    public HttpResponse<List<MultiGatheringArticleResponse>> getSingleGatheringLatest(
     ) {
-        service.getTenArticleLatest(ArticleType.MULTI_GATHERING);
-        return HttpResponse.successOnly();
+        List<GatheringArticle> gatheringArticles = service.getTenArticleLatest(ArticleType.MULTI_GATHERING);
+        return HttpResponse.success(MultiGatheringArticleResponse.of(gatheringArticles));
     }
 
     @GetMapping("/search")
     @Operation(summary = "연합 모임 게시글 검색 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> getSingleGatheringSearch(
+    public HttpResponse<List<MultiGatheringArticleResponse>> getSingleGatheringSearch(
             @RequestBody MultiGatheringArticleRequest.Search request
     ) {
-        service.getTenArticleSearch(request.toGatheringInfo());
-        return HttpResponse.successOnly();
+        List<GatheringArticle> gatheringArticles = service.getTenArticleSearch(request.toGatheringInfo());
+        return HttpResponse.success(MultiGatheringArticleResponse.of(gatheringArticles));
     }
+
     @DeleteMapping("")
     @Operation(summary = "연합 모임 게시글 삭제")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
@@ -55,7 +59,7 @@ public class MultiGatheringArticleController {
     @PostMapping("")
     @Operation(summary = "연합 모임 게시글 저장")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> createArticle(
+    public HttpResponse<DefaultId> createArticle(
             @RequestPart MultiGatheringArticleRequest.Create request,
             @RequestPart("file") MultipartFile file,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
@@ -67,11 +71,11 @@ public class MultiGatheringArticleController {
     @GetMapping("/detail")
     @Operation(summary = "연합 모임 게시글 내용 가져오기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> getArticle(
+    public HttpResponse<GatheringArticleDetailResponse> getArticle(
             @RequestBody MultiGatheringArticleRequest.Detail request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
         GatheringArticleDetail detail = service.getArticleDetail(request.toGatheringInfo(), userId);
-        return HttpResponse.successOnly();
+        return HttpResponse.success(GatheringArticleDetailResponse.of(detail));
     }
 }

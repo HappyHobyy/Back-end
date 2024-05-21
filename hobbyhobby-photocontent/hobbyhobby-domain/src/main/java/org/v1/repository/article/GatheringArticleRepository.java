@@ -16,7 +16,7 @@ public interface GatheringArticleRepository {
     Long appendArticle(GatheringArticle photoArticle);
     void appendArticleContent(GatheringArticleContent content, GatheringInfo info);
     void removeArticle(GatheringInfo info);
-    UserStatus checkArticleUserRelation(GatheringInfo info, Long userId);
-    boolean checkArticleExist(GatheringInfo info);
+    boolean isArticleUserOwner(GatheringInfo info, Long userId);
+    boolean isArticleUserJoined(GatheringInfo info, Long userId);
     GatheringArticleContent readContent(GatheringInfo info);
 }

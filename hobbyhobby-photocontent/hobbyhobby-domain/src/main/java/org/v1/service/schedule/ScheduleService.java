@@ -24,7 +24,7 @@ public class ScheduleService {
     @Scheduled(cron = "0 */5 * * * *",zone = "Asia/Seoul")
     @SchedulerLock(name = "communityHotPhotoArticles")
     public void findPopularPhotoArticle() {
-        Integer communityId = communityManager.readPopulistCommunity();
+        int communityId = communityManager.readPopulistCommunity();
         List<PhotoArticle> popularCommunityHotArticles = photoArticleReader.readPopularCommunityHotArticle(communityId);
         List<PhotoArticle> notPopularCommunityHotArticles = photoArticleReader.readNotPopularCommunityHotArticle(communityId);
         communityManager.sendPopularPhotoArticle(popularCommunityHotArticles,notPopularCommunityHotArticles);
@@ -32,7 +32,7 @@ public class ScheduleService {
     @Scheduled(cron = "0 */5 * * * *",zone = "Asia/Seoul")
     @SchedulerLock(name = "communityHotGatheringArticles")
     public void findPopularGatheringArticle() {
-        Integer communityId = communityManager.readPopulistCommunity();
+        int communityId = communityManager.readPopulistCommunity();
         List<GatheringArticle> popularCommunityHotArticles = gatheringArticleReader.readPopularCommunityHotArticle(communityId);
         List<GatheringArticle> notPopularCommunityHotArticles = gatheringArticleReader.readNotPopularCommunityHotArticle(communityId);
         communityManager.sendPopularGatheringArticle(popularCommunityHotArticles,notPopularCommunityHotArticles);
