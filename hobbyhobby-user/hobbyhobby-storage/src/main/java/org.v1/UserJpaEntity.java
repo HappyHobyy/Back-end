@@ -9,47 +9,52 @@ import java.util.Optional;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Builder
-@Table(name = "user")
+@Table(name = "Users")
 public class UserJpaEntity  extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "UserID")
     private Long id;
 
-    @Column(name = "nickname")
-    private String nickname;
+    @Column(name = "Name")
+    private String name;
 
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "type")
-    private User.UserType type;
-
-    @Column(name = "email")
+    @Column(name = "Email")
     private String email;
 
-    @Column(name = "role")
-    private User.UserRole role;
+    @Column(name = "Password")
+    private String password;
 
-    @Column(name = "gender")
+    @Column(name = "Nickname")
+    private String nickname;
+
+    @Column(name = "Birthday")
+    private String birth;
+
+    @Column(name = "HP")
+    private String phoneNumber;
+
+    @Column(name = "ImageURL")
+    private String imageUrl;
+
+    @Column(name = "Gender")
     private User.UserGender gender;
 
-    @Column(name = "nationality")
+    @Column(name = "Nationality")
     private User.Nationality nationality;
+
+    @Column(name = "SignUpChannel")
+    private User.UserType type;
+
     @Column(name = "deviceToken")
     private String deviceToken;
-    @Column(name = "imageUrl")
-    private String imageUrl;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "phoneNumber")
-    private Integer phoneNumber;
-    @Column(name = "birth")
-    private String birth;
+
+//    @Column(name = "role")
+//    private User.UserRole role;
+
     public static UserJpaEntity ofWithoutId(User user) {
         return UserJpaEntity.builder()
                 .gender(user.getUserGender())
-                .role(user.getUserRole())
                 .email(user.getEmail())
                 .nationality(user.getNationality())
                 .nickname(user.getNickname())
@@ -66,7 +71,6 @@ public class UserJpaEntity  extends BaseEntity {
         return UserJpaEntity.builder()
                 .id(user.getId().value())
                 .gender(user.getUserGender())
-                .role(user.getUserRole())
                 .email(user.getEmail())
                 .nationality(user.getNationality())
                 .nickname(user.getNickname())
@@ -87,7 +91,6 @@ public class UserJpaEntity  extends BaseEntity {
                 this.email,
                 this.type,
                 this.password != null ? new User.Password(this.password) : null,
-                this.role,
                 this.gender,
                 this.nationality,
                 this.deviceToken,
