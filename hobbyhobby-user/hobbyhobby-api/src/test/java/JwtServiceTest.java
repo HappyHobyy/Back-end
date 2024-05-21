@@ -94,13 +94,12 @@ class JwtServiceTest {
                 "testEmail",
                 User.UserType.OAUTH_DEFAULT,
                 new User.Password("testPassword"),
-                User.UserRole.ROLE_USER,
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
                 "testDeviceToken",
                 "123",
                 "testName",
-                '01011112222',
+                "010111222",
                 "2001/12/16"
         );
     }
