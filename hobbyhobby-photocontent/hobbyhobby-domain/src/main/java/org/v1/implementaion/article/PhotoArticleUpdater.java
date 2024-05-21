@@ -7,6 +7,6 @@ import org.v1.model.user.UserStatus;
 @Component
 public class PhotoArticleUpdater {
     public PhotoArticle updateUserArticleRelation(PhotoArticle article, boolean isUserArticle, boolean isUserLike) {
-        return article.updateUserStatus(new UserStatus(isUserArticle, isUserLike));
+        return article.updateUserStatus(new UserStatus(isUserArticle, isUserLike,false));
     }
 }

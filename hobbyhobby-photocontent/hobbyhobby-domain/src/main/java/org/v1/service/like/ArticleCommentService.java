@@ -10,7 +10,7 @@ import org.v1.model.comment.Comment;
 public class ArticleCommentService {
     private final CommentRemover commentRemover;
     private final CommentAppender commentAppender;
-    public Long createArticleComment(Comment comment, Long photoArticleId) {
+    public long createArticleComment(Comment comment, Long photoArticleId) {
         return commentAppender.appendPhotoArticleComment(comment,photoArticleId);
     }
     public void deleteArticleComment(Long commentId) {

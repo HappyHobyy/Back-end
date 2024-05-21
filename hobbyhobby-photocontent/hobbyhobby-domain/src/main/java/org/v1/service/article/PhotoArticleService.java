@@ -29,7 +29,7 @@ public class PhotoArticleService {
     private final CommentReader commentReader;
     private final CommentUpdater commentUpdater;
 
-    public List<PhotoArticle> getTenArticleLatest(Integer communityId, Long userId) {
+    public List<PhotoArticle> getTenArticleLatest(int communityId, long userId) {
         return photoArticleReader.readTenArticleLatest(communityId).stream().map(
                 photoArticle -> {
                     boolean isUserLiked = likeChecker.checkArticleLiked(Like.toPhotoLike(userId, photoArticle.getId()));
@@ -38,8 +38,8 @@ public class PhotoArticleService {
                 }
         ).collect(Collectors.toList());
     }
-    public List<PhotoArticle> getTenArticleLikes(Integer communityId,Long userId) {
-        return photoArticleReader.readTenArticleLatest(communityId).stream().map(
+    public List<PhotoArticle> getTenArticleLikes(int communityId,long userId) {
+        return photoArticleReader.readTenArticleLikes(communityId).stream().map(
                 photoArticle -> {
                     boolean isUserLiked = likeChecker.checkArticleLiked(Like.toPhotoLike(userId, photoArticle.getId()));
                     boolean isUserArticleOwner = photoArticle.isUserArticleOwner(userId);
@@ -47,17 +47,17 @@ public class PhotoArticleService {
                 }
         ).collect(Collectors.toList());
     }
-    public Long createArticle(PhotoArticle photoArticle) {
-        Long photoArticleId = photoArticleAppender.appendArticle(photoArticle);
+    public long createArticle(PhotoArticle photoArticle) {
+        long photoArticleId = photoArticleAppender.appendArticle(photoArticle);
         List<ImageVideo> imageVideos = imageVideoManager.appendFiles(photoArticleId, photoArticle.getContent().getImages());
         photoArticleAppender.appendArticleContent(imageVideos, photoArticleId);
         return photoArticleId;
     }
-    public void deleteArticle(Long photoArticleId){
+    public void deleteArticle(long photoArticleId){
         imageVideoManager.removeImages(photoArticleReader.readContent(photoArticleId).getImages());
         photoArticleRemover.removeArticle(photoArticleId);
     }
-    public  List<Comment> getArticleComment(Long photoArticleId, Long userId) {
+    public  List<Comment> getArticleComment(long photoArticleId, long userId) {
         List<Comment> comments = commentReader.readPhotoArticleComments(photoArticleId);
         return commentUpdater.updateIsUserCommentOwner(comments,userId);
     }
