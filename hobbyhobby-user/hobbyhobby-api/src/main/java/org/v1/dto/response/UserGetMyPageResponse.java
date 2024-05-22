@@ -17,8 +17,8 @@ public record UserGetMyPageResponse(
         String imageUrl,
         @Schema(description = "이름", example = "testName")
         String userName,
-        @Schema(description = "전화번호", example = "01011111111")
-        Integer phoneNumber
+        @Schema(description = "전화번호", example = "01011112222")
+        String phoneNumber
 
 ) {
     public static UserGetMyPageResponse of(final User user) {
