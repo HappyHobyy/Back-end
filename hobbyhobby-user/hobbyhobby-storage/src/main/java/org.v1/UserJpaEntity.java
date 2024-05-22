@@ -2,52 +2,64 @@ package org.v1;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.v1.model.User;
+
+import java.time.LocalDateTime;
 import java.util.Optional;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Builder
-@Table(name = "Users")
-public class UserJpaEntity  extends BaseEntity {
+@Table(name = "user")
+public class UserJpaEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UserID")
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "Email")
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "Password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "Nickname")
+    @Column(name = "nickname")
     private String nickname;
 
-    @Column(name = "Birthday")
+    @Column(name = "birthday")
     private String birth;
 
-    @Column(name = "HP")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "ImageURL")
+    @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "Gender")
+    @Column(name = "gender")
     private User.UserGender gender;
 
-    @Column(name = "Nationality")
+    @Column(name = "nationality")
     private User.Nationality nationality;
 
-    @Column(name = "SignUpChannel")
+    @Column(name = "sign_up_channel")
     private User.UserType type;
 
-    @Column(name = "deviceToken")
+    @Column(name = "device_token")
     private String deviceToken;
+
+    @CreationTimestamp
+    @Column(name = "created_at", columnDefinition = "timestamp", updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "modified_at", columnDefinition = "timestamp")
+    private LocalDateTime modifiedAt;
 
 //    @Column(name = "role")
 //    private User.UserRole role;
