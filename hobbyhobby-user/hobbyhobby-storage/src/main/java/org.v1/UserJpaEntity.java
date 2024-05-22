@@ -2,8 +2,8 @@ package org.v1;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.v1.model.User;
 
 import java.time.LocalDateTime;
@@ -53,12 +53,12 @@ public class UserJpaEntity{
     @Column(name = "device_token")
     private String deviceToken;
 
-    @CreatedDate
-    @Column(name = "created_at")
+    @CreationTimestamp
+    @Column(name = "created_at", columnDefinition = "timestamp", updatable = false)
     private LocalDateTime createdAt;
 
-    @LastModifiedDate
-    @Column(name = "modified_at")
+    @UpdateTimestamp
+    @Column(name = "modified_at", columnDefinition = "timestamp")
     private LocalDateTime modifiedAt;
 
 //    @Column(name = "role")
