@@ -27,6 +27,9 @@ public class CommunityService {
     public List<Community> getUserCommunity(Long userId){
         return communityReader.readUserCommunities(userId);
     }
+    public List<Community> getRecommendCommunity(Long userId){
+        return communityReader.readRecommendCommunities(userId);
+    }
     public Contents getPopularContent(){
         Community populistCommunity = communityReader.readPopulistCommunity();
         Contents.PhotoArticles cachedPhotoArticles = getCachedPhotoArticles();
