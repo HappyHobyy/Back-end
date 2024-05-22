@@ -13,52 +13,52 @@ import java.util.Optional;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Builder
-@Table(name = "Users")
+@Table(name = "user")
 public class UserJpaEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UserID")
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "Email")
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "Password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "Nickname")
+    @Column(name = "nickname")
     private String nickname;
 
-    @Column(name = "Birthday")
+    @Column(name = "birthday")
     private String birth;
 
-    @Column(name = "HP")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "ImageURL")
+    @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "Gender")
+    @Column(name = "gender")
     private User.UserGender gender;
 
-    @Column(name = "Nationality")
+    @Column(name = "nationality")
     private User.Nationality nationality;
 
-    @Column(name = "SignUpChannel")
+    @Column(name = "sign_up_channel")
     private User.UserType type;
 
-    @Column(name = "deviceToken")
+    @Column(name = "device_token")
     private String deviceToken;
 
     @CreatedDate
-    @Column(name = "CreatedAt")
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(name = "ModifiedAt")
+    @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 
 //    @Column(name = "role")

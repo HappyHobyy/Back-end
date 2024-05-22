@@ -43,7 +43,7 @@ public class User {
     public User resetUserPassword(){
         Password resetPassword = this.password.tempPassword();
         return new User(id, nickname, email, userType, resetPassword, userGender, nationality, deviceToken, imageUrl,userName,phoneNumber,birth);
-    };
+    }
     public record UserId(Long value) {}
 
     public record Password(String password) {
@@ -74,10 +74,6 @@ public class User {
         OAUTH_GOOGLE,
         OAUTH_KAKAO,
         OAUTH_NAVER
-    }
-    public enum UserRole {
-        ROLE_USER,
-        ROLE_ADMIN
     }
     public enum UserGender {
         MAN,
