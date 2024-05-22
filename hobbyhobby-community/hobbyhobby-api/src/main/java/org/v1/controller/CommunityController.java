@@ -42,7 +42,7 @@ public class CommunityController {
     public HttpResponse<List<UserCommunityListResponse>> getUserCommunity(
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        List<UserCommunity> communityList = communityService.getUserCommunity(userId);
+        List<Community> communityList = communityService.getUserCommunity(userId);
         return HttpResponse.success(UserCommunityListResponse.ofCommunityList(communityList));
     }
     @GetMapping("/popular/contents")

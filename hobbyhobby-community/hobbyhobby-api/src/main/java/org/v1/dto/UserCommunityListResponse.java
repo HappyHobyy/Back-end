@@ -1,22 +1,22 @@
 package org.v1.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.v1.model.community.Community;
 import org.v1.model.community.UserCommunity;
 
 import java.util.List;
 
 public record UserCommunityListResponse(
+        @Schema(description = "커뮤니티id", example = "1")
         Integer communityId,
-        String communityName,
-        String imageUrl,
-        Integer userHistoryCount
+        @Schema(description = "커뮤니티id 이름", example = "야구")
+        String communityName
 ) {
-    public static List<UserCommunityListResponse> ofCommunityList(List<UserCommunity> communityList) {
+    public static List<UserCommunityListResponse> ofCommunityList(List<Community> communityList) {
         return communityList.stream()
                 .map(community -> new UserCommunityListResponse(
-                        community.getCommunity().getId(),
-                        community.getCommunity().getCommunityName(),
-                        community.getCommunity().getImageUrl(),
-                        community.getStatus().userHistoryCount()
+                        community.getId(),
+                        community.getCommunityName()
                 ))
                 .toList();
     }

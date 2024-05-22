@@ -1,5 +1,6 @@
 package org.v1.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.v1.model.community.Community;
 import org.v1.model.content.GroupArticle;
 
@@ -8,19 +9,29 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 record GroupArticleResponse(
-        Long id,
+        @Schema(description = "게시글 id", example = "1")
+        Long articleId,
+        @Schema(description = "작성일", example = "DateTime")
         LocalDateTime date,
+        @Schema(description = "작성자 id", example = "1")
         Long userId,
+        @Schema(description = "작성자 이름", example = "철수")
         String userNickName,
+        @Schema(description = "작성자 사진 url", example = "http://example.com")
         String userImagePath,
+        @Schema(description = "좋아요 수", example = "1")
         Integer likes,
-        Integer comments,
-        String firstImageUrl,
+        @Schema(description = "모임원 수", example = "12")
+        Integer countUsers,
+        @Schema(description = "이미지 url", example = "http://")
+        String imageUrl,
         List<CommunityResponse> communities
 ) {
     public record CommunityResponse(
-            Integer id,
-            String name
+            @Schema(description = "커뮤니티id", example = "1")
+            Integer communityId,
+            @Schema(description = "커뮤니티id 이름", example = "야구")
+            String communityName
     ) {
         public static List<CommunityResponse> of(List<Community> communities) {
             return communities.stream()
@@ -37,7 +48,7 @@ record GroupArticleResponse(
                 groupArticle.getUser().nickname(),
                 groupArticle.getUser().path(),
                 groupArticle.getLikes(),
-                groupArticle.getComments(),
+                groupArticle.getCountUsers(),
                 groupArticle.getFirstImageUrl(),
                 CommunityResponse.of(groupArticle.getCommunityList())
         );

@@ -22,7 +22,7 @@ public class CommunityService {
     public List<Community> getPopularCommunity(){
         return communityReader.readPopularCommunities();
     }
-    public List<UserCommunity> getUserCommunity(Long userId){
+    public List<Community> getUserCommunity(Long userId){
         return communityReader.readUserCommunities(userId);
     }
     public Contents getPopularContent(){

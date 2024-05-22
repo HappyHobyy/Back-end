@@ -15,7 +15,7 @@ public class CommunityReader {
     public List<Community> readPopularCommunities() {
         return communityRepository.readPopularCommunities();
     }
-    public List<UserCommunity> readUserCommunities(Long userId) {
+    public List<Community> readUserCommunities(Long userId) {
         return communityRepository.readUserCommunities(userId);
     }
     public Community readPopulistCommunity() {
