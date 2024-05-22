@@ -38,7 +38,7 @@ class JwtServiceTest {
     @DisplayName("refresh token 생성에 성공")
     void successRefreshTokenCreate() {
         //given
-        Long userId = 1L;
+        Long userID = 1L;
         User user = createUser();
 
         //when
