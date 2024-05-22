@@ -1,8 +1,11 @@
 package org.v1.dto;
 
+import org.v1.model.community.Community;
 import org.v1.model.content.GroupArticle;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 record GroupArticleResponse(
         Long id,
@@ -13,9 +16,19 @@ record GroupArticleResponse(
         Integer likes,
         Integer comments,
         String firstImageUrl,
-        Integer communityId,
-        String communityName
+        List<CommunityResponse> communities
 ) {
+    public record CommunityResponse(
+            Integer id,
+            String name
+    ) {
+        public static List<CommunityResponse> of(List<Community> communities) {
+            return communities.stream()
+                    .map(community -> new CommunityResponse(community.getId(), community.getCommunityName()))
+                    .collect(Collectors.toList());
+        }
+    }
+
     static GroupArticleResponse fromGroupArticle(GroupArticle groupArticle) {
         return new GroupArticleResponse(
                 groupArticle.getId(),
@@ -26,8 +39,7 @@ record GroupArticleResponse(
                 groupArticle.getLikes(),
                 groupArticle.getComments(),
                 groupArticle.getFirstImageUrl(),
-                groupArticle.getCommunity().getId(),
-                groupArticle.getCommunity().getCommunityName()
+                CommunityResponse.of(groupArticle.getCommunityList())
         );
     }
 }
