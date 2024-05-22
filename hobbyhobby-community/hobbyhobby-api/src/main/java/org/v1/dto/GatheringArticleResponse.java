@@ -2,13 +2,13 @@ package org.v1.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.v1.model.community.Community;
-import org.v1.model.content.GroupArticle;
+import org.v1.model.content.GatheringArticle;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-record GroupArticleResponse(
+record GatheringArticleResponse(
         @Schema(description = "게시글 id", example = "1")
         Long articleId,
         @Schema(description = "작성일", example = "DateTime")
@@ -40,17 +40,17 @@ record GroupArticleResponse(
         }
     }
 
-    static GroupArticleResponse fromGroupArticle(GroupArticle groupArticle) {
-        return new GroupArticleResponse(
-                groupArticle.getId(),
-                groupArticle.getDate(),
-                groupArticle.getUser().id(),
-                groupArticle.getUser().nickname(),
-                groupArticle.getUser().path(),
-                groupArticle.getLikes(),
-                groupArticle.getCountUsers(),
-                groupArticle.getFirstImageUrl(),
-                CommunityResponse.of(groupArticle.getCommunityList())
+    static GatheringArticleResponse fromGatheringArticle(GatheringArticle gatheringArticle) {
+        return new GatheringArticleResponse(
+                gatheringArticle.getId(),
+                gatheringArticle.getDate(),
+                gatheringArticle.getUser().id(),
+                gatheringArticle.getUser().nickname(),
+                gatheringArticle.getUser().path(),
+                gatheringArticle.getLikes(),
+                gatheringArticle.getCountUsers(),
+                gatheringArticle.getFirstImageUrl(),
+                CommunityResponse.of(gatheringArticle.getCommunities())
         );
     }
 }

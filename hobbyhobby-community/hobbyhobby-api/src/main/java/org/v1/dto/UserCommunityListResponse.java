@@ -2,7 +2,6 @@ package org.v1.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.v1.model.community.Community;
-import org.v1.model.community.UserCommunity;
 
 import java.util.List;
 

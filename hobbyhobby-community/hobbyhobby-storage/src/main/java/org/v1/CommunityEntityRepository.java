@@ -2,7 +2,7 @@ package org.v1;
 
 import org.springframework.stereotype.Repository;
 import org.v1.model.community.Community;
-import org.v1.model.community.UserCommunity;
+import org.v1.model.like.Like;
 import org.v1.repository.CommunityRepository;
 
 import java.util.ArrayList;
@@ -46,4 +46,10 @@ public class CommunityEntityRepository implements CommunityRepository {
     public Community readPopulistCommunity() {
         return null;
     }
+
+    @Override
+    public void updateCommunityLike(Like like) {
+
+    }
+
 }

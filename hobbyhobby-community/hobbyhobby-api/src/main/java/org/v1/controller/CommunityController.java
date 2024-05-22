@@ -15,7 +15,6 @@ import org.v1.dto.ContentResponse;
 import org.v1.dto.UserCommunityListResponse;
 import org.v1.model.community.Community;
 import org.v1.model.content.Contents;
-import org.v1.model.community.UserCommunity;
 import org.v1.service.CommunityService;
 import response.HttpResponse;
 

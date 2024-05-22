@@ -27,8 +27,9 @@ public class ExternalCommunityMessageReceiver {
                 case "photo":
                     communityService.clearCachedPhotoArticles();
                     break;
-                case "group":
-                    log.info("Received message: {group}");
+                case "gathering":
+                    communityService.clearCachedGatheringArticles();
+                    log.info("Received message: {Gathering}");
                     break;
                 default:
                     log.warn("Unhandled routing key: {}", message);

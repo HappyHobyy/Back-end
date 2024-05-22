@@ -11,16 +11,16 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class GroupArticle {
+public class GatheringArticle {
     private final Long id;
     private final LocalDateTime date;
     private final User user;
     private final Integer likes;
     private final Integer countUsers;
     private final String firstImageUrl;
-    private final List<Community> communityList;
+    private final List<Community> communities;
 
-    public static GroupArticle withId(Long id, LocalDateTime date, User user, Integer likes, Integer countUsers, String firstImageUrl, List<Community> communityList) {
-        return new GroupArticle(id, date, user, likes, countUsers, firstImageUrl, communityList);
+    public static GatheringArticle withId(Long id, LocalDateTime date, User user, Integer likes, Integer countUsers, String firstImageUrl, List<Community> communityList) {
+        return new GatheringArticle(id, date, user, likes, countUsers, firstImageUrl, communityList);
     }
 }
