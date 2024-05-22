@@ -2,7 +2,11 @@ package org.v1;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.v1.model.User;
+
+import java.time.LocalDateTime;
 import java.util.Optional;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -10,7 +14,7 @@ import java.util.Optional;
 @Entity
 @Builder
 @Table(name = "Users")
-public class UserJpaEntity  extends BaseEntity {
+public class UserJpaEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UserID")
@@ -48,6 +52,14 @@ public class UserJpaEntity  extends BaseEntity {
 
     @Column(name = "deviceToken")
     private String deviceToken;
+
+    @CreatedDate
+    @Column(name = "CreatedAt")
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "ModifiedAt")
+    private LocalDateTime modifiedAt;
 
 //    @Column(name = "role")
 //    private User.UserRole role;
