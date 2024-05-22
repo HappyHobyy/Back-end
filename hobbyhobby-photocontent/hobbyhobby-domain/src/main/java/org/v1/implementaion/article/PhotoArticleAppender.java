@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PhotoArticleAppender {
     private final PhotoArticleRepository repository;
-    public Long appendArticle(PhotoArticle photoArticle) {
+    public long appendArticle(PhotoArticle photoArticle) {
         return repository.appendArticle(photoArticle);
     }
     public void appendArticleContent(List<ImageVideo> imageVideoList , Long photoArticleId) {

@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import org.v1.model.comment.Comment;
 import org.v1.model.user.User;
-import org.v1.model.user.UserStatus;
 
 import java.time.LocalDateTime;
 
@@ -21,7 +20,7 @@ public record PhotoArticleCommentRequest(
             String comment
     ) {
         public Comment toComment(Long userId) {
-            return Comment.withoutId(User.onlyUserId(userId), LocalDateTime.now(), comment, UserStatus.onlyIsUserArticleOwner(true));
+            return Comment.initial(User.onlyUserId(userId), LocalDateTime.now(), comment);
         }
     }
     public record Delete(Long commentId) {}

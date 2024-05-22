@@ -10,7 +10,10 @@ import org.v1.repository.article.GatheringArticleRepository;
 @AllArgsConstructor
 public class GatheringArticleChecker {
     private final GatheringArticleRepository repository;
-    public UserStatus checkArticleUserRelation(Long userId, GatheringInfo info) {
-        return repository.checkArticleUserRelation(info, userId);
+    public boolean isArticleUserOwner(Long userId, GatheringInfo info) {
+        return repository.isArticleUserOwner(info, userId);
+    }
+    public boolean isArticleUserJoined(Long userId, GatheringInfo info) {
+        return repository.isArticleUserJoined(info, userId);
     }
 }

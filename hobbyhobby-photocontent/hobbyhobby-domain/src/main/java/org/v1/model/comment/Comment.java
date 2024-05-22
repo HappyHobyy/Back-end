@@ -15,10 +15,10 @@ public class Comment {
     private LocalDateTime date;
     private String text;
     private UserStatus userStatus;
-    public static Comment withoutId(User user, LocalDateTime date, String text, UserStatus userStatus) {
-        return new Comment(null, user, date, text, userStatus);
+    public static Comment initial(User user, LocalDateTime date, String text) {
+        return new Comment(null, user, date, text, null);
     }
     public Comment changeUser(Long commandUserId) {
-        return new Comment(id, user, date, text, UserStatus.onlyIsUserArticleOwner(commandUserId.equals(user.id())));
+        return new Comment(id, user, date, text, new UserStatus(commandUserId.equals(user.id()),userStatus.isUserOwner(),userStatus.isUserJoined()));
     }
 }

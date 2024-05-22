@@ -20,9 +20,4 @@ public class LikeJpaEntityRepository implements LikeRepository {
     public Integer removeLike(Like like) {
         return 1;
     }
-
-    @Override
-    public Integer countLike(Long articleId) {
-        return null;
-    }
 }

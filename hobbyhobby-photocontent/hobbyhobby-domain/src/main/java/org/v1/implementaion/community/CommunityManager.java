@@ -23,7 +23,7 @@ public class CommunityManager {
     public void resetCommunityLikes() {
         repository.resetCommunityLikes();
     }
-    public Integer readPopulistCommunity(){
+    public int readPopulistCommunity(){
         return repository.readPopulistCommunity();
     }
     public void sendPopularPhotoArticle(List<PhotoArticle> popularCommunity, List<PhotoArticle> notPopularCommunity){
