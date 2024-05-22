@@ -3,17 +3,14 @@ package org.v1.implementaion.comment;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.v1.model.comment.Comment;
-import org.v1.repository.CommentRepository;
-
-
+import org.v1.repository.comment.PhotoCommentRepository;
 import java.util.List;
 
 @Component
 @AllArgsConstructor
 public class CommentReader {
-    private final CommentRepository commentRepository;
-    public List<Comment> readComments(Long articleId) {
-        return commentRepository.readComments(articleId);
+    private final PhotoCommentRepository repository;
+    public List<Comment> readPhotoArticleComments(Long articleId) {
+        return repository.readComments(articleId);
     }
-
 }

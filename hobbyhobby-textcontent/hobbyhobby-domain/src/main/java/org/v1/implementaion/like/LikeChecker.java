@@ -13,12 +13,12 @@ public class LikeChecker {
     private final LikeRepository likeRepository;
     public void checkArticleLikeToAppend(Like like) {
         if(likeRepository.checkArticleLike(like)){
-            throw new BusinessException(ErrorCode.TEXT_ALREADY_LIKE);
+            throw new BusinessException(ErrorCode.ARTICLE_ALREADY_LIKE);
         };
     }
     public void checkArticleLikeToRemove(Like like) {
         if(!likeRepository.checkArticleLike(like)){
-            throw new BusinessException(ErrorCode.TEXT_ALREADY_DISLIKE);
+            throw new BusinessException(ErrorCode.ARTICLE_ALREADY_DISLIKE);
         };
     }
 }

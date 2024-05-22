@@ -8,6 +8,9 @@ services:
     networks:
       dockernet:
         ipv4_address: 10.10.20.140
+    environment:
+      TZ: Asia/Seoul
+
   photocontent:
     image: hobbyhobby/photocontent:latest
     container_name: photocontent
@@ -16,6 +19,9 @@ services:
     networks:
       dockernet:
         ipv4_address: 10.10.20.141
+    environment:
+      TZ: Asia/Seoul
+
   textcontent:
     image: hobbyhobby/textcontent:latest
     container_name: textcontent
@@ -24,6 +30,9 @@ services:
     networks:
       dockernet:
         ipv4_address: 10.10.20.142
+    environment:
+      TZ: Asia/Seoul
+
   user:
     image: hobbyhobby/user:latest
     container_name: user
@@ -32,6 +41,9 @@ services:
     networks:
       dockernet:
         ipv4_address: 10.10.20.143
+    environment:
+      TZ: Asia/Seoul
+
   eureka:
     image: hobbyhobby/eureka:latest
     container_name: eureka
@@ -53,6 +65,20 @@ services:
         ipv4_address: 10.10.20.145
     environment:
       TZ: Asia/Seoul
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: hobbyhobby
+      MYSQL_DATABASE: hobbyhobby
+      TZ: Asia/Seoul
+    ports:
+      - "3306:3306"
+    volumes:
+      - /path/to/local/mysql_data:/var/lib/mysql
 networks:
   dockernet:
     external: true
+volumes:
+  mysql_data:
