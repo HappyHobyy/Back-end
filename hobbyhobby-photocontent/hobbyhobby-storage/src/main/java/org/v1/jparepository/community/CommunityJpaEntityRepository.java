@@ -22,7 +22,7 @@ public class CommunityJpaEntityRepository implements CommunityRepository
     }
 
     @Override
-    public Integer readPopulistCommunity() {
-        return null;
+    public int readPopulistCommunity() {
+        return 1;
     }
 }

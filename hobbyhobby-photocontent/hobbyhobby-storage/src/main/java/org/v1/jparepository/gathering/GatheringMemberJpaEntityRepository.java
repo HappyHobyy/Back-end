@@ -14,11 +14,4 @@ public class GatheringMemberJpaEntityRepository implements GatheringMemberReposi
     public void removeGatheringMember(GatheringMember member) {
 
     }
-
-
-    @Override
-    public Integer countGatheringMember(Long articleId) {
-        return null;
-    }
-
 }

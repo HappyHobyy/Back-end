@@ -7,8 +7,10 @@ import org.v1.implementaion.article.GatheringArticleChecker;
 import org.v1.implementaion.article.GatheringArticleReader;
 import org.v1.implementaion.article.GatheringArticleRemover;
 import org.v1.implementaion.imagevideo.ImageVideoManager;
+import org.v1.implementaion.like.LikeChecker;
 import org.v1.model.article.*;
 import org.v1.model.imageVideo.ImageVideo;
+import org.v1.model.like.Like;
 import org.v1.model.user.UserStatus;
 
 import java.util.List;
@@ -21,6 +23,7 @@ public class GatheringArticleService {
     private final GatheringArticleRemover articleRemover;
     private final GatheringArticleChecker articleChecker;
     private final ImageVideoManager imageVideoManager;
+    private final LikeChecker likeChecker;
 
     public List<GatheringArticle> getTenArticleLatest(ArticleType type) {
         return articleReader.readLatestArticles(type);
@@ -43,8 +46,10 @@ public class GatheringArticleService {
     }
 
     public GatheringArticleDetail getArticleDetail(GatheringInfo info, Long userId) {
-        UserStatus userStatus = articleChecker.checkArticleUserRelation(userId, info);
+        boolean isUserLiked = likeChecker.checkArticleLiked(new Like(info.articleId(), userId,info.type()));
+        boolean isUserOwner = articleChecker.isArticleUserOwner(userId, info);
+        boolean isUserJoined = articleChecker.isArticleUserJoined(userId, info);
         GatheringArticleContent content = articleReader.readContent(info);
-        return new GatheringArticleDetail(content, userStatus);
+        return new GatheringArticleDetail(content,new UserStatus(isUserLiked,isUserOwner,isUserJoined));
     }
 }

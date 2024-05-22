@@ -1,7 +1,7 @@
 package response;
 
-public record DefaultId(Long id) {
-    public static DefaultId of(Long id){
+public record DefaultId(long id) {
+    public static DefaultId of(long id){
         return new DefaultId(id);
     }
 }

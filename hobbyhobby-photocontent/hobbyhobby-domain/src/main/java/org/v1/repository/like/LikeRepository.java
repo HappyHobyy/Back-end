@@ -6,5 +6,4 @@ public interface LikeRepository {
     boolean checkArticleLike(Like like);
     Integer appendLike(Like like);
     Integer removeLike(Like like);
-    Integer countLike(Long articleId);
 }
