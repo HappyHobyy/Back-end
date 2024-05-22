@@ -2,7 +2,11 @@ package org.v1;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.v1.model.User;
+
+import java.time.LocalDateTime;
 import java.util.Optional;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -10,46 +14,59 @@ import java.util.Optional;
 @Entity
 @Builder
 @Table(name = "user")
-public class UserJpaEntity  extends BaseEntity {
+public class UserJpaEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "nickname")
-    private String nickname;
-
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "type")
-    private User.UserType type;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "email")
     private String email;
 
-    @Column(name = "role")
-    private User.UserRole role;
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "nickname")
+    private String nickname;
+
+    @Column(name = "birthday")
+    private String birth;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @Column(name = "gender")
     private User.UserGender gender;
 
     @Column(name = "nationality")
     private User.Nationality nationality;
-    @Column(name = "deviceToken")
+
+    @Column(name = "sign_up_channel")
+    private User.UserType type;
+
+    @Column(name = "device_token")
     private String deviceToken;
-    @Column(name = "imageUrl")
-    private String imageUrl;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "phoneNumber")
-    private Integer phoneNumber;
-    @Column(name = "birth")
-    private String birth;
+
+    @CreationTimestamp
+    @Column(name = "created_at", columnDefinition = "timestamp", updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "modified_at", columnDefinition = "timestamp")
+    private LocalDateTime modifiedAt;
+
+//    @Column(name = "role")
+//    private User.UserRole role;
+
     public static UserJpaEntity ofWithoutId(User user) {
         return UserJpaEntity.builder()
                 .gender(user.getUserGender())
-                .role(user.getUserRole())
                 .email(user.getEmail())
                 .nationality(user.getNationality())
                 .nickname(user.getNickname())
@@ -66,7 +83,6 @@ public class UserJpaEntity  extends BaseEntity {
         return UserJpaEntity.builder()
                 .id(user.getId().value())
                 .gender(user.getUserGender())
-                .role(user.getUserRole())
                 .email(user.getEmail())
                 .nationality(user.getNationality())
                 .nickname(user.getNickname())
@@ -87,7 +103,6 @@ public class UserJpaEntity  extends BaseEntity {
                 this.email,
                 this.type,
                 this.password != null ? new User.Password(this.password) : null,
-                this.role,
                 this.gender,
                 this.nationality,
                 this.deviceToken,
