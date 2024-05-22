@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public record CommentResponse(
         @Schema(description = "댓글 Id", example = "123")
-        Long commentId,
+        long commentId,
         @Schema(description = "유저닉네임", example = "hobbyhobby")
         String userNickname,
         @Schema(description = "댓글 시간", example = "2024-05-06T15:23:45.123456789")

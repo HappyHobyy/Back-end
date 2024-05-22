@@ -16,11 +16,11 @@ import java.util.List;
 import static org.v1.global.util.FileUtil.convertMultipartFileToFile;
 
 public record PhotoArticleRequest(
-        Search latest,
+        Get get,
         Create create,
         Delete delete
 ) {
-    public record Search(
+    public record Get(
             @Schema(description = "커뮤니티Id", example = "123")
             @NotNull(message = "커뮤니티Id는 필수 입력값입니다.")
             Integer communityId

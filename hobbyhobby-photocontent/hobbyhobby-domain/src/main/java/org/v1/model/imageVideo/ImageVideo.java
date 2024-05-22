@@ -9,6 +9,9 @@ public record ImageVideo(Integer index, String path, File data, FileType fileTyp
     public static ImageVideo withoutData(Integer index, String path, FileType fileType) {
         return new ImageVideo(index,path, null,fileType);
     }
+    public static ImageVideo withOnlyPath(String path) {
+        return new ImageVideo(null,path, null,null);
+    }
     public enum FileType {
         H_LOG,
         GATHERING

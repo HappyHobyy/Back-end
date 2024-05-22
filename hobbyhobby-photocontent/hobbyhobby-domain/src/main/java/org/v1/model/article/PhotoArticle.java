@@ -31,4 +31,14 @@ public class PhotoArticle {
     public boolean isUserArticleOwner(Long userId){
         return user.id().equals(userId);
     }
+    public static PhotoArticle withId(
+            Long id,
+            User user,
+            Integer communityId,
+            LocalDateTime dateTime,
+            PhotoAriticleContent content,
+            LikesComments likesComments
+    ){
+        return new PhotoArticle(id,communityId,dateTime,user,likesComments,null,content);
+    }
 }

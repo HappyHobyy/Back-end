@@ -9,10 +9,7 @@ import org.v1.repository.comment.PhotoCommentRepository;
 @AllArgsConstructor
 public class CommentAppender {
     private final PhotoCommentRepository repository;
-    public Long appendPhotoArticleComment(final Comment comment, final Long articleId) {
-        return repository.appendComment(comment,articleId);
-    }
-    public Long appendGatheringArticleComment(final Comment comment, final Long articleId) {
+    public long appendPhotoArticleComment(final Comment comment, final Long articleId) {
         return repository.appendComment(comment,articleId);
     }
 }

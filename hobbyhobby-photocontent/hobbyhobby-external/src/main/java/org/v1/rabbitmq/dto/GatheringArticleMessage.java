@@ -31,7 +31,7 @@ public record GatheringArticleMessage (
                         gatheringArticle.getUser().nickname(),
                         gatheringArticle.getLikes(),
                         gatheringArticle.getLikes(),
-                        gatheringArticle.getImageUrl(),
+                        gatheringArticle.getImageVideo().path(),
                         gatheringArticle.getUser().id(),
                         gatheringArticle.getUser().nickname(),
                         gatheringArticle.getUser().imageUrl(),

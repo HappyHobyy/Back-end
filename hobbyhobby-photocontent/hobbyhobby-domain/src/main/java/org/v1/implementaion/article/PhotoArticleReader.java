@@ -19,10 +19,10 @@ public class PhotoArticleReader {
         return repository.readArticleLikes(communityId);
     }
     public List<PhotoArticle> readPopularCommunityHotArticle(Integer communityId) {
-        return repository.readArticleLikes(communityId);
+        return repository.readPopularCommunityArticle(communityId);
     }
     public List<PhotoArticle> readNotPopularCommunityHotArticle(Integer communityId) {
-        return repository.readArticleLikes(communityId);
+        return repository.readNotPopularCommunityArticle(communityId);
     }
     public PhotoAriticleContent readContent(Long photoArticleId) {
         return repository.readContent(photoArticleId);
