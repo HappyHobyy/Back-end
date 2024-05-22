@@ -59,13 +59,12 @@ public class EmailServiceTest {
                 "testEmail",
                 User.UserType.OAUTH_DEFAULT,
                 new User.Password("testPassword"),
-                User.UserRole.ROLE_USER,
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
                 "testDeviceToken",
                 "testImageUrl",
                 "testName",
-                123,"2001/12/16"
+                "01011112222","2001/12/16"
         );
     }
 }
