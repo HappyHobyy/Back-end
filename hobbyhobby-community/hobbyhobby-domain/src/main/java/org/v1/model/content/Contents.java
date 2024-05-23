@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 public class Contents {
     PhotoArticles photoArticles;
-    GroupArticles groupArticles;
+    GatheringArticles gatheringArticles;
     public record PhotoArticles(List<PhotoArticle> popularPhotoArticle, List<PhotoArticle> nonePopularPhotoArticle){}
-    public record GroupArticles(List<GroupArticle> popularGroupArticle, List<GroupArticle> nonePopularGroupArticle){}
+    public record GatheringArticles(List<GatheringArticle> popularGatheringArticle, List<GatheringArticle> nonePopularGatheringArticle){}
 }
