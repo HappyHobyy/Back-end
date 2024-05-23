@@ -1,4 +1,4 @@
-package org.v1;
+package org.v1.jpaentityrepository;
 
 import org.springframework.stereotype.Repository;
 import org.v1.model.community.Community;
