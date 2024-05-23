@@ -29,7 +29,7 @@ public class PhotoArticleController {
     @GetMapping("/latest")
     @Operation(summary = "H-Log 게시글 최신순 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> getPhotoArticleLatest(
+    public HttpResponse<List<PhotoArticleResponse>> getPhotoArticleLatest(
             @RequestBody PhotoArticleRequest.Get request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
@@ -40,7 +40,7 @@ public class PhotoArticleController {
     @GetMapping("/likes")
     @Operation(summary = "H-log 게시글 좋아요 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> getPhotoArticleLikes(
+    public HttpResponse<List<PhotoArticleResponse>> getPhotoArticleLikes(
             @RequestBody PhotoArticleRequest.Get request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {

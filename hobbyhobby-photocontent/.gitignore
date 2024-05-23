@@ -1,8 +1,0 @@
-gradlew.bat
-.idea
-.gradle
-hobbyhobby-api/build
-build
-hobbyhobby-domain/build
-hobbyhobby-external/build
-hobbyhobby-storage/build
