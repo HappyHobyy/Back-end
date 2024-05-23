@@ -1,20 +1,17 @@
 package org.v1.dto;
 
-import lombok.AllArgsConstructor;
 import org.v1.model.content.Contents;
-import org.v1.model.content.GroupArticle;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 public record ContentResponse(
          PhotoArticlesDTO photoArticles,
-         GroupArticlesDTO groupArticles
+         GatheringArticlesDTO GatheringArticles
 ) {
     public static ContentResponse ofContents(Contents contents) {
         return new ContentResponse(
                 PhotoArticlesDTO.fromPhotoArticles(contents.getPhotoArticles()),
-                GroupArticlesDTO.fromGroupArticles(contents.getGroupArticles())
+                GatheringArticlesDTO.fromGatheringArticles(contents.getGatheringArticles())
         );
     }
     record PhotoArticlesDTO(
@@ -33,17 +30,17 @@ public record ContentResponse(
         }
     }
 
-    record GroupArticlesDTO(
-            List<GroupArticleResponse> popularGroupArticle,
-            List<GroupArticleResponse> nonePopularGroupArticle
+    record GatheringArticlesDTO(
+            List<GatheringArticleResponse> popularGatheringArticle,
+            List<GatheringArticleResponse> nonePopularGatheringArticle
     ) {
-        static GroupArticlesDTO fromGroupArticles(Contents.GroupArticles groupArticles) {
-            return new GroupArticlesDTO(
-                    groupArticles.popularGroupArticle().stream()
-                            .map(GroupArticleResponse::fromGroupArticle)
+        static GatheringArticlesDTO fromGatheringArticles(Contents.GatheringArticles gatheringArticles) {
+            return new GatheringArticlesDTO(
+                    gatheringArticles.popularGatheringArticle().stream()
+                            .map(GatheringArticleResponse::fromGatheringArticle)
                             .collect(Collectors.toList()),
-                    groupArticles.nonePopularGroupArticle().stream()
-                            .map(GroupArticleResponse::fromGroupArticle)
+                    gatheringArticles.nonePopularGatheringArticle().stream()
+                            .map(GatheringArticleResponse::fromGatheringArticle)
                             .collect(Collectors.toList())
             );
         }

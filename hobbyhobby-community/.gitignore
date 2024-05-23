@@ -1,0 +1,13 @@
+.idea
+.gradle
+build
+gradlew.bat
+hobbyhobby-api/build
+hobbyhobby-api/bin
+hobbyhobby-domain/build
+hobbyhobby-domain/bin
+hobbyhobby-external/build
+hobbyhobby-external/bin
+hobbyhobby-storage/build
+hobbyhobby-storage/bin
+

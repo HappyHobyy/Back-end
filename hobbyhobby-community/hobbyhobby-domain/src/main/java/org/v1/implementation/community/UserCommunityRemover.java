@@ -8,7 +8,7 @@ import org.v1.repository.UserCommunityRepository;
 @AllArgsConstructor
 public class UserCommunityRemover {
     private final UserCommunityRepository userCommunityRepository;
-    public void removeUserFromCommunity(Long userId, Long communityId) {
+    public void removeUserFromCommunity(Long userId, Integer communityId) {
         userCommunityRepository.removeUserFromCommunity(userId, communityId);
     }
 }

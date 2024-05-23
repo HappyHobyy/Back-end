@@ -13,7 +13,7 @@ public class ContentReader {
     public Contents.PhotoArticles readPopularPhotoContent(Community populistCommunity) {
         return contentRepository.readPopularPhotoContent(populistCommunity);
     }
-    public Contents.GroupArticles readPopularGroupContent(Community populistCommunity) {
-        return contentRepository.readPopularGroupContent(populistCommunity);
+    public Contents.GatheringArticles readPopularGatheringContent(Community populistCommunity) {
+        return contentRepository.readPopularGatheringContent(populistCommunity);
     }
 }

@@ -4,5 +4,5 @@ import org.v1.model.content.ContentEvent;
 
 public interface ExternalCommunitySender {
     void sendResetPhotoArticleCached(ContentEvent.EventType photo);
-    void sendResetGroupArticleCached(ContentEvent.EventType group);
+    void sendResetGatheringArticleCached(ContentEvent.EventType Gathering);
 }
