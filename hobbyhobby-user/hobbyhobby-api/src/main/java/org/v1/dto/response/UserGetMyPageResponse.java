@@ -18,7 +18,7 @@ public record UserGetMyPageResponse(
         @Schema(description = "이름", example = "testName")
         String userName,
         @Schema(description = "전화번호", example = "01011111111")
-        Integer phoneNumber
+        String phoneNumber
 
 ) {
     public static UserGetMyPageResponse of(final User user) {

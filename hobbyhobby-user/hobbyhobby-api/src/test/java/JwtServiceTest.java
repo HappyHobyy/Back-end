@@ -38,7 +38,7 @@ class JwtServiceTest {
     @DisplayName("refresh token 생성에 성공")
     void successRefreshTokenCreate() {
         //given
-        Long userId = 1L;
+        Long userID = 1L;
         User user = createUser();
 
         //when
@@ -94,13 +94,12 @@ class JwtServiceTest {
                 "testEmail",
                 User.UserType.OAUTH_DEFAULT,
                 new User.Password("testPassword"),
-                User.UserRole.ROLE_USER,
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
                 "testDeviceToken",
                 "123",
                 "testName",
-                123,
+                "01011112222",
                 "2001/12/16"
         );
     }
