@@ -22,10 +22,9 @@ public record MultiGatheringArticleResponse(
         int likes,
         @Schema(description = "모임 유저 숫자", example = "12")
         int users,
-        @Schema(description = "커뮤니티Id", example = "{1,2}")
-        List<Integer> communityId,
+        @Schema(description = "커뮤니티Id리스트", example = "{1,2}")
+        List<Integer> communityIds,
         ImageResponse image
-
 ) {
     public record ImageResponse(
             @Schema(description = "경로", example = "http://....")

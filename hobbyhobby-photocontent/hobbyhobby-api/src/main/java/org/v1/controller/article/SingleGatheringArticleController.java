@@ -30,7 +30,7 @@ public class SingleGatheringArticleController {
     @GetMapping("")
     @Operation(summary = "단일 모임 게시글 최신순 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> getSingleGatheringLatest(
+    public HttpResponse<List<SingleGatheringArticleResponse>> getSingleGatheringLatest(
     ) {
         List<GatheringArticle> articleList = service.getTenArticleLatest(ArticleType.SINGLE_GATHERING);
         return HttpResponse.success(SingleGatheringArticleResponse.of(articleList));
@@ -39,7 +39,7 @@ public class SingleGatheringArticleController {
     @GetMapping("/search")
     @Operation(summary = "단일 모임 게시글 검색 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> getSingleGatheringSearch(
+    public HttpResponse<List<SingleGatheringArticleResponse>> getSingleGatheringSearch(
             @RequestBody SingleGatheringArticleRequest.Latest request
     ) {
         List<GatheringArticle> articleList = service.getTenArticleSearch(request.toGatheringInfo());
