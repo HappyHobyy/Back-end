@@ -10,6 +10,6 @@ public record EmailCheckRequest(
         String email
 ) {
     public User toUser() {
-        return User.withoutId(null, email, null, null, User.UserRole.ROLE_USER, null, null, null, null, null, null,null);
+        return User.withoutId(null, email, null, null, null, null, null, null, null, null,null);
     }
 }

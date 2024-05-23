@@ -72,13 +72,12 @@ public class AuthServiceTest {
                 "testEmail",
                 User.UserType.OAUTH_DEFAULT,
                 new User.Password("testPassword"),
-                User.UserRole.ROLE_USER,
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
                 "123",
                 "123",
                 "testName",
-                123,
+                "01011112222",
                 "2001/12/16"
         );
     }
@@ -90,13 +89,12 @@ public class AuthServiceTest {
                 "testEmail",
                 User.UserType.OAUTH_DEFAULT,
                 new User.Password("testPassword"),
-                User.UserRole.ROLE_USER,
                 User.UserGender.MAN,
                 User.Nationality.DOMESTIC,
                 "testDeviceToken",
                 "123",
                 "testName",
-                123,
+                "01011112222",
                 "2001/12/16"
         );
     }

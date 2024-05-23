@@ -19,7 +19,7 @@ public record UserRegisterRequest(
             String userName,
             @Schema(description = "전화번호", example = "01011111111")
             @NotNull(message = "전화번호 값은 필수 값입니다.")
-            Integer phoneNumber,
+            String phoneNumber,
             @Schema(description = "성별", example = "MAN/WOMAN")
             @NotNull(message = "성별 값은 필수 값입니다.")
             User.UserGender gender,
@@ -34,7 +34,7 @@ public record UserRegisterRequest(
             String birth
     ) {
         public User toUser() {
-            return User.withoutId(nickname, email, oAuth, new User.Password(null), User.UserRole.ROLE_USER, gender, nationality, null,null,userName,phoneNumber,birth);
+            return User.withoutId(nickname, email, oAuth, new User.Password(null), gender, nationality, null,null,userName,phoneNumber,birth);
         }
     }
 
@@ -48,9 +48,9 @@ public record UserRegisterRequest(
             @Schema(description = "이름", example = "testName")
             @NotNull(message = "이름 값은 필수 값입니다.")
             String userName,
-            @Schema(description = "전화번호", example = "01011111111")
+            @Schema(description = "전화번호", example = "01011112222")
             @NotNull(message = "전화번호 값은 필수 값입니다.")
-            Integer phoneNumber,
+            String phoneNumber,
             @Schema(description = "비밀번호", example = "testPassword")
             @NotNull(message = "비밀번호 값은 필수 값입니다.")
             String password,
@@ -65,7 +65,7 @@ public record UserRegisterRequest(
             String birth
     ) {
         public User toUser() {
-            return User.withoutId(nickname, email, User.UserType.OAUTH_DEFAULT, new User.Password(password), User.UserRole.ROLE_USER, gender, nationality, null,null,userName,phoneNumber,birth);
+            return User.withoutId(nickname, email, User.UserType.OAUTH_DEFAULT, new User.Password(password), gender, nationality, null,null,userName,phoneNumber,birth);
         }
     }
 }
