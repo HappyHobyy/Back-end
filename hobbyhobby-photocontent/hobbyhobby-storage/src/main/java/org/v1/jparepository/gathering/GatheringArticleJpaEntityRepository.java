@@ -31,6 +31,7 @@ public class GatheringArticleJpaEntityRepository implements GatheringArticleRepo
         User testUser = User.withId(1L,"감자",null);
         GatheringArticle article = GatheringArticle.withId(
                 1L,
+                "모임1",
                 testUser,
                 info,
                 LocalDateTime.now(),
@@ -48,6 +49,7 @@ public class GatheringArticleJpaEntityRepository implements GatheringArticleRepo
         User testUser = User.withId(1L,"감자",null);
         GatheringArticle article = GatheringArticle.withId(
                 1L,
+                "모임1",
                 testUser,
                 info,
                 LocalDateTime.now(),
@@ -67,6 +69,7 @@ public class GatheringArticleJpaEntityRepository implements GatheringArticleRepo
         User testUser = User.withId(1L,"감자",null);
         GatheringArticle article = GatheringArticle.withId(
                 1L,
+                "모임1",
                 testUser,
                 info,
                 LocalDateTime.now(),
@@ -86,6 +89,7 @@ public class GatheringArticleJpaEntityRepository implements GatheringArticleRepo
         User testUser = User.withId(1L,"감자",null);
         GatheringArticle article = GatheringArticle.withId(
                 1L,
+                "모임1",
                 testUser,
                 info,
                 LocalDateTime.now(),

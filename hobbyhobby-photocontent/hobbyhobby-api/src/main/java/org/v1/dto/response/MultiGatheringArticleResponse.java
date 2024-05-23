@@ -14,13 +14,15 @@ public record MultiGatheringArticleResponse(
         long gatheringArticleId,
         @Schema(description = "게시글 날짜", example = "2024-05-06T15:23:45.123456789")
         LocalDateTime articleDate,
+        @Schema(description = "게시글 제목", example = "hobbyhobby")
+        String title,
         @Schema(description = "게시글 작성자 닉네임", example = "hobbyhobby")
-        String nickname,
+        String userNickname,
         @Schema(description = "게시글 좋아요 갯수", example = "12")
         int likes,
         @Schema(description = "모임 유저 숫자", example = "12")
         int users,
-        @Schema(description = "커뮤니티Id", example = "12")
+        @Schema(description = "커뮤니티Id", example = "{1,2}")
         List<Integer> communityId,
         ImageResponse image
 
@@ -42,9 +44,10 @@ public record MultiGatheringArticleResponse(
                 .map(gatheringArticle -> new MultiGatheringArticleResponse(
                         gatheringArticle.getId(),
                         gatheringArticle.getDate(),
+                        gatheringArticle.getTitle(),
                         gatheringArticle.getUser().nickname(),
-                        gatheringArticle.getLikes(),
                         gatheringArticle.getCountUsers(),
+                        gatheringArticle.getLikes(),
                         gatheringArticle.getInfo().communityIds().stream().toList(),
                         ImageResponse.of(gatheringArticle.getImageVideo())
                 ))

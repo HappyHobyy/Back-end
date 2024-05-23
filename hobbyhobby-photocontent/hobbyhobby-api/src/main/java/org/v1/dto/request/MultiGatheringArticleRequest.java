@@ -55,6 +55,9 @@ public record MultiGatheringArticleRequest(
             @Schema(description = "커뮤니티Ids", example = "{123,456 }")
             @NotNull(message = "필수")
             List<Integer> communityIds,
+            @Schema(description = "모임 제목", example = "title")
+            @NotNull(message = "필수")
+            List<Integer> title,
             @Schema(description = "모임 날짜", example = "2024-05-06T15:23:45.123456789")
             @NotNull(message = "필수")
             LocalDateTime date,
@@ -75,7 +78,7 @@ public record MultiGatheringArticleRequest(
             }
         }
         public GatheringArticle toArticle(Long userId) {
-            return GatheringArticle.initial(User.onlyUserId(userId),GatheringInfo.multiGatheringWithCommunity(communityIds));
+            return GatheringArticle.initial(User.onlyUserId(userId),text,GatheringInfo.multiGatheringWithCommunity(communityIds));
         }
     }
 }

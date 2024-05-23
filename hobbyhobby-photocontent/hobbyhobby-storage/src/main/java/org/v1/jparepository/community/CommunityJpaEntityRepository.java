@@ -1,8 +1,10 @@
 package org.v1.jparepository.community;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.v1.repository.community.CommunityRepository;
 @Repository
+@AllArgsConstructor
 public class CommunityJpaEntityRepository implements CommunityRepository
 {
 

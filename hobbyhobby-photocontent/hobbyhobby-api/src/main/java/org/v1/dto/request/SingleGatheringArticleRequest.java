@@ -12,6 +12,7 @@ import org.v1.model.user.User;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.v1.global.util.FileUtil.convertMultipartFileToFile;
 
@@ -54,6 +55,9 @@ public record SingleGatheringArticleRequest(
             @Schema(description = "커뮤니티Id", example = "123")
             @NotNull(message = "필수")
             Integer communityId,
+            @Schema(description = "모임 제목", example = "title")
+            @NotNull(message = "필수")
+            String title,
             @Schema(description = "모임 날짜", example = "2024-05-06T15:23:45.123456789")
             @NotNull(message = "필수")
             LocalDateTime date,
@@ -74,7 +78,7 @@ public record SingleGatheringArticleRequest(
             }
         }
         public GatheringArticle toArticle(Long userId) {
-            return GatheringArticle.initial(User.onlyUserId(userId),GatheringInfo.singleGatheringWithCommunity(communityId));
+            return GatheringArticle.initial(User.onlyUserId(userId),title,GatheringInfo.singleGatheringWithCommunity(communityId));
         }
     }
 }
