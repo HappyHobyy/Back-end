@@ -17,7 +17,7 @@ public class ContentEventListener {
         if (event.getEventType() == ContentEvent.EventType.PHOTO) {
             communitySender.sendResetPhotoArticleCached(ContentEvent.EventType.PHOTO);
         } else {
-            communitySender.sendResetGroupArticleCached(ContentEvent.EventType.GROUP);
+            communitySender.sendResetGatheringArticleCached(ContentEvent.EventType.Gathering);
         }
     }
 }

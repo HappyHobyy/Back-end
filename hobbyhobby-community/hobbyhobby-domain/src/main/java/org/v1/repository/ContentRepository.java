@@ -5,6 +5,7 @@ import org.v1.model.content.Contents;
 
 public interface ContentRepository {
     Contents.PhotoArticles readPopularPhotoContent(Community community);
-    Contents.GroupArticles readPopularGroupContent(Community community);
+    Contents.GatheringArticles readPopularGatheringContent(Community community);
     void updatePhotoArticle(Contents.PhotoArticles photos);
+    void updateGatheringArticle(Contents.GatheringArticles photos);
 }
