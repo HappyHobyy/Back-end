@@ -52,7 +52,7 @@ public class PhotoArticleController {
     @Operation(summary = "H-log 게시글 삭제")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> deleteArticle(
-            @RequestHeader PhotoArticleRequest.Delete request
+            @RequestBody PhotoArticleRequest.Delete request
     ) {
         photoArticleService.deleteArticle(request.articleId());
         return HttpResponse.successOnly();
