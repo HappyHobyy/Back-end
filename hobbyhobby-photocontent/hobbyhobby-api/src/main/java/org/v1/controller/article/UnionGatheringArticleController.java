@@ -59,7 +59,7 @@ public class UnionGatheringArticleController {
     @DeleteMapping("")
     @Operation(summary = "연합 모임 게시글 삭제")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> deleteArticle(
+    public HttpResponse<Object> deleteUnionGatheringArticle(
             @RequestBody UnionGatheringArticleRequest.Delete request
     ) {
         service.deleteArticle(request.toGatheringInfo());
@@ -69,7 +69,7 @@ public class UnionGatheringArticleController {
     @PostMapping("")
     @Operation(summary = "연합 모임 게시글 저장")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<DefaultId> createArticle(
+    public HttpResponse<DefaultId> createUnionGatheringArticle(
             @RequestPart UnionGatheringArticleRequest.Create request,
             @RequestPart("file") MultipartFile file,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
@@ -81,7 +81,7 @@ public class UnionGatheringArticleController {
     @GetMapping("/detail")
     @Operation(summary = "연합 모임 게시글 내용 가져오기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<GatheringArticleDetailResponse> getArticle(
+    public HttpResponse<GatheringArticleDetailResponse> getUnionGatheringArticle(
             @Schema(description = "게시물 id", example = "1")
             @RequestHeader Long articleId,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
