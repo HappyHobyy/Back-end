@@ -22,8 +22,10 @@ public record UnionGatheringArticleResponse(
         int likes,
         @Schema(description = "모임 유저 숫자", example = "12")
         int users,
-        @Schema(description = "커뮤니티Id리스트", example = "{1,2}")
-        List<Integer> communityIds,
+        @Schema(description = "첫번째 태그 커뮤니티Id", example = "1")
+        Integer communityId1,
+        @Schema(description = "두번쨰 태그 커뮤니티Id", example = "2")
+        Integer communityId2,
         ImageResponse image
 ) {
     public record ImageResponse(
@@ -47,7 +49,8 @@ public record UnionGatheringArticleResponse(
                         gatheringArticle.getUser().nickname(),
                         gatheringArticle.getCountUsers(),
                         gatheringArticle.getLikes(),
-                        gatheringArticle.getInfo().communityIds().stream().toList(),
+                        gatheringArticle.getInfo().communityIds().get(0),
+                        gatheringArticle.getInfo().communityIds().get(1),
                         ImageResponse.of(gatheringArticle.getImageVideo())
                 ))
                 .collect(Collectors.toList());
