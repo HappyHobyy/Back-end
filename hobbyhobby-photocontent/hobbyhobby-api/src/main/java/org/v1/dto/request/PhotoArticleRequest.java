@@ -18,14 +18,8 @@ import static org.v1.global.util.FileUtil.convertMultipartFileToFile;
 public record PhotoArticleRequest(
         Get get,
         Create create,
-        Delete delete,
-        Detail detail
+        Delete delete
 ) {
-    public record Detail(
-            @Schema(description = "게시글Id", example = "123")
-            @NotNull(message = "게시글Id는 필수 입력값입니다.")
-            Long articleId
-    ) {}
     public record Get(
             @Schema(description = "게시물 index", example = "0")
             Integer index,

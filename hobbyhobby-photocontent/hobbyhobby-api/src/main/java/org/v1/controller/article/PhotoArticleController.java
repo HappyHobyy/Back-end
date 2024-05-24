@@ -3,8 +3,10 @@ package org.v1.controller.article;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,10 +32,14 @@ public class PhotoArticleController {
     @Operation(summary = "H-Log 게시글 최신순 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<PhotoArticleResponse>> getPhotoArticleLatest(
-            @RequestHeader PhotoArticleRequest.Get request,
+            @Schema(description = "게시물 index", example = "0")
+            @RequestHeader Integer index,
+            @Schema(description = "커뮤니티Id", example = "123")
+            @NotNull(message = "커뮤니티Id는 필수 입력값입니다.")
+            @RequestHeader Integer communityId,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLatest(request.index(), request.communityId(), userId);
+        List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLatest(index, communityId, userId);
         return HttpResponse.success(PhotoArticleResponse.of(photoArticleList));
     }
 
@@ -41,10 +47,14 @@ public class PhotoArticleController {
     @Operation(summary = "H-log 게시글 좋아요 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<PhotoArticleResponse>> getPhotoArticleLikes(
-            @RequestHeader PhotoArticleRequest.Get request,
+            @Schema(description = "게시물 index", example = "0")
+            @RequestHeader Integer index,
+            @Schema(description = "커뮤니티Id", example = "123")
+            @NotNull(message = "커뮤니티Id는 필수 입력값입니다.")
+            @RequestHeader Integer communityId,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLikes(request.index(),request.communityId(), userId);
+        List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLikes(index, communityId, userId);
         return HttpResponse.success(PhotoArticleResponse.of(photoArticleList));
     }
 
@@ -74,10 +84,12 @@ public class PhotoArticleController {
     @Operation(summary = "H-log 게시글 댓글 가져오기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<CommentResponse>> getArticle(
-            @RequestHeader PhotoArticleRequest.Detail request,
+            @Schema(description = "게시글Id", example = "123")
+            @NotNull(message = "게시글Id는 필수 입력값입니다.")
+            @RequestHeader Long articleId,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        List<Comment> commentResponses = photoArticleService.getArticleComment(request.articleId(), userId);
+        List<Comment> commentResponses = photoArticleService.getArticleComment(articleId, userId);
         return HttpResponse.success(CommentResponse.of(commentResponses));
     }
 }

@@ -22,7 +22,6 @@ public class GatheringMemberController {
     @Operation(summary = "단일 모임 맴버 추가하기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> joinSingleGathering(
-
             @RequestBody GatheringMemberRequest request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {

@@ -63,12 +63,15 @@ public record UnionGatheringArticleRequest(
     }
 
     public record Create(
-            @Schema(description = "커뮤니티Ids", example = "{123,456 }")
+            @Schema(description = "커뮤니티1", example = "{123,456 }")
             @NotNull(message = "필수")
-            List<Integer> communityIds,
+            Integer communityId1,
+            @Schema(description = "커뮤니티2", example = "{123,456 }")
+            @NotNull(message = "필수")
+            Integer communityId2,
             @Schema(description = "모임 제목", example = "title")
             @NotNull(message = "필수")
-            List<Integer> title,
+            String title,
             @Schema(description = "모임 날짜", example = "2024-05-06T15:23:45.123456789")
             @NotNull(message = "필수")
             LocalDateTime date,
@@ -93,7 +96,7 @@ public record UnionGatheringArticleRequest(
         }
 
         public GatheringArticle toArticle(Long userId) {
-            return GatheringArticle.initial(User.onlyUserId(userId), text, GatheringInfo.unionGatheringWithCommunity(communityIds));
+            return GatheringArticle.initial(User.onlyUserId(userId), this.title, GatheringInfo.unionGatheringWithCommunity(List.of(communityId1,communityId2)));
         }
     }
 }

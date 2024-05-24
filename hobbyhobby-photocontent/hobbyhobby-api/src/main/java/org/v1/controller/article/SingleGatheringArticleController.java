@@ -3,8 +3,10 @@ package org.v1.controller.article;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +16,7 @@ import org.v1.dto.response.SingleGatheringArticleResponse;
 import org.v1.model.article.ArticleType;
 import org.v1.model.article.GatheringArticle;
 import org.v1.model.article.GatheringArticleDetail;
+import org.v1.model.article.GatheringInfo;
 import org.v1.service.article.GatheringArticleService;
 import response.DefaultId;
 import response.HttpResponse;
@@ -30,9 +33,10 @@ public class SingleGatheringArticleController {
     @Operation(summary = "단일 모임 게시글 최신순 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<SingleGatheringArticleResponse>> getSingleGatheringLatest(
-            @RequestHeader SingleGatheringArticleRequest.Latest request
+            @Schema(description = "게시물 index", example = "0")
+            @RequestHeader Integer index
     ) {
-        List<GatheringArticle> articleList = service.getTenArticleLatest(request.index(), ArticleType.SINGLE_GATHERING);
+        List<GatheringArticle> articleList = service.getTenArticleLatest(index, ArticleType.SINGLE_GATHERING);
         return HttpResponse.success(SingleGatheringArticleResponse.of(articleList));
     }
 
@@ -40,9 +44,12 @@ public class SingleGatheringArticleController {
     @Operation(summary = "단일 모임 게시글 검색 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<SingleGatheringArticleResponse>> getSingleGatheringSearch(
-            @RequestHeader SingleGatheringArticleRequest.Search request
+            @Schema(description = "게시물 index", example = "0")
+            @RequestHeader Integer index,
+            @Schema(description = "커뮤니티Id", example = "123")
+            @RequestHeader Integer communityId
     ) {
-        List<GatheringArticle> articleList = service.getTenArticleSearch(request.index(), request.toGatheringInfo());
+        List<GatheringArticle> articleList = service.getTenArticleSearch(index, GatheringInfo.singleGatheringWithCommunity(communityId));
         return HttpResponse.success(SingleGatheringArticleResponse.of(articleList));
     }
 
@@ -72,10 +79,11 @@ public class SingleGatheringArticleController {
     @Operation(summary = "단일 모임 게시글 내용 가져오기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<GatheringArticleDetailResponse> getArticle(
-            @RequestHeader SingleGatheringArticleRequest.Detail request,
+            @Schema(description = "게시물 id", example = "1")
+            @RequestHeader Long articleId,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        GatheringArticleDetail detail = service.getArticleDetail(request.toGatheringInfo(), userId);
+        GatheringArticleDetail detail = service.getArticleDetail(GatheringInfo.singleGatheringWithArticle(articleId), userId);
         return HttpResponse.success(GatheringArticleDetailResponse.of(detail));
     }
 }
