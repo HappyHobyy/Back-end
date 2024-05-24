@@ -1,4 +1,4 @@
 package org.v1.dto;
 
-public record UserCommunityRequest(Long communityId) {
+public record UserCommunityRequest(Integer communityId) {
 }

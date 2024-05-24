@@ -16,7 +16,7 @@ public class ExternalCommunityHandler implements ExternalCommunitySender {
         messageHandler.sendAllCommunity("photo");
     }
     @Override
-    public void sendResetGroupArticleCached(ContentEvent.EventType group) {
-        messageHandler.sendAllCommunity("group");
+    public void sendResetGatheringArticleCached(ContentEvent.EventType Gathering) {
+        messageHandler.sendAllCommunity("gathering");
     }
 }
