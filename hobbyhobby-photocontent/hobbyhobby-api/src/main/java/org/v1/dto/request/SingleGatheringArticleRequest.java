@@ -73,13 +73,17 @@ public record SingleGatheringArticleRequest(
             String text,
             @Schema(description = "장소", example = "location")
             @NotNull(message = "필수")
-            String location
+            String location,
+            @Schema(description = "모임 오픈톡 url", example = "http://")
+            @NotNull(message = "필수")
+            String gatheringUrl
+
     ) {
         public GatheringArticleContent toContent(MultipartFile file) {
             try {
                 File convertedFile = convertMultipartFileToFile(file);
                 ImageVideo image = ImageVideo.withoutPath(0, convertedFile, ImageVideo.FileType.H_LOG);
-                return new GatheringArticleContent(this.text, this.location, this.date, image);
+                return new GatheringArticleContent(this.text, this.location, this.date, image,this.gatheringUrl);
             } catch (IOException e) {
                 throw new RuntimeException("MultipartFile -> File로 전환이 실패했습니다.", e);
             }

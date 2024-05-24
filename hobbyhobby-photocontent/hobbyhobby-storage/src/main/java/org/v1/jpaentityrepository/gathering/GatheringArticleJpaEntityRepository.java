@@ -130,6 +130,6 @@ public class GatheringArticleJpaEntityRepository implements GatheringArticleRepo
 
     @Override
     public GatheringArticleContent readContent(GatheringInfo info) {
-        return new GatheringArticleContent("123","공원",LocalDateTime.now(),ImageVideo.withOnlyPath("123.png"));
+        return new GatheringArticleContent("123","공원",LocalDateTime.now(),ImageVideo.withOnlyPath("123.png"),"http://example.com");
     }
 }

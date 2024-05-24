@@ -13,7 +13,8 @@ public class GatheringArticleContent {
     private final String location;
     private final LocalDateTime gatheringTime;
     private final ImageVideo image;
+    private final String gatheringUrl;
     public GatheringArticleContent updateImage(ImageVideo image) {
-        return new GatheringArticleContent(this.description,this.location,this.gatheringTime,image);
+        return new GatheringArticleContent(this.description,this.location,this.gatheringTime,image,gatheringUrl);
     }
 }
