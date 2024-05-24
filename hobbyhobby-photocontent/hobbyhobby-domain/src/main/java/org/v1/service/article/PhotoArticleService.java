@@ -2,6 +2,7 @@ package org.v1.service.article;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.v1.implementaion.article.*;
 import org.v1.implementaion.comment.CommentReader;
 import org.v1.implementaion.comment.CommentUpdater;
@@ -29,8 +30,9 @@ public class PhotoArticleService {
     private final CommentReader commentReader;
     private final CommentUpdater commentUpdater;
 
-    public List<PhotoArticle> getTenArticleLatest(int communityId, long userId) {
-        return photoArticleReader.readTenArticleLatest(communityId).stream().map(
+    @Transactional
+    public List<PhotoArticle> getTenArticleLatest(int index,int communityId, long userId) {
+        return photoArticleReader.readTenArticleLatest(index,communityId).stream().map(
                 photoArticle -> {
                     boolean isUserLiked = likeChecker.checkArticleLiked(Like.toPhotoLike(userId, photoArticle.getId()));
                     boolean isUserArticleOwner = photoArticle.isUserArticleOwner(userId);
@@ -38,8 +40,9 @@ public class PhotoArticleService {
                 }
         ).collect(Collectors.toList());
     }
-    public List<PhotoArticle> getTenArticleLikes(int communityId,long userId) {
-        return photoArticleReader.readTenArticleLikes(communityId).stream().map(
+    @Transactional
+    public List<PhotoArticle> getTenArticleLikes(int index,int communityId,long userId) {
+        return photoArticleReader.readTenArticleLikes(index,communityId).stream().map(
                 photoArticle -> {
                     boolean isUserLiked = likeChecker.checkArticleLiked(Like.toPhotoLike(userId, photoArticle.getId()));
                     boolean isUserArticleOwner = photoArticle.isUserArticleOwner(userId);

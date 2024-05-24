@@ -14,11 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 public class GatheringArticleReader {
     private GatheringArticleRepository repository;
-    public List<GatheringArticle> readLatestArticles(ArticleType type) {
-        return repository.readArticleLatest(type);
+    public List<GatheringArticle> readLatestArticles(Integer index,ArticleType type) {
+        return repository.readArticleLatest(index,type);
     }
-    public List<GatheringArticle> readSearchArticles(GatheringInfo info) {
-        return repository.readArticleSearch(info);
+    public List<GatheringArticle> readSearchArticles(Integer index,GatheringInfo info) {
+        return repository.readArticleSearch(index,info);
     }
     public List<GatheringArticle> readPopularCommunityHotArticle(Integer communityId) {
         return repository.readPopularCommunityArticle(communityId);

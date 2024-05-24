@@ -9,8 +9,8 @@ import org.v1.model.user.UserStatus;
 import java.util.List;
 
 public interface PhotoArticleRepository {
-    List<PhotoArticle> readArticleLatest(Integer communityId);
-    List<PhotoArticle> readArticleLikes(Integer communityId);
+    List<PhotoArticle> readArticleLatest(int index,Integer communityId);
+    List<PhotoArticle> readArticleLikes(int index,Integer communityId);
     long appendArticle(PhotoArticle photoArticle);
     List<PhotoArticle> readPopularCommunityArticle(Integer communityId);
     List<PhotoArticle> readNotPopularCommunityArticle(Integer communityId);

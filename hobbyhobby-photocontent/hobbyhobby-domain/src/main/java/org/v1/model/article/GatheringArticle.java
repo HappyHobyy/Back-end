@@ -14,7 +14,7 @@ public class GatheringArticle {
     private final Long id;
     private final String title;
     private final GatheringInfo info;
-    private final LocalDateTime date;
+    private final LocalDateTime createdAt;
     private final User user;
     private final Integer countUsers;
     private final Integer likes;

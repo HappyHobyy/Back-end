@@ -12,11 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 public class PhotoArticleReader {
     private PhotoArticleRepository repository;
-    public List<PhotoArticle> readTenArticleLatest(Integer communityId) {
-        return repository.readArticleLatest(communityId);
+    public List<PhotoArticle> readTenArticleLatest(int index,Integer communityId) {
+        return repository.readArticleLatest(index,communityId);
     }
-    public List<PhotoArticle> readTenArticleLikes(Integer communityId) {
-        return repository.readArticleLikes(communityId);
+    public List<PhotoArticle> readTenArticleLikes(int index,Integer communityId) {
+        return repository.readArticleLikes(index,communityId);
     }
     public List<PhotoArticle> readPopularCommunityHotArticle(Integer communityId) {
         return repository.readPopularCommunityArticle(communityId);

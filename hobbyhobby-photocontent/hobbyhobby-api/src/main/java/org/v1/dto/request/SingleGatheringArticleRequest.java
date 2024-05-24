@@ -12,17 +12,21 @@ import org.v1.model.user.User;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.v1.global.util.FileUtil.convertMultipartFileToFile;
 
 public record SingleGatheringArticleRequest(
-
         Detail detail,
+        Search search,
         Latest latest,
         Create create,
         Delete delete
 ) {
+    public record Latest(
+            @Schema(description = "게시물 index", example = "0")
+            Integer index
+    ) {
+    }
     public record Detail(
             @Schema(description = "게시물ID", example = "123")
             @NotNull(message = "게시물ID는 필수 입력값입니다.")
@@ -32,7 +36,9 @@ public record SingleGatheringArticleRequest(
             return GatheringInfo.singleGatheringWithArticle(articleId);
         }
     }
-    public record Latest(
+    public record Search(
+            @Schema(description = "게시물 index", example = "0")
+            Integer index,
             @Schema(description = "커뮤니티Id", example = "123")
             @NotNull(message = "커뮤니티Id는 필수 입력값입니다.")
             Integer communityId

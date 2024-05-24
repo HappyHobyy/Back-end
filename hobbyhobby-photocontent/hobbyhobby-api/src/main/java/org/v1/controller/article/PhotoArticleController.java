@@ -33,7 +33,7 @@ public class PhotoArticleController {
             @RequestBody PhotoArticleRequest.Get request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLatest(request.communityId(),userId);
+        List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLatest(request.index(), request.communityId(), userId);
         return HttpResponse.success(PhotoArticleResponse.of(photoArticleList));
     }
 
@@ -44,7 +44,7 @@ public class PhotoArticleController {
             @RequestBody PhotoArticleRequest.Get request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLikes(request.communityId(),userId);
+        List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLikes(request.index(),request.communityId(), userId);
         return HttpResponse.success(PhotoArticleResponse.of(photoArticleList));
     }
 

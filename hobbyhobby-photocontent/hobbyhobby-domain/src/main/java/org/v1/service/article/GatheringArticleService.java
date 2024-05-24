@@ -2,6 +2,7 @@ package org.v1.service.article;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.v1.implementaion.article.GatheringArticleAppender;
 import org.v1.implementaion.article.GatheringArticleChecker;
 import org.v1.implementaion.article.GatheringArticleReader;
@@ -25,12 +26,12 @@ public class GatheringArticleService {
     private final ImageVideoManager imageVideoManager;
     private final LikeChecker likeChecker;
 
-    public List<GatheringArticle> getTenArticleLatest(ArticleType type) {
-        return articleReader.readLatestArticles(type);
+    public List<GatheringArticle> getTenArticleLatest(Integer index , ArticleType type) {
+        return articleReader.readLatestArticles(index,type);
     }
 
-    public List<GatheringArticle> getTenArticleSearch(GatheringInfo info) {
-        return articleReader.readSearchArticles(info);
+    public List<GatheringArticle> getTenArticleSearch(Integer index, GatheringInfo info) {
+        return articleReader.readSearchArticles(index,info);
     }
 
     public Long createArticle(GatheringArticle article, GatheringArticleContent content) {
@@ -45,6 +46,7 @@ public class GatheringArticleService {
         articleRemover.removeArticle(info);
     }
 
+    @Transactional
     public GatheringArticleDetail getArticleDetail(GatheringInfo info, Long userId) {
         boolean isUserLiked = likeChecker.checkArticleLiked(new Like(info.articleId(), userId,info.type()));
         boolean isUserOwner = articleChecker.isArticleUserOwner(userId, info);

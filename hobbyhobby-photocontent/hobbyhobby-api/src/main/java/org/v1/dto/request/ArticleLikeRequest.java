@@ -15,7 +15,7 @@ public record ArticleLikeRequest(
     }
 
     public Like toMulti(Long userId) {
-        return Like.toMultiGatheringLike(userId, articleId);
+        return Like.toUnionGatheringLike(userId, articleId);
     }
 
     public Like toPhoto(Long userId) {

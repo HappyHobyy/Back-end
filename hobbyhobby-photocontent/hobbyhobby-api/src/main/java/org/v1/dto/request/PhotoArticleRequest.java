@@ -21,6 +21,8 @@ public record PhotoArticleRequest(
         Delete delete
 ) {
     public record Get(
+            @Schema(description = "게시물 index", example = "0")
+            Integer index,
             @Schema(description = "커뮤니티Id", example = "123")
             @NotNull(message = "커뮤니티Id는 필수 입력값입니다.")
             Integer communityId

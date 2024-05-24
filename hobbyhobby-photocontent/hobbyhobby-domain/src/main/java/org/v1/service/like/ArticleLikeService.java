@@ -7,6 +7,9 @@ import org.v1.implementaion.like.LikeChecker;
 import org.v1.implementaion.like.LikeEventPublisher;
 import org.v1.implementaion.like.LikeRemover;
 import org.v1.model.like.Like;
+
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ArticleLikeService {
@@ -16,12 +19,16 @@ public class ArticleLikeService {
     private final LikeEventPublisher likeEventPublisher;
     public void createArticleLike(Like like) {
         likeChecker.checkArticleLikeToAppend(like);
-        Integer communityId = likeAppender.appendArticleLike(like);
-        likeEventPublisher.publishLikeEvent(communityId,like.type());
+        List<Integer> communityIds = likeAppender.appendArticleLike(like);
+        communityIds.forEach(communityId ->
+                likeEventPublisher.publishLikeEvent(communityId, like.type())
+        );
     }
     public void deleteArticleLike(Like like) {
         likeChecker.checkArticleLikeToRemove(like);
-        Integer communityId = likeRemover.removeArticleLike(like);
-        likeEventPublisher.publishDisLikeEvent(communityId,like.type());
+        List<Integer> communityIds = likeRemover.removeArticleLike(like);
+        communityIds.forEach(communityId ->
+                likeEventPublisher.publishDisLikeEvent(communityId, like.type())
+        );
     }
 }

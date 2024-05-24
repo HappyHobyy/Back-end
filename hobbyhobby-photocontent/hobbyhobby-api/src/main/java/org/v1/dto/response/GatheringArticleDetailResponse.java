@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import org.v1.model.article.GatheringArticleDetail;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public record GatheringArticleDetailResponse(
         @Schema(description = "모임 날짜", example = "2024-05-06T15:23:45.123456789")
@@ -26,7 +25,7 @@ public record GatheringArticleDetailResponse(
 ) {
     public static GatheringArticleDetailResponse of(GatheringArticleDetail detail) {
         return new GatheringArticleDetailResponse(
-                detail.getContent().getLocalDateTime(),
+                detail.getContent().getGatheringTime(),
                 detail.getContent().getDescription(),
                 detail.getContent().getLocation(),
                 detail.getUserStatus().isUserOwner(),

@@ -13,7 +13,7 @@ public record SingleGatheringArticleResponse(
         @Schema(description = "게시글 Id", example = "123")
         long gatheringArticleId,
         @Schema(description = "게시글 날짜", example = "2024-05-06T15:23:45.123456789")
-        LocalDateTime articleDate,
+        LocalDateTime createdAt,
         @Schema(description = "게시글 제목", example = "hobbyhobby")
         String title,
         @Schema(description = "게시글 작성자 닉네임", example = "hobbyhobby")
@@ -43,7 +43,7 @@ public record SingleGatheringArticleResponse(
         return gatheringArticles.stream()
                 .map(gatheringArticle -> new SingleGatheringArticleResponse(
                         gatheringArticle.getId(),
-                        gatheringArticle.getDate(),
+                        gatheringArticle.getCreatedAt(),
                         gatheringArticle.getUser().nickname(),
                         gatheringArticle.getTitle(),
                         gatheringArticle.getLikes(),

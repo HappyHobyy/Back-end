@@ -1,7 +1,6 @@
 package org.v1.rabbitmq.dto;
 
 import org.v1.model.article.GatheringArticle;
-import org.v1.model.article.PhotoArticle;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -27,7 +26,7 @@ public record GatheringArticleMessage (
         return gatheringArticleList.stream()
                 .map(gatheringArticle -> new GatheringArticleMessage(
                         gatheringArticle.getId(),
-                        gatheringArticle.getDate(),
+                        gatheringArticle.getCreatedAt(),
                         gatheringArticle.getUser().nickname(),
                         gatheringArticle.getLikes(),
                         gatheringArticle.getLikes(),

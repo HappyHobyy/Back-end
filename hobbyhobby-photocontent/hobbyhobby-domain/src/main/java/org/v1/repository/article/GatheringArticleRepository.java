@@ -9,8 +9,8 @@ import org.v1.model.user.UserStatus;
 import java.util.List;
 
 public interface GatheringArticleRepository {
-    List<GatheringArticle> readArticleLatest(ArticleType type);
-    List<GatheringArticle> readArticleSearch(GatheringInfo info);
+    List<GatheringArticle> readArticleLatest(Integer index,ArticleType type);
+    List<GatheringArticle> readArticleSearch(Integer index,GatheringInfo info);
     List<GatheringArticle> readPopularCommunityArticle(Integer communityId);
     List<GatheringArticle> readNotPopularCommunityArticle(Integer communityId);
     Long appendArticle(GatheringArticle photoArticle);
