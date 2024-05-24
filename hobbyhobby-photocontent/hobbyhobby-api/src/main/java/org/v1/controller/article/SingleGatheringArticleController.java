@@ -30,7 +30,7 @@ public class SingleGatheringArticleController {
     @Operation(summary = "단일 모임 게시글 최신순 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<SingleGatheringArticleResponse>> getSingleGatheringLatest(
-            @RequestBody SingleGatheringArticleRequest.Latest request
+            @RequestHeader SingleGatheringArticleRequest.Latest request
     ) {
         List<GatheringArticle> articleList = service.getTenArticleLatest(request.index(), ArticleType.SINGLE_GATHERING);
         return HttpResponse.success(SingleGatheringArticleResponse.of(articleList));
@@ -40,7 +40,7 @@ public class SingleGatheringArticleController {
     @Operation(summary = "단일 모임 게시글 검색 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<SingleGatheringArticleResponse>> getSingleGatheringSearch(
-            @RequestBody SingleGatheringArticleRequest.Search request
+            @RequestHeader SingleGatheringArticleRequest.Search request
     ) {
         List<GatheringArticle> articleList = service.getTenArticleSearch(request.index(), request.toGatheringInfo());
         return HttpResponse.success(SingleGatheringArticleResponse.of(articleList));
@@ -72,7 +72,7 @@ public class SingleGatheringArticleController {
     @Operation(summary = "단일 모임 게시글 내용 가져오기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<GatheringArticleDetailResponse> getArticle(
-            @RequestBody SingleGatheringArticleRequest.Detail request,
+            @RequestHeader SingleGatheringArticleRequest.Detail request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
         GatheringArticleDetail detail = service.getArticleDetail(request.toGatheringInfo(), userId);

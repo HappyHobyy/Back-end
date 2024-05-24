@@ -32,7 +32,7 @@ public class UnionGatheringArticleController {
     @Operation(summary = "연합 모임 게시글 최신순 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<UnionGatheringArticleResponse>> getUnionGatheringLatest(
-            @RequestBody UnionGatheringArticleRequest.Latest request
+            @RequestHeader UnionGatheringArticleRequest.Latest request
     ) {
         List<GatheringArticle> gatheringArticles = service.getTenArticleLatest(request.index(),ArticleType.UNION_GATHERING);
         return HttpResponse.success(UnionGatheringArticleResponse.of(gatheringArticles));
@@ -42,7 +42,7 @@ public class UnionGatheringArticleController {
     @Operation(summary = "연합 모임 게시글 검색 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<UnionGatheringArticleResponse>> getUnionGatheringSearch(
-            @RequestBody UnionGatheringArticleRequest.Search request
+            @RequestHeader UnionGatheringArticleRequest.Search request
     ) {
         List<GatheringArticle> gatheringArticles = service.getTenArticleSearch(request.index(),request.toGatheringInfo());
         return HttpResponse.success(UnionGatheringArticleResponse.of(gatheringArticles));
@@ -74,7 +74,7 @@ public class UnionGatheringArticleController {
     @Operation(summary = "연합 모임 게시글 내용 가져오기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<GatheringArticleDetailResponse> getArticle(
-            @RequestBody UnionGatheringArticleRequest.Detail request,
+            @RequestHeader UnionGatheringArticleRequest.Detail request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
         GatheringArticleDetail detail = service.getArticleDetail(request.toGatheringInfo(), userId);

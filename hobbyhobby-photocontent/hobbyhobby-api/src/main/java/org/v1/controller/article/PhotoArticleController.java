@@ -30,7 +30,7 @@ public class PhotoArticleController {
     @Operation(summary = "H-Log 게시글 최신순 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<PhotoArticleResponse>> getPhotoArticleLatest(
-            @RequestBody PhotoArticleRequest.Get request,
+            @RequestHeader PhotoArticleRequest.Get request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
         List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLatest(request.index(), request.communityId(), userId);
@@ -41,7 +41,7 @@ public class PhotoArticleController {
     @Operation(summary = "H-log 게시글 좋아요 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<PhotoArticleResponse>> getPhotoArticleLikes(
-            @RequestBody PhotoArticleRequest.Get request,
+            @RequestHeader PhotoArticleRequest.Get request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
         List<PhotoArticle> photoArticleList = photoArticleService.getTenArticleLikes(request.index(),request.communityId(), userId);
@@ -52,7 +52,7 @@ public class PhotoArticleController {
     @Operation(summary = "H-log 게시글 삭제")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<Object> deleteArticle(
-            @RequestBody PhotoArticleRequest.Delete request
+            @RequestHeader PhotoArticleRequest.Delete request
     ) {
         photoArticleService.deleteArticle(request.articleId());
         return HttpResponse.successOnly();
@@ -74,10 +74,10 @@ public class PhotoArticleController {
     @Operation(summary = "H-log 게시글 댓글 가져오기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<CommentResponse>> getArticle(
-            @RequestBody Long photoArticleId,
+            @RequestHeader PhotoArticleRequest.Detail request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        List<Comment> commentResponses = photoArticleService.getArticleComment(photoArticleId, userId);
+        List<Comment> commentResponses = photoArticleService.getArticleComment(request.articleId(), userId);
         return HttpResponse.success(CommentResponse.of(commentResponses));
     }
 }
