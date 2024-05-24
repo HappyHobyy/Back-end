@@ -2,7 +2,7 @@ package org.v1.jpaentityrepository.gathering;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.v1.jparepository.UserJpaRepository;
+import org.v1.jparepository.user.UserJpaRepository;
 import org.v1.model.article.*;
 import org.v1.model.imageVideo.ImageVideo;
 import org.v1.model.user.User;

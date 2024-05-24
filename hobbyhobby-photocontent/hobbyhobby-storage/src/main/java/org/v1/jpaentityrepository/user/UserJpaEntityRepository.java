@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.v1.jpaentity.user.UserJpaEntity;
-import org.v1.jparepository.UserJpaRepository;
+import org.v1.jparepository.user.UserJpaRepository;
 import org.v1.model.user.User;
 import org.v1.repository.user.UserRepository;
 

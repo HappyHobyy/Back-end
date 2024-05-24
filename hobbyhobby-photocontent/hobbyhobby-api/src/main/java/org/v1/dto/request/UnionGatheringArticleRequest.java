@@ -25,6 +25,7 @@ public record UnionGatheringArticleRequest(
 ) {
     public record Latest(
             @Schema(description = "게시물 index", example = "0")
+            @NotNull(message = "필수")
             Integer index
     ) {}
 
@@ -40,6 +41,7 @@ public record UnionGatheringArticleRequest(
 
     public record Search(
             @Schema(description = "게시물 index", example = "0")
+            @NotNull(message = "필수")
             Integer index,
             @Schema(description = "커뮤니티Ids", example = "{123,456}")
             @NotNull(message = "필수")

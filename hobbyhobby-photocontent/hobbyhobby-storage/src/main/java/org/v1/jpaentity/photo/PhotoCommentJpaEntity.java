@@ -1,19 +1,23 @@
 package org.v1.jpaentity.photo;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.v1.jpaentity.photo.PhotoArticleJpaEntity;
 import org.v1.jpaentity.user.UserJpaEntity;
+import org.v1.model.comment.Comment;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Builder
 @Table(name = "photo_comment", schema = "hobby_imageServer")
 public class PhotoCommentJpaEntity {
     @Id
@@ -42,4 +46,20 @@ public class PhotoCommentJpaEntity {
     @Column(name = "modified_at")
     private Instant modifiedAt;
 
+    public Comment to() {
+        return Comment.withId(
+                this.id,
+                this.user.toUser().orElseThrow(),
+                LocalDateTime.ofInstant(createdAt, ZoneId.of("Asia/Seoul")),
+                content);
+    }
+
+    public static PhotoCommentJpaEntity of(Comment comment,PhotoArticleJpaEntity articleJpa, UserJpaEntity user) {
+        return PhotoCommentJpaEntity.builder()
+                .id(comment.getId())
+                .content(comment.getText())
+                .photoContent(articleJpa)
+                .user(user)
+                .build();
+    }
 }

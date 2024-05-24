@@ -24,6 +24,7 @@ public record SingleGatheringArticleRequest(
 ) {
     public record Latest(
             @Schema(description = "게시물 index", example = "0")
+            @NotNull(message = "필수")
             Integer index
     ) {
     }

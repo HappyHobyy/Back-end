@@ -32,7 +32,7 @@ public class UnionGatheringArticleController {
     @Operation(summary = "연합 모임 게시글 최신순 제목 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<UnionGatheringArticleResponse>> getUnionGatheringLatest(
-            @RequestBody SingleGatheringArticleRequest.Latest request
+            @RequestBody UnionGatheringArticleRequest.Latest request
     ) {
         List<GatheringArticle> gatheringArticles = service.getTenArticleLatest(request.index(),ArticleType.UNION_GATHERING);
         return HttpResponse.success(UnionGatheringArticleResponse.of(gatheringArticles));

@@ -1,4 +1,4 @@
-package org.v1.jparepository;
+package org.v1.jparepository.gathering;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

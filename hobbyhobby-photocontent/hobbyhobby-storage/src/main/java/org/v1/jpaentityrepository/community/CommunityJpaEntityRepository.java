@@ -2,7 +2,7 @@ package org.v1.jpaentityrepository.community;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.v1.jparepository.CommunityJpaRepository;
+import org.v1.jparepository.community.CommunityJpaRepository;
 import org.v1.model.article.ArticleType;
 import org.v1.repository.community.CommunityRepository;
 @Repository

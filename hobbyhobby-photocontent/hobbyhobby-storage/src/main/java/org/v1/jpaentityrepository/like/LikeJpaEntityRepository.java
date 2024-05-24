@@ -9,7 +9,9 @@ import org.v1.jpaentity.gathering.UnionGatheringJpaEntity;
 import org.v1.jpaentity.photo.LikedPhotoJpaEntity;
 import org.v1.jpaentity.photo.PhotoArticleJpaEntity;
 import org.v1.jpaentity.user.UserJpaEntity;
-import org.v1.jparepository.*;
+import org.v1.jparepository.gathering.*;
+import org.v1.jparepository.photo.LikedPhotoJpaRepository;
+import org.v1.jparepository.photo.PhotoArticleJpaRepository;
 import org.v1.model.like.Like;
 import org.v1.repository.like.LikeRepository;
 

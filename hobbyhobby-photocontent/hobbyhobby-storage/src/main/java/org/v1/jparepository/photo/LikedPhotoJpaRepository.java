@@ -1,4 +1,4 @@
-package org.v1.jparepository;
+package org.v1.jparepository.photo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.v1.jpaentity.photo.LikedPhotoJpaEntity;
