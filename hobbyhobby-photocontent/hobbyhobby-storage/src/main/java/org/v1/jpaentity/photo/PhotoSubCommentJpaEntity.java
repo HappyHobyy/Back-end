@@ -17,6 +17,7 @@ import java.time.Instant;
 @Table(name = "photo_sub_comment", schema = "hobby_imageServer")
 public class PhotoSubCommentJpaEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "photo_sub_comment_id", nullable = false)
     private Long id;
 

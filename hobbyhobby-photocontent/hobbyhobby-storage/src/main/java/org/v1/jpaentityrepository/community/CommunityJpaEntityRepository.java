@@ -17,7 +17,6 @@ public class CommunityJpaEntityRepository implements CommunityRepository {
     public void minusCommunityLikes(Integer targetCommunityId, ArticleType articleType) {
         communityJpaRepository.decreaseLikeCount(targetCommunityId.longValue());
     }
-
     @Override
     public void resetCommunityLikes() {
         communityJpaRepository.resetAllLikeCount();

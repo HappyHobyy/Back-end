@@ -3,9 +3,10 @@ package org.v1.dto.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.web.multipart.MultipartFile;
+import org.v1.global.util.FileUtil;
 import org.v1.model.imageVideo.ImageVideo;
 import org.v1.model.article.PhotoArticle;
-import org.v1.model.article.PhotoAriticleContent;
+import org.v1.model.article.PhotoArticleContent;
 import org.v1.model.user.User;
 
 import java.io.File;
@@ -38,7 +39,7 @@ public record PhotoArticleRequest(
                     multipartFiles.stream()
                             .map(file -> {
                                 try {
-                                    File convertedFile = convertMultipartFileToFile(file);
+                                    File convertedFile = FileUtil.convertMultipartFileToFile(file);
                                     return ImageVideo.withoutPath(multipartFiles.indexOf(file), convertedFile, ImageVideo.FileType.H_LOG);
                                 } catch (IOException e) {
                                     throw new RuntimeException("MultipartFile -> File로 전환이 실패했습니다.",e);
@@ -46,7 +47,7 @@ public record PhotoArticleRequest(
                             })
                             .toList() :
                     Collections.emptyList();
-            return PhotoArticle.initial(User.onlyUserId(userId),communityId,new PhotoAriticleContent(this.text, fileList));
+            return PhotoArticle.initial(User.onlyUserId(userId),communityId,new PhotoArticleContent(this.text, fileList));
         }
     }
 }

@@ -19,7 +19,7 @@ public class Comment {
         return new Comment(null, user, date, text, null);
     }
     public Comment changeUser(Long commandUserId) {
-        return new Comment(id, user, date, text, new UserStatus(commandUserId.equals(user.id()),userStatus.isUserOwner(),userStatus.isUserJoined()));
+        return new Comment(id, user, date, text, new UserStatus(false,commandUserId.equals(user.id()),false));
     }
     public static Comment withId(Long id , User user, LocalDateTime date, String text) {
         return new Comment(id, user, date, text, null);

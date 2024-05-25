@@ -26,32 +26,32 @@ public class GatheringArticleService {
     private final ImageVideoManager imageVideoManager;
     private final LikeChecker likeChecker;
 
-    public List<GatheringArticle> getTenArticleLatest(Integer index , ArticleType type) {
-        return articleReader.readLatestArticles(index,type);
+    public List<GatheringArticle> getTenArticleLatest(Integer index, ArticleType type) {
+        return articleReader.readLatestArticles(index, type);
     }
 
     public List<GatheringArticle> getTenArticleSearch(Integer index, GatheringInfo info) {
-        return articleReader.readSearchArticles(index,info);
+        return articleReader.readSearchArticles(index, info);
     }
 
     public Long createArticle(GatheringArticle article, GatheringArticleContent content) {
-        Long articleId = articleAppender.appendArticle(article);
-        ImageVideo image = imageVideoManager.appendFile(articleId, content.getImage());
-        articleAppender.appendArticleContent(content.updateImage(image), article.getInfo());
+        Long articleId = articleAppender.appendArticle(article, content);
+        ImageVideo image = imageVideoManager.appendFile(articleId, article.getImageVideo());
+        articleAppender.appendArticleImage(image, article.getInfo().initArticleId(articleId));
         return articleId;
     }
 
     public void deleteArticle(GatheringInfo info) {
-        imageVideoManager.removeImage(articleReader.readContent(info).getImage());
+        imageVideoManager.removeImage(articleReader.readImage(info));
         articleRemover.removeArticle(info);
     }
 
     @Transactional
     public GatheringArticleDetail getArticleDetail(GatheringInfo info, Long userId) {
-        boolean isUserLiked = likeChecker.checkArticleLiked(new Like(info.articleId(), userId,info.type()));
+        boolean isUserLiked = likeChecker.checkArticleLiked(new Like(userId, info.articleId(), info.type()));
         boolean isUserOwner = articleChecker.isArticleUserOwner(userId, info);
         boolean isUserJoined = articleChecker.isArticleUserJoined(userId, info);
         GatheringArticleContent content = articleReader.readContent(info);
-        return new GatheringArticleDetail(content,new UserStatus(isUserLiked,isUserOwner,isUserJoined));
+        return new GatheringArticleDetail(content, new UserStatus(isUserLiked, isUserOwner, isUserJoined));
     }
 }

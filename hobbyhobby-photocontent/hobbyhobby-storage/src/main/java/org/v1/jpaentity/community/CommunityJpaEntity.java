@@ -23,4 +23,10 @@ public class CommunityJpaEntity {
 
     @Column(name = "community_like_count")
     private Integer communityLikeCount;
+
+    public static CommunityJpaEntity onlyWithId(Long id) {
+        return CommunityJpaEntity.builder()
+                .id(id)
+                .build();
+    }
 }

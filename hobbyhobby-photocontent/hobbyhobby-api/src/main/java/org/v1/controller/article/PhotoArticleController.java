@@ -29,7 +29,7 @@ public class PhotoArticleController {
     private final PhotoArticleService photoArticleService;
 
     @GetMapping("/latest")
-    @Operation(summary = "H-Log 게시글 최신순 제목 가져오기 max 10개")
+    @Operation(summary = "H-Log 게시글 최신순 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<PhotoArticleResponse>> getPhotoArticleLatest(
             @Schema(description = "게시물 index", example = "0")
@@ -44,7 +44,7 @@ public class PhotoArticleController {
     }
 
     @GetMapping("/likes")
-    @Operation(summary = "H-log 게시글 좋아요 제목 가져오기 max 10개")
+    @Operation(summary = "H-log 게시글 좋아요 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<PhotoArticleResponse>> getPhotoArticleLikes(
             @Schema(description = "게시물 index", example = "0")
@@ -80,7 +80,7 @@ public class PhotoArticleController {
         return HttpResponse.success(DefaultId.of(photoArticleId));
     }
 
-    @GetMapping("/detail")
+    @GetMapping("/comment")
     @Operation(summary = "H-log 게시글 댓글 가져오기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<CommentResponse>> getArticle(

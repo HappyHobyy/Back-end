@@ -1,20 +1,23 @@
 package org.v1.jpaentity.gathering;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.v1.jpaentity.community.CommunityJpaEntity;
 import org.v1.jpaentity.gathering.UnionGatheringJpaEntity;
 import org.v1.jpaentity.user.UserJpaEntity;
+import org.v1.model.group.GatheringMember;
 
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Builder
 @Table(name = "joined_union_gathering", schema = "hobby_imageServer")
 public class JoinedUnionGatheringJpaEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "joined_union_gathering_id", nullable = false)
     private Long id;
 
@@ -33,4 +36,9 @@ public class JoinedUnionGatheringJpaEntity {
     @JoinColumn(name = "community_id", nullable = false)
     private CommunityJpaEntity community;
 
+    public static JoinedUnionGatheringJpaEntity of(GatheringMember gatheringMember) {
+        return JoinedUnionGatheringJpaEntity.builder()
+                .unionGathering(UnionGatheringJpaEntity.onlyWithId(gatheringMember.articleId()))
+                .user(UserJpaEntity.onlyWithId(gatheringMember.userId())).build();
+    }
 }

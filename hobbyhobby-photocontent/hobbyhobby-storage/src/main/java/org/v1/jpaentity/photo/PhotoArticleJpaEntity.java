@@ -1,11 +1,14 @@
 package org.v1.jpaentity.photo;
 
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Table;
 import lombok.*;
 import org.hibernate.annotations.*;
 import org.v1.jpaentity.community.CommunityJpaEntity;
 import org.v1.jpaentity.user.UserJpaEntity;
+import org.v1.model.article.PhotoArticleContent;
+import org.v1.model.article.PhotoArticle;
 
 import java.time.LocalDateTime;
 
@@ -14,10 +17,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Builder
+@DynamicInsert
 @Table(name = "photo_content")
 public class PhotoArticleJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "photo_content_id", nullable = false)
     private Long id;
 
@@ -41,19 +45,37 @@ public class PhotoArticleJpaEntity {
     private LocalDateTime modifiedAt;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_id", nullable = false) // foreign key (userId) references User (id)
+    @JoinColumn(name = "user_id", nullable = false)
+    @BatchSize(size = 100)
     private UserJpaEntity user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "community_id", nullable = false) // foreign key (userId) references Community (id)
+    @JoinColumn(name = "community_id", nullable = false)
+    @BatchSize(size = 100)
     private CommunityJpaEntity community;
 
     public static PhotoArticleJpaEntity onlyWithId(Long id) {
         return PhotoArticleJpaEntity.builder()
                 .id(id)
                 .build();
+    }
+    public PhotoArticle to(){
+        return PhotoArticle.withId(
+                this.id,
+                this.user.toUser().orElseThrow(),
+                this.community.getId().intValue(),
+                this.createdAt,
+                new PhotoArticleContent(this.getContent(),null),
+                new PhotoArticle.LikesComments(this.likes,this.comments)
+        );
+    }
+    public static PhotoArticleJpaEntity of(PhotoArticle article){
+        return PhotoArticleJpaEntity.builder()
+                .community(CommunityJpaEntity.onlyWithId(article.getCommunityId().longValue()))
+                .user(UserJpaEntity.onlyWithId(article.getUser().id()))
+                .content(article.getContent().getText()).build();
     }
 }

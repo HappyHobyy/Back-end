@@ -6,4 +6,5 @@ import org.v1.jpaentity.photo.PhotoArticleJpaEntity;
 
 public interface LikedPhotoJpaRepository extends JpaRepository<LikedPhotoJpaEntity, Long> {
     boolean existsLikedPhotoJpaEntityByPhotoContent_Id(Long articleId);
+    void deleteByPhotoContent_IdAndUser_Id(Long articleId,Long userId);
 }

@@ -21,7 +21,9 @@ public record UnionGatheringArticleResponse(
         @Schema(description = "게시글 좋아요 갯수", example = "12")
         int likes,
         @Schema(description = "모임 유저 숫자", example = "12")
-        int users,
+        int joinMax,
+        @Schema(description = "현재 모인 유저 숫자", example = "12")
+        int joinCount,
         @Schema(description = "첫번째 태그 커뮤니티Id", example = "1")
         Integer communityId1,
         @Schema(description = "두번쨰 태그 커뮤니티Id", example = "2")
@@ -47,7 +49,8 @@ public record UnionGatheringArticleResponse(
                         gatheringArticle.getCreatedAt(),
                         gatheringArticle.getTitle(),
                         gatheringArticle.getUser().nickname(),
-                        gatheringArticle.getCountUsers(),
+                        gatheringArticle.getJoinedMax(),
+                        gatheringArticle.getJoinedCount(),
                         gatheringArticle.getLikes(),
                         gatheringArticle.getInfo().communityIds().get(0),
                         gatheringArticle.getInfo().communityIds().get(1),

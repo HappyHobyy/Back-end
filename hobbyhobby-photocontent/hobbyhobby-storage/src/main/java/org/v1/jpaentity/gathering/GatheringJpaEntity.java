@@ -1,13 +1,13 @@
 package org.v1.jpaentity.gathering;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.*;
 import org.v1.jpaentity.community.CommunityJpaEntity;
-import org.v1.jpaentity.photo.LikedPhotoJpaEntity;
 import org.v1.jpaentity.user.UserJpaEntity;
+import org.v1.model.article.GatheringArticle;
+import org.v1.model.imageVideo.ImageVideo;
 
 import java.time.Instant;
 
@@ -16,25 +16,32 @@ import java.time.Instant;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Builder
+@DynamicInsert
 @Table(name = "gathering", schema = "hobby_imageServer")
 public class GatheringJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "gathering_id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
+    @BatchSize(size = 10)
     private UserJpaEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "community_id", nullable = false)
+    @BatchSize(size = 10)
     private CommunityJpaEntity community;
 
     @Column(name = "community_max", nullable = false)
     private Short communityMax;
+
+    @ColumnDefault("0")
+    @Column(name = "joined_count", nullable = false)
+    private Integer joinedCount;
 
     @Column(name = "title", nullable = false, length = 256)
     private String title;
@@ -44,16 +51,29 @@ public class GatheringJpaEntity {
     private String imageUrl;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "created_at")
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     private Instant createdAt;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "modified_at")
+    @CreationTimestamp
     private Instant modifiedAt;
 
     public static GatheringJpaEntity onlyWithId(Long id) {
         return GatheringJpaEntity.builder()
                 .id(id)
                 .build();
+    }
+    public  ImageVideo toImageVideo(){
+        return ImageVideo.withOnlyPath(imageUrl);
+    }
+
+    public static GatheringJpaEntity of(GatheringArticle article) {
+        return GatheringJpaEntity.builder()
+                .community(CommunityJpaEntity.onlyWithId(article.getInfo().communityIds().get(0).longValue()))
+                .user(UserJpaEntity.onlyWithId(article.getUser().id()))
+                .communityMax(article.getJoinedMax().shortValue())
+                .title(article.getTitle()).build();
     }
 }

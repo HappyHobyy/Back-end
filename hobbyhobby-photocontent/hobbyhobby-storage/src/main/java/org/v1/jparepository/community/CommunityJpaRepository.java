@@ -20,6 +20,5 @@ public interface CommunityJpaRepository extends JpaRepository<CommunityJpaEntity
     @Transactional
     @Query("UPDATE CommunityJpaEntity c SET c.communityLikeCount = 0")
     void resetAllLikeCount();
-
     CommunityJpaEntity findTopByOrderByCommunityLikeCountDesc();
 }

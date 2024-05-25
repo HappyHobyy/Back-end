@@ -1,10 +1,9 @@
 package org.v1.jpaentity.photo;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.*;
 import org.v1.jpaentity.photo.PhotoArticleJpaEntity;
 import org.v1.jpaentity.user.UserJpaEntity;
 import org.v1.model.comment.Comment;
@@ -12,6 +11,8 @@ import org.v1.model.comment.Comment;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,6 +22,7 @@ import java.time.ZoneId;
 @Table(name = "photo_comment", schema = "hobby_imageServer")
 public class PhotoCommentJpaEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "photo_comment_id", nullable = false)
     private Long id;
 
@@ -39,11 +41,13 @@ public class PhotoCommentJpaEntity {
     private String content;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
+    @CreationTimestamp
     private Instant createdAt;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "modified_at")
+    @UpdateTimestamp
     private Instant modifiedAt;
 
     public Comment to() {
@@ -54,12 +58,12 @@ public class PhotoCommentJpaEntity {
                 content);
     }
 
-    public static PhotoCommentJpaEntity of(Comment comment,PhotoArticleJpaEntity articleJpa, UserJpaEntity user) {
+    public static PhotoCommentJpaEntity of(Comment comment,Long articleId) {
         return PhotoCommentJpaEntity.builder()
                 .id(comment.getId())
                 .content(comment.getText())
-                .photoContent(articleJpa)
-                .user(user)
+                .photoContent(PhotoArticleJpaEntity.onlyWithId(articleId))
+                .user(UserJpaEntity.onlyWithId(comment.getUser().id()))
                 .build();
     }
 }

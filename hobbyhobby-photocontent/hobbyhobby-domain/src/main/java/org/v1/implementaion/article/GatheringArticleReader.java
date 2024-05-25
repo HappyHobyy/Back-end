@@ -6,6 +6,7 @@ import org.v1.model.article.ArticleType;
 import org.v1.model.article.GatheringInfo;
 import org.v1.model.article.GatheringArticle;
 import org.v1.model.article.GatheringArticleContent;
+import org.v1.model.imageVideo.ImageVideo;
 import org.v1.repository.article.GatheringArticleRepository;
 
 import java.util.List;
@@ -28,5 +29,8 @@ public class GatheringArticleReader {
     }
     public GatheringArticleContent readContent(GatheringInfo info) {
         return repository.readContent(info);
+    }
+    public ImageVideo readImage(GatheringInfo info) {
+        return repository.readImage(info);
     }
 }

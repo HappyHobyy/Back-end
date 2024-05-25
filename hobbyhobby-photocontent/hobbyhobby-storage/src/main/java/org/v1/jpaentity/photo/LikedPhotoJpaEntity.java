@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.v1.jpaentity.photo.PhotoArticleJpaEntity;
 import org.v1.jpaentity.user.UserJpaEntity;
+import org.v1.model.like.Like;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,6 +16,7 @@ import org.v1.jpaentity.user.UserJpaEntity;
 @Table(name = "liked_photo", schema = "hobby_imageServer")
 public class LikedPhotoJpaEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "liked_photo_id", nullable = false)
     private Long id;
 
@@ -33,10 +35,11 @@ public class LikedPhotoJpaEntity {
                 .id(id)
                .build();
     }
-    public static LikedPhotoJpaEntity of(PhotoArticleJpaEntity photoContent, UserJpaEntity user) {
+    public static LikedPhotoJpaEntity of(Like like) {
         return LikedPhotoJpaEntity.builder()
-                .photoContent(photoContent)
-               .user(user).build();
+                .photoContent(PhotoArticleJpaEntity.onlyWithId(like.articleId()))
+                .user(UserJpaEntity.onlyWithId(like.userId()))
+                .build();
     }
 
 }

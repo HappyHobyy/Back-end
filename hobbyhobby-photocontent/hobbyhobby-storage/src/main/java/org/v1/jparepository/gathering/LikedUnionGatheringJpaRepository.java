@@ -6,4 +6,6 @@ import org.v1.jpaentity.gathering.LikedUnionGatheringJpaEntity;
 
 public interface LikedUnionGatheringJpaRepository extends JpaRepository<LikedUnionGatheringJpaEntity,Long> {
     boolean existsLikedUnionGatheringJpaEntityByUnionGathering_Id(Long articleId);
+
+    void deleteByUnionGathering_IdAndUser_Id(Long articleId,Long userId);
 }

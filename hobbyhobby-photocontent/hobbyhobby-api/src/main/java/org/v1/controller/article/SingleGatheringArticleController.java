@@ -30,7 +30,7 @@ import java.util.List;
 public class SingleGatheringArticleController {
     private final GatheringArticleService service;
     @GetMapping("")
-    @Operation(summary = "단일 모임 게시글 최신순 제목 가져오기 max 10개")
+    @Operation(summary = "단일 모임 게시글 최신순 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<SingleGatheringArticleResponse>> getSingleGatheringLatest(
             @Schema(description = "게시물 index", example = "0")
@@ -41,7 +41,7 @@ public class SingleGatheringArticleController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "단일 모임 게시글 검색 제목 가져오기 max 10개")
+    @Operation(summary = "단일 모임 게시글 검색 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<SingleGatheringArticleResponse>> getSingleGatheringSearch(
             @Schema(description = "게시물 index", example = "0")
@@ -71,12 +71,12 @@ public class SingleGatheringArticleController {
             @RequestPart("file") MultipartFile file,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        Long articleId = service.createArticle(request.toArticle(userId), request.toContent(file));
+        Long articleId = service.createArticle(request.toArticle(userId,file), request.toContent());
         return HttpResponse.success(DefaultId.of(articleId));
     }
 
     @GetMapping("/detail")
-    @Operation(summary = "단일 모임 게시글 내용 가져오기")
+    @Operation(summary = "단일 모임 게시글 세부 내용 가져오기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<GatheringArticleDetailResponse> getArticle(
             @Schema(description = "게시물 id", example = "1")

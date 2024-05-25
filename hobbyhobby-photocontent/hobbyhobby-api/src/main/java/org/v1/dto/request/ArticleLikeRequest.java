@@ -2,7 +2,6 @@ package org.v1.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
-import org.v1.model.article.ArticleType;
 import org.v1.model.like.Like;
 
 public record ArticleLikeRequest(
@@ -14,11 +13,11 @@ public record ArticleLikeRequest(
         return Like.toSingleGatheringLike(userId, articleId);
     }
 
-    public Like toMulti(Long userId) {
+    public Like toUnion(Long userId) {
         return Like.toUnionGatheringLike(userId, articleId);
     }
 
     public Like toPhoto(Long userId) {
-        return Like.toSingleGatheringLike(userId, this.articleId);
+        return Like.toPhotoLike(userId, this.articleId);
     }
 }

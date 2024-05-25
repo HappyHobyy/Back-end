@@ -11,9 +11,7 @@ import org.v1.implementaion.like.LikeChecker;
 import org.v1.model.comment.Comment;
 import org.v1.model.imageVideo.ImageVideo;
 import org.v1.model.article.PhotoArticle;
-import org.v1.model.article.PhotoAriticleContent;
 import org.v1.model.like.Like;
-import org.v1.model.user.UserStatus;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,7 +55,7 @@ public class PhotoArticleService {
         return photoArticleId;
     }
     public void deleteArticle(long photoArticleId){
-        imageVideoManager.removeImages(photoArticleReader.readContent(photoArticleId).getImages());
+        imageVideoManager.removeImages(photoArticleReader.readImageList(photoArticleId));
         photoArticleRemover.removeArticle(photoArticleId);
     }
     public  List<Comment> getArticleComment(long photoArticleId, long userId) {

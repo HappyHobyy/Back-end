@@ -44,31 +44,21 @@ public class LikeJpaEntityRepository implements LikeRepository {
     public List<Integer> appendLike(Like like) {
         return switch (like.type()) {
             case UNION_GATHERING -> {
-                LikedUnionGatheringJpaEntity entity = LikedUnionGatheringJpaEntity.builder()
-                        .unionGathering(UnionGatheringJpaEntity.onlyWithId(like.articleId()))
-                        .user(UserJpaEntity.onlyWithId(like.userId()))
-                        .build();
+                LikedUnionGatheringJpaEntity entity = LikedUnionGatheringJpaEntity.of(like);
                 likedUnionGatheringJpaRepository.save(entity);
-                Long community1 = unionGatheringJpaRepository.findWithCommunityById(like.articleId()).getCommunity1().getId();
-                Long community2 = unionGatheringJpaRepository.findWithCommunityById(like.articleId()).getCommunity2().getId();
+                UnionGatheringJpaEntity unionGatheringJpaEntity = unionGatheringJpaRepository.findWithCommunityById(like.articleId());
                 unionGatheringDetailJpaRepository.incrementLikesById(like.articleId());
-                yield List.of(community1.intValue(), community2.intValue());
+                yield List.of(unionGatheringJpaEntity.getCommunity1().getId().intValue(), unionGatheringJpaEntity.getCommunity2().getId().intValue());
             }
             case SINGLE_GATHERING -> {
-                LikedGatheringJpaEntity entity = LikedGatheringJpaEntity.builder()
-                        .gathering(GatheringJpaEntity.onlyWithId(like.articleId()))
-                        .user(UserJpaEntity.onlyWithId(like.userId()))
-                        .build();
+                LikedGatheringJpaEntity entity = LikedGatheringJpaEntity.of(like);
                 likedGatheringJpaRepository.save(entity);
                 Long community = gatheringJpaRepository.findWithCommunityById(like.articleId()).getCommunity().getId();
                 gatheringDetailJpaRepository.incrementLikesById(like.articleId());
                 yield List.of(community.intValue());
             }
             case H_LOG -> {
-                LikedPhotoJpaEntity entity = LikedPhotoJpaEntity.builder()
-                        .photoContent(PhotoArticleJpaEntity.onlyWithId(like.articleId()))
-                        .user(UserJpaEntity.onlyWithId(like.userId()))
-                        .build();
+                LikedPhotoJpaEntity entity = LikedPhotoJpaEntity.of(like);
                 likedPhotoJpaRepository.save(entity);
                 photoArticleJpaRepository.incrementLikesById(like.articleId());
                 PhotoArticleJpaEntity article = photoArticleJpaRepository.findWithCommunityById(like.articleId());
@@ -81,21 +71,20 @@ public class LikeJpaEntityRepository implements LikeRepository {
     public List<Integer> removeLike(Like like) {
         return switch (like.type()) {
             case UNION_GATHERING -> {
-                Long community1 = unionGatheringJpaRepository.findWithCommunityById(like.articleId()).getCommunity1().getId();
-                Long community2 = unionGatheringJpaRepository.findWithCommunityById(like.articleId()).getCommunity2().getId();
+                UnionGatheringJpaEntity unionGatheringJpaEntity = unionGatheringJpaRepository.findWithCommunityById(like.articleId());
                 unionGatheringDetailJpaRepository.decrementLikesById(like.articleId());
-                likedUnionGatheringJpaRepository.deleteById(like.articleId());
-                yield List.of(community1.intValue(), community2.intValue());
+                likedUnionGatheringJpaRepository.deleteByUnionGathering_IdAndUser_Id(like.articleId(),like.userId());
+                yield List.of(unionGatheringJpaEntity.getCommunity1().getId().intValue(), unionGatheringJpaEntity.getCommunity2().getId().intValue());
             }
             case SINGLE_GATHERING -> {
                 Long community = gatheringJpaRepository.findWithCommunityById(like.articleId()).getCommunity().getId();
-                likedGatheringJpaRepository.deleteById(like.articleId());
+                likedGatheringJpaRepository.deleteByGathering_IdAndUser_Id(like.articleId(),like.userId());
                 gatheringDetailJpaRepository.decrementLikesById(like.articleId());
                 yield List.of(community.intValue());
             }
             case H_LOG -> {
                 PhotoArticleJpaEntity article = photoArticleJpaRepository.findWithCommunityById(like.articleId());
-                likedUnionGatheringJpaRepository.deleteById(like.articleId());
+                likedPhotoJpaRepository.deleteByPhotoContent_IdAndUser_Id(like.articleId(),like.userId());
                 photoArticleJpaRepository.decrementLikesById(like.articleId());
                 yield List.of(article.getCommunity().getId().intValue());
             }

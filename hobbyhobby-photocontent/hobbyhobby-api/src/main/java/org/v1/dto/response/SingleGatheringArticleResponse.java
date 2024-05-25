@@ -21,7 +21,9 @@ public record SingleGatheringArticleResponse(
         @Schema(description = "게시글 좋아요 갯수", example = "12")
         int likes,
         @Schema(description = "모임 유저 숫자", example = "12")
-        int users,
+        int joinMax,
+        @Schema(description = "현재 모인 유저 숫자", example = "12")
+        int joinCount,
         @Schema(description = "커뮤니티Id", example = "12")
         int communityId,
         ImageResponse image
@@ -47,7 +49,8 @@ public record SingleGatheringArticleResponse(
                         gatheringArticle.getUser().nickname(),
                         gatheringArticle.getTitle(),
                         gatheringArticle.getLikes(),
-                        gatheringArticle.getCountUsers(),
+                        gatheringArticle.getJoinedMax(),
+                        gatheringArticle.getJoinedCount(),
                         gatheringArticle.getInfo().communityIds().get(0),
                         ImageResponse.of(gatheringArticle.getImageVideo())
                 ))
