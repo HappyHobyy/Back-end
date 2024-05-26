@@ -34,7 +34,7 @@ public record UserRegisterRequest(
             String birth
     ) {
         public User toUser() {
-            return User.withoutId(nickname, email, oAuth, new User.Password(null), gender, nationality, null,"https://hobbyhobby.s3.ap-northeast-2.amazonaws.com/user/deafult_user_image.png",userName,phoneNumber,birth);
+            return User.withoutId(nickname, email, oAuth, new User.Password(null), gender, nationality, null,null,userName,phoneNumber,birth);
         }
     }
 
@@ -65,7 +65,7 @@ public record UserRegisterRequest(
             String birth
     ) {
         public User toUser() {
-            return User.withoutId(nickname, email, User.UserType.OAUTH_DEFAULT, new User.Password(password), gender, nationality, null,"https://hobbyhobby.s3.ap-northeast-2.amazonaws.com/user/deafult_user_image.png",userName,phoneNumber,birth);
+            return User.withoutId(nickname, email, User.UserType.OAUTH_DEFAULT, new User.Password(password), gender, nationality, null, null, userName, phoneNumber, birth);
         }
     }
 }

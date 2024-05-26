@@ -41,7 +41,7 @@ public class UserJpaEntity{
     private String phoneNumber;
 
     @ColumnDefault("https://hobbyhobby.s3.ap-northeast-2.amazonaws.com/user/deafult_user_image.png")
-    @Column(name = "image_url", nullable = false)
+    @Column(name = "image_url")
     private String imageUrl;
 
     @Column(name = "gender", nullable = false)
@@ -63,7 +63,6 @@ public class UserJpaEntity{
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "modified_at", nullable = false)
     private Instant modifiedAt;
-
 
     public static UserJpaEntity ofWithoutId(User user) {
         return UserJpaEntity.builder()
