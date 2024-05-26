@@ -45,6 +45,13 @@ public interface UnionGatheringDetailJpaRepository extends JpaRepository<UnionGa
             Pageable pageable);
 
     @Query("SELECT p FROM UnionGatheringDetailJpaEntity p " +
+            "WHERE (p.unionGathering.community1.id = :communityId1 OR p.unionGathering.community2.id = :communityId1) " +
+            "ORDER BY p.unionGathering.createdAt DESC")
+    Page<UnionGatheringDetailJpaEntity> findAllByCommunityIdAndCreatedAtAfterOrderByDesc(
+            @Param("communityId1") Long communityId1,
+            Pageable pageable);
+
+    @Query("SELECT p FROM UnionGatheringDetailJpaEntity p " +
             "WHERE (p.unionGathering.community2.id = :communityId2 AND p.unionGathering.community1.id = :communityId1) " +
             "   OR (p.unionGathering.community2.id = :communityId1 AND p.unionGathering.community1.id = :communityId2) " +
             "ORDER BY p.unionGathering.createdAt DESC")
