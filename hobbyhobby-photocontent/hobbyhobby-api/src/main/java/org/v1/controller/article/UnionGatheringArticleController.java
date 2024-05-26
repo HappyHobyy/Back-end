@@ -42,27 +42,14 @@ public class UnionGatheringArticleController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "연합 모임 게시글 검색 : 커뮤니티 1개")
-    @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<List<UnionGatheringArticleResponse>> getUnionGatheringSearch(
-            @Schema(description = "게시물 index", example = "0")
-            @RequestHeader Integer index,
-            @Schema(description = "커뮤니티Id1", example = "123")
-            @RequestHeader Integer communityId1
-    ) {
-        List<GatheringArticle> gatheringArticles = service.getTenArticleSearch(index, GatheringInfo.unionGatheringWithCommunity(List.of(communityId1)));
-        return HttpResponse.success(UnionGatheringArticleResponse.of(gatheringArticles));
-    }
-
-    @GetMapping("/search")
-    @Operation(summary = "연합 모임 게시글 검색 : 커뮤니티 2개")
+    @Operation(summary = "연합 모임 게시글 검색 가져오기 max 10개")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
     public HttpResponse<List<UnionGatheringArticleResponse>> getUnionGatheringSearch(
             @Schema(description = "게시물 index", example = "0")
             @RequestHeader Integer index,
             @Schema(description = "커뮤니티Id1", example = "123")
             @RequestHeader Integer communityId1,
-            @Schema(description = "커뮤니티Id2", example = "456")
+            @Schema(description = "커뮤니티Id2", example = "123")
             @RequestHeader Integer communityId2
     ) {
         List<GatheringArticle> gatheringArticles = service.getTenArticleSearch(index, GatheringInfo.unionGatheringWithCommunity(List.of(communityId1,communityId2)));
