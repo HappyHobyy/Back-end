@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public record SingleGatheringArticleResponse(
         @Schema(description = "게시글 Id", example = "123")
         long gatheringArticleId,
-        @Schema(description = "게시글 날짜", example = "2024-05-06T15:23:45.123456789")
+        @Schema(description = "게시글 날짜", example = "2024-05-06T15:23:45")
         LocalDateTime createdAt,
         @Schema(description = "게시글 제목", example = "hobbyhobby")
         String title,

@@ -12,5 +12,5 @@ public class GatheringArticleContent {
     private final String description;
     private final String location;
     private final LocalDateTime gatheringTime;
-    private final String gatheringUrl;
+    private final String openTalkLink;
 }

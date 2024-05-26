@@ -58,7 +58,7 @@ public class GatheringDetailJpaEntity {
         return GatheringDetailJpaEntity.builder()
                 .gathering(gathering)
                 .content(content.getDescription())
-                .link(content.getGatheringUrl())
+                .link(content.getOpenTalkLink())
                 .location(content.getLocation())
                 .gatheringTime(content.getGatheringTime())
                 .build();
