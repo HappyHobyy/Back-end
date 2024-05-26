@@ -10,4 +10,7 @@ spring:
       ddl-auto: create
     properties:
       hibernate.format_sql: true
-      hibernate.naming-strategy : org.hibernate.cfg.EJB3NamingStrategy
+      defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
