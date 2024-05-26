@@ -15,7 +15,7 @@ import java.util.Optional;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Builder
-@Table(name = "users")
+@Table(name = "user")
 public class UserJpaEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
