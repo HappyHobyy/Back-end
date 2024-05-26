@@ -39,7 +39,7 @@ public record UnionGatheringArticleRequest(
             @Schema(description = "모임 제목", example = "title")
             @NotNull(message = "필수")
             String title,
-            @Schema(description = "모임 날짜", example = "2024-05-06T15:23:45.123456789")
+            @Schema(description = "모임 날짜", example = "2024-05-06T15:23:45")
             @NotNull(message = "필수")
             LocalDateTime date,
             @Schema(description = "모임 최대 인원", example = "5")

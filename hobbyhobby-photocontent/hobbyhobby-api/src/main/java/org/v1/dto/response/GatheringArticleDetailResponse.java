@@ -7,7 +7,7 @@ import org.v1.model.article.GatheringArticleDetail;
 import java.time.LocalDateTime;
 
 public record GatheringArticleDetailResponse(
-        @Schema(description = "모임 날짜", example = "2024-05-06T15:23:45.123456789")
+        @Schema(description = "모임 날짜", example = "2024-05-06T15:23:45")
         @NotNull(message = "필수")
         LocalDateTime date,
         @Schema(description = "내용", example = "text")
