@@ -51,11 +51,11 @@ public record SingleGatheringArticleRequest(
             String location,
             @Schema(description = "모임 오픈톡 url", example = "http://")
             @NotNull(message = "필수")
-            String gatheringUrl
+            String openTalkLink
 
     ) {
         public GatheringArticleContent toContent() {
-            return new GatheringArticleContent(this.text, this.location, this.date, this.gatheringUrl);
+            return new GatheringArticleContent(this.text, this.location, this.date, this.openTalkLink);
         }
 
         public GatheringArticle toArticle(Long userId, MultipartFile file) {
