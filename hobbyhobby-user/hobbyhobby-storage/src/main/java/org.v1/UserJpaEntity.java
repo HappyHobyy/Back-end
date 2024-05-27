@@ -3,7 +3,9 @@ package org.v1;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.v1.model.User;
 
 import java.time.Instant;
@@ -55,10 +57,12 @@ public class UserJpaEntity{
     @Column(name = "device_token")
     private String deviceToken;
 
+    @CreationTimestamp
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
+    @UpdateTimestamp
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "modified_at", nullable = false)
     private Instant modifiedAt;
