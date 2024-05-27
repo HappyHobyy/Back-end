@@ -1,5 +1,6 @@
 package org.v1.global.config;
 
+import com.fasterxml.classmate.TypeResolver;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -8,10 +9,11 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import jakarta.servlet.ServletContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpHeaders;
-
 @Configuration
 @RequiredArgsConstructor
 public class SwaggerConfiguration {
@@ -44,7 +46,6 @@ public class SwaggerConfiguration {
                 .addServersItem(new Server().url("http://52.79.143.36:8000/photocontent-service"))
                 .info(swaggerInfo());
     }
-
     private Info swaggerInfo() {
         return new Info()
                 .version(API_VERSION)

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import org.v1.external.ExternalCommunitySender;
 import org.v1.model.article.GatheringArticle;
 import org.v1.model.article.PhotoArticle;
+import org.v1.rabbitmq.dto.GatheringArticleMessage;
+import org.v1.rabbitmq.dto.GatheringArticleMessageList;
 import org.v1.rabbitmq.dto.PhotoArticleMessage;
 import org.v1.rabbitmq.dto.PhotoArticleMessageList;
 
@@ -24,6 +26,6 @@ public class ExternalCommunityHandler implements ExternalCommunitySender {
 
     @Override
     public void sendPopularGatheringArticle(List<GatheringArticle> popularCommunity, List<GatheringArticle> notPopularCommunity) {
-
+        messageHandler.sendCommunityFromPhotoContent(new GatheringArticleMessageList(GatheringArticleMessage.of(popularCommunity),GatheringArticleMessage.of(notPopularCommunity)),"gathering");
     }
 }
