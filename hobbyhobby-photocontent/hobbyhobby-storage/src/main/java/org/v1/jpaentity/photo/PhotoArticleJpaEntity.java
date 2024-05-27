@@ -10,7 +10,6 @@ import org.v1.jpaentity.user.UserJpaEntity;
 import org.v1.model.article.PhotoArticleContent;
 import org.v1.model.article.PhotoArticle;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Getter
@@ -39,12 +38,12 @@ public class PhotoArticleJpaEntity {
 
     @CreationTimestamp
     @Column(name = "created_at", columnDefinition = "timestamp", updatable = false)
-    private Instant createdAt;
+    private LocalDateTime createdAt;
 
-    @CreationTimestamp
     @UpdateTimestamp
     @Column(name = "modified_at", columnDefinition = "timestamp")
-    private Instant modifiedAt;
+    private LocalDateTime modifiedAt;
+
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -68,7 +67,7 @@ public class PhotoArticleJpaEntity {
                 this.id,
                 this.user.toUser().orElseThrow(),
                 this.community.getId().intValue(),
-                LocalDateTime.from(this.createdAt),
+                this.createdAt,
                 new PhotoArticleContent(this.getContent(),null),
                 new PhotoArticle.LikesComments(this.likes,this.comments)
         );

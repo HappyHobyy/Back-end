@@ -4,14 +4,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.v1.jpaentity.community.CommunityJpaEntity;
 
 @Getter
 @Setter
-@DynamicInsert
 @Entity
 @Table(name = "rental", schema = "hobby_imageServer")
 public class RentalJpaEntity {

@@ -9,7 +9,6 @@ import org.v1.jpaentity.rental.RentalJpaEntity;
 import org.v1.jpaentity.user.UserJpaEntity;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -31,9 +30,9 @@ public class RentalReservationJpaEntity {
     private UserJpaEntity user;
 
     @Column(name = "rent_at")
-    private LocalDateTime rentAt;
+    private Instant rentAt;
 
     @Column(name = "return_at")
-    private LocalDateTime returnAt;
+    private Instant returnAt;
 
 }

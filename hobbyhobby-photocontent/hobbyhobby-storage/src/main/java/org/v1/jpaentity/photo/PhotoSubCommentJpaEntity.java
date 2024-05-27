@@ -1,10 +1,11 @@
 package org.v1.jpaentity.photo;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.v1.jpaentity.photo.PhotoCommentJpaEntity;
 import org.v1.jpaentity.user.UserJpaEntity;
 
@@ -12,7 +13,6 @@ import java.time.Instant;
 
 @Getter
 @Setter
-@DynamicInsert
 @Entity
 @Table(name = "photo_sub_comment", schema = "hobby_imageServer")
 public class PhotoSubCommentJpaEntity {
@@ -36,12 +36,10 @@ public class PhotoSubCommentJpaEntity {
     private String content;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @CreationTimestamp
     @Column(name = "created_at")
     private Instant createdAt;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @UpdateTimestamp
     @Column(name = "modified_at")
     private Instant modifiedAt;
 

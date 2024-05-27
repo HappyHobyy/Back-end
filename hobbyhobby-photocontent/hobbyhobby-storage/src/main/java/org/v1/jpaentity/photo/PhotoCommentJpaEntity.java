@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@DynamicInsert
 @Builder
 @Table(name = "photo_comment", schema = "hobby_imageServer")
 public class PhotoCommentJpaEntity {

@@ -63,8 +63,7 @@ public class UnionGatheringJpaEntity {
 
     @CreationTimestamp
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "modified_at")
-    @UpdateTimestamp
+    @Column(name = "`modified_at`")
     private Instant modifiedAt;
 
     public static UnionGatheringJpaEntity onlyWithId(Long id) {
