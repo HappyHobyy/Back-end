@@ -8,19 +8,20 @@ import org.v1.model.user.User;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record GatheringArticleMessage(
+public record GatheringArticleMessage (
         Long gatheringArticleId,
         LocalDateTime date,
+        String title,
         String nickname,
+        Integer joinedMax,
+        Integer joinedCount,
         Integer likes,
-        Integer userCounts,
+        String url,
         Long userId,
-        String userName,
-        String userImageUrl,
         List<Integer> communityIds
-) {
+){
     public GatheringArticle toArticle() {
-        return GatheringArticle.withId(gatheringArticleId, date, new User(userId, userName, userImageUrl), likes, userCounts, userImageUrl,
+        return GatheringArticle.withId(gatheringArticleId,title, date, new User(userId, nickname, null), likes, joinedMax,joinedCount, url,
                 communityIds.stream()
                 .map(Community::onlyWithId
                 ).toList());

@@ -13,14 +13,16 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class GatheringArticle {
     private final Long id;
-    private final LocalDateTime date;
+    private final String title;
+    private final LocalDateTime createdAt;
     private final User user;
+    private final Integer joinedMax;
+    private final Integer joinedCount;
     private final Integer likes;
-    private final Integer countUsers;
-    private final String firstImageUrl;
+    private final String imageUrl;
     private final List<Community> communities;
 
-    public static GatheringArticle withId(Long id, LocalDateTime date, User user, Integer likes, Integer countUsers, String firstImageUrl, List<Community> communityList) {
-        return new GatheringArticle(id, date, user, likes, countUsers, firstImageUrl, communityList);
+    public static GatheringArticle withId(Long id, String title, LocalDateTime date, User user, Integer joinedMax, Integer joinedCount, Integer likes, String imageUrl, List<Community> communityList) {
+        return new GatheringArticle(id, title, date, user, joinedMax, joinedCount, likes, imageUrl, communityList);
     }
 }

@@ -9,23 +9,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 record GatheringArticleResponse(
-        @Schema(description = "게시글 id", example = "1")
-        Long articleId,
-        @Schema(description = "작성일", example = "DateTime")
-        LocalDateTime date,
-        @Schema(description = "작성자 id", example = "1")
-        Long userId,
-        @Schema(description = "작성자 이름", example = "철수")
-        String userNickName,
-        @Schema(description = "작성자 사진 url", example = "http://example.com")
-        String userImagePath,
-        @Schema(description = "좋아요 수", example = "1")
-        Integer likes,
-        @Schema(description = "모임원 수", example = "12")
-        Integer countUsers,
-        @Schema(description = "이미지 url", example = "http://")
-        String imageUrl,
-        List<CommunityResponse> communities
+        @Schema(description = "게시글 Id", example = "123")
+        long gatheringArticleId,
+        @Schema(description = "게시글 날짜", example = "2024-05-06T15:23:45")
+        LocalDateTime createdAt,
+        @Schema(description = "게시글 제목", example = "hobbyhobby")
+        String title,
+        @Schema(description = "게시글 작성자 닉네임", example = "hobbyhobby")
+        String userNickname,
+        @Schema(description = "게시글 좋아요 갯수", example = "12")
+        int likes,
+        @Schema(description = "모임 유저 숫자", example = "12")
+        int joinMax,
+        @Schema(description = "현재 모인 유저 숫자", example = "12")
+        int joinCount,
+        @Schema(description = "첫번째 태그 커뮤니티Id", example = "1")
+        Integer communityId1,
+        @Schema(description = "두번쨰 태그 커뮤니티Id", example = "2")
+        Integer communityId2,
+        @Schema(description = "게시물 이미지 url", example = "http://")
+        String imageUrl
 ) {
     public record CommunityResponse(
             @Schema(description = "커뮤니티id", example = "1")
@@ -43,14 +46,15 @@ record GatheringArticleResponse(
     static GatheringArticleResponse fromGatheringArticle(GatheringArticle gatheringArticle) {
         return new GatheringArticleResponse(
                 gatheringArticle.getId(),
-                gatheringArticle.getDate(),
-                gatheringArticle.getUser().id(),
+                gatheringArticle.getCreatedAt(),
+                gatheringArticle.getTitle(),
                 gatheringArticle.getUser().nickname(),
-                gatheringArticle.getUser().path(),
                 gatheringArticle.getLikes(),
-                gatheringArticle.getCountUsers(),
-                gatheringArticle.getFirstImageUrl(),
-                CommunityResponse.of(gatheringArticle.getCommunities())
+                gatheringArticle.getJoinedMax(),
+                gatheringArticle.getJoinedCount(),
+                gatheringArticle.getCommunities().get(0).getId(),
+                gatheringArticle.getCommunities().get(1).getId(),
+                gatheringArticle.getImageUrl()
         );
     }
 }

@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 @Getter
 @Setter
+@DynamicInsert
 @Entity
 @Table(name = "community_user", schema = "hobby_community")
 public class CommunityUserJpaEntity {
