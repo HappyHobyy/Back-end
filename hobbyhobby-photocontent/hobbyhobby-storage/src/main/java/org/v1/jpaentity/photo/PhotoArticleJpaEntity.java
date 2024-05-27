@@ -40,11 +40,11 @@ public class PhotoArticleJpaEntity {
 
     @CreationTimestamp
 
-    @Column(name = "created_at", columnDefinition = "timestamp", updatable = false)
+    @Column(name = "created_at", columnDefinition = "timestamp", updatable = false, nullable = false)
     private Instant createdAt;
 
     @UpdateTimestamp
-    @Column(name = "modified_at", columnDefinition = "timestamp")
+    @Column(name = "modified_at", columnDefinition = "timestamp", nullable = false)
     private Instant modifiedAt;
 
 
