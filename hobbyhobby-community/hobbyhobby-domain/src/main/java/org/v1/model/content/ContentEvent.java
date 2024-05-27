@@ -12,7 +12,7 @@ public class ContentEvent extends ApplicationEvent {
     }
     public enum EventType {
         PHOTO,
-        GROUP
+        Gathering
     }
 
 }

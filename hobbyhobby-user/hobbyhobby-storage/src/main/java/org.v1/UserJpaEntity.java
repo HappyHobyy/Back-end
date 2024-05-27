@@ -2,18 +2,21 @@ package org.v1;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.v1.model.User;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Optional;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
+@DynamicInsert
 @Entity
 @Builder
-@Table(name = "user")
+@Table(name = "users")
 public class UserJpaEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,46 +26,44 @@ public class UserJpaEntity{
     @Column(name = "name")
     private String name;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "nickname")
+    @Column(name = "nickname", nullable = false)
     private String nickname;
 
-    @Column(name = "birthday")
+    @Column(name = "birthday", nullable = false)
     private String birth;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", nullable = false, length = 11)
     private String phoneNumber;
 
-    @Column(name = "image_url")
+    @ColumnDefault("https://hobbyhobby.s3.ap-northeast-2.amazonaws.com/user/deafult_user_image.png")
+    @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = false)
     private User.UserGender gender;
 
-    @Column(name = "nationality")
+    @Column(name = "nationality", nullable = false)
     private User.Nationality nationality;
 
-    @Column(name = "sign_up_channel")
+    @Column(name = "sign_up_channel", nullable = false)
     private User.UserType type;
 
     @Column(name = "device_token")
     private String deviceToken;
 
     @CreationTimestamp
-    @Column(name = "created_at", columnDefinition = "timestamp", updatable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "created_at", nullable = false)
+    private Instant createdAt;
 
     @UpdateTimestamp
-    @Column(name = "modified_at", columnDefinition = "timestamp")
-    private LocalDateTime modifiedAt;
-
-//    @Column(name = "role")
-//    private User.UserRole role;
+    @Column(name = "modified_at", nullable = false)
+    private Instant modifiedAt;
 
     public static UserJpaEntity ofWithoutId(User user) {
         return UserJpaEntity.builder()

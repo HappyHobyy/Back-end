@@ -9,9 +9,12 @@ import lombok.Getter;
 public class Community {
     private final Integer id;
     private final String communityName;
-    private final String imageUrl;
     private final Category category;
     public static Community onlyWithId(Integer id) {
-        return new Community(id,null,null,null);
+        return new Community(id,null,null);
     }
+    public static Community withId(Integer id,String name) {
+        return new Community(id,name,null);
+    }
+
 }

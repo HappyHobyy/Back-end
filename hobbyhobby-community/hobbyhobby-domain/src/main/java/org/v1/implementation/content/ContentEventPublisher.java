@@ -17,8 +17,8 @@ public class ContentEventPublisher {
         ContentEvent contentEvent = new ContentEvent(this,ContentEvent.EventType.PHOTO);
         applicationEventPublisher.publishEvent(contentEvent);
     }
-    public void publishGroupResetEvent() {
-        ContentEvent contentEvent = new ContentEvent(this,ContentEvent.EventType.GROUP);
+    public void publishGatheringResetEvent() {
+        ContentEvent contentEvent = new ContentEvent(this,ContentEvent.EventType.Gathering);
         applicationEventPublisher.publishEvent(contentEvent);
     }
 }

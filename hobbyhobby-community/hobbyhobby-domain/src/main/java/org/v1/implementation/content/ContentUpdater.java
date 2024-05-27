@@ -12,4 +12,7 @@ public class ContentUpdater {
     public void updatePhotoArticle(Contents.PhotoArticles photos){
         contentRepository.updatePhotoArticle(photos);
     }
+    public void updateGatheringArticle(Contents.GatheringArticles photos){
+        contentRepository.updateGatheringArticle(photos);
+    }
 }
