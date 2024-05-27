@@ -57,7 +57,7 @@ public class GatheringJpaEntity {
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "modified_at")
-    @CreationTimestamp
+    @UpdateTimestamp
     private Instant modifiedAt;
 
     public static GatheringJpaEntity onlyWithId(Long id) {
