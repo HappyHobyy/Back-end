@@ -11,11 +11,11 @@ public record GatheringArticleMessage (
         Long photoArticleId,
         LocalDateTime date,
         String nickname,
-        Integer usersCount,
+        Integer joinedMax,
+        Integer joinedCount,
         Integer likes,
         String url,
         Long userId,
-        String userName,
         String userImageUrl,
         List<Integer> communityId
 ){
@@ -28,13 +28,13 @@ public record GatheringArticleMessage (
                         gatheringArticle.getId(),
                         gatheringArticle.getCreatedAt(),
                         gatheringArticle.getUser().nickname(),
-                        gatheringArticle.getLikes(),
+                        gatheringArticle.getJoinedMax(),
+                        gatheringArticle.getJoinedCount(),
                         gatheringArticle.getLikes(),
                         gatheringArticle.getImageVideo().path(),
                         gatheringArticle.getUser().id(),
-                        gatheringArticle.getUser().nickname(),
                         gatheringArticle.getUser().imageUrl(),
-                        null
+                        gatheringArticle.getInfo().communityIds()
                 ))
                 .collect(Collectors.toList());
     }
