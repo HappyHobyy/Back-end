@@ -2,6 +2,7 @@ package org.v1.implementaion.article;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.v1.model.article.ArticleType;
 import org.v1.model.article.GatheringInfo;
 import org.v1.model.article.GatheringArticle;
@@ -21,9 +22,11 @@ public class GatheringArticleReader {
     public List<GatheringArticle> readSearchArticles(Integer index,GatheringInfo info) {
         return repository.readArticleSearch(index,info);
     }
+    @Transactional
     public List<GatheringArticle> readPopularCommunityHotArticle(Integer communityId) {
         return repository.readPopularCommunityArticle(communityId);
     }
+    @Transactional
     public List<GatheringArticle> readNotPopularCommunityHotArticle(Integer communityId) {
         return repository.readNotPopularCommunityArticle(communityId);
     }

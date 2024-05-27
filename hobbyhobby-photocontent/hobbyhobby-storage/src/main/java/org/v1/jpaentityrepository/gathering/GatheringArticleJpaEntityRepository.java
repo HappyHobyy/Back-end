@@ -62,8 +62,7 @@ public class GatheringArticleJpaEntityRepository implements GatheringArticleRepo
         Pageable pageable = PageRequest.of(index, 10);
         return switch (info.type()) {
             case UNION_GATHERING -> {
-                if (info.communityIds().get(0).equals(info.communityIds().get(1)))
-                {
+                if (info.communityIds().get(0).equals(info.communityIds().get(1))) {
                     Page<UnionGatheringDetailJpaEntity> unionEntities =
                             unionGatheringDetailJpaRepository.findAllByCommunityIdAndCreatedAtAfterOrderByDesc(info.communityIds().get(0).longValue(), pageable);
                     yield unionEntities.isEmpty() ? new ArrayList<>() :
@@ -96,12 +95,12 @@ public class GatheringArticleJpaEntityRepository implements GatheringArticleRepo
         Pageable pageable = PageRequest.of(0, 10);
         LocalDateTime startDate = LocalDateTime.now().minusDays(1);
         Instant startInstant = startDate.atZone(ZoneId.of("Asia/Seoul")).toInstant();
-        Page<UnionGatheringDetailJpaEntity> entities =
+        Page<UnionGatheringDetailJpaEntity> unionEntities =
                 unionGatheringDetailJpaRepository.findAllByCommunityIdAndCreatedAtAfterOrderByLikesDesc(
                         communityId.longValue(),
                         startInstant, pageable);
-        return entities.isEmpty() ? new ArrayList<>() :
-                entities.stream()
+        return unionEntities.isEmpty() ? new ArrayList<>() :
+                unionEntities.stream()
                         .map(UnionGatheringDetailJpaEntity::toGatheringArticle)
                         .collect(Collectors.toList());
     }
