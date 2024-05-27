@@ -58,12 +58,10 @@ public class UserJpaEntity{
     private String deviceToken;
 
     @CreationTimestamp
-    @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
     @UpdateTimestamp
-    @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "modified_at", nullable = false)
     private Instant modifiedAt;
 
