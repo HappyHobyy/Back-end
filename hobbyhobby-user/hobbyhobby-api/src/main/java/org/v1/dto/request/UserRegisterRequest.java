@@ -65,7 +65,7 @@ public record UserRegisterRequest(
             String birth
     ) {
         public User toUser() {
-            return User.withoutId(nickname, email, User.UserType.OAUTH_DEFAULT, new User.Password(password), gender, nationality, null,null,userName,phoneNumber,birth);
+            return User.withoutId(nickname, email, User.UserType.OAUTH_DEFAULT, new User.Password(password), gender, nationality, null, null, userName, phoneNumber, birth);
         }
     }
 }

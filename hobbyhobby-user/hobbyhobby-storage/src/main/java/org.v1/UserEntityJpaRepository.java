@@ -61,5 +61,4 @@ public class UserEntityJpaRepository implements UserRepository {
         userJpaRepository.deleteById(userId);
     }
 
-
 }
