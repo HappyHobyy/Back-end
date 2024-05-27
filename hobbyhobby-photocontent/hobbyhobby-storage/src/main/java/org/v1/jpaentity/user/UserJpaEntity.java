@@ -3,6 +3,7 @@ package org.v1.jpaentity.user;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import org.v1.jpaentity.photo.LikedPhotoJpaEntity;
 import org.v1.model.user.User;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@DynamicInsert
 @Builder
 @Table(name = "image_server_user")
 public class UserJpaEntity {

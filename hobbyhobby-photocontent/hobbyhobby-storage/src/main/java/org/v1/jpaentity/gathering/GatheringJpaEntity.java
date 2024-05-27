@@ -50,14 +50,14 @@ public class GatheringJpaEntity {
     @Column(name = "image_url", nullable = false, length = 256)
     private String imageUrl;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
     @CreationTimestamp
+    @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "created_at", updatable = false)
     private Instant createdAt;
 
+    @UpdateTimestamp
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "modified_at")
-    @CreationTimestamp
     private Instant modifiedAt;
 
     public static GatheringJpaEntity onlyWithId(Long id) {

@@ -1,11 +1,10 @@
 package org.v1.jpaentity.photo;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.*;
 import org.v1.jpaentity.photo.PhotoCommentJpaEntity;
 import org.v1.jpaentity.user.UserJpaEntity;
 
@@ -35,10 +34,12 @@ public class PhotoSubCommentJpaEntity {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @CreationTimestamp
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "created_at")
     private Instant createdAt;
 
+    @UpdateTimestamp
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "modified_at")
     private Instant modifiedAt;

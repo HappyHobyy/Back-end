@@ -40,14 +40,14 @@ public class PhotoCommentJpaEntity {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @CreationTimestamp
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "created_at", updatable = false)
-    @CreationTimestamp
     private Instant createdAt;
 
+    @UpdateTimestamp
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "modified_at")
-    @UpdateTimestamp
     private Instant modifiedAt;
 
     public Comment to() {

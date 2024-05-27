@@ -10,7 +10,9 @@ import org.v1.jpaentity.user.UserJpaEntity;
 import org.v1.model.article.PhotoArticleContent;
 import org.v1.model.article.PhotoArticle;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,12 +39,13 @@ public class PhotoArticleJpaEntity {
     private Integer likes;
 
     @CreationTimestamp
+
     @Column(name = "created_at", columnDefinition = "timestamp", updatable = false)
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 
     @UpdateTimestamp
     @Column(name = "modified_at", columnDefinition = "timestamp")
-    private LocalDateTime modifiedAt;
+    private Instant modifiedAt;
 
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -67,7 +70,7 @@ public class PhotoArticleJpaEntity {
                 this.id,
                 this.user.toUser().orElseThrow(),
                 this.community.getId().intValue(),
-                this.createdAt,
+                LocalDateTime.ofInstant(createdAt, ZoneId.of("Asia/Seoul")),
                 new PhotoArticleContent(this.getContent(),null),
                 new PhotoArticle.LikesComments(this.likes,this.comments)
         );

@@ -21,7 +21,7 @@ public class PhotoImageJpaEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "photo_conent_id", nullable = false)
+    @JoinColumn(name = "photo_content_id", nullable = false)
     private PhotoArticleJpaEntity photoContent;
 
     @Column(name = "image_url", nullable = false, length = 256)
