@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import org.v1.jpaentity.photo.PhotoArticleJpaEntity;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public interface PhotoArticleJpaRepository extends JpaRepository<PhotoArticleJpa
             "ORDER BY p.likes DESC")
     Page<PhotoArticleJpaEntity> findAllByCommunityIdAndCreatedAtAfterOrderByLikesDesc(
             @Param("communityId") Long communityId,
-            @Param("startDate") LocalDateTime startDate,
+            @Param("startDate") Instant startDate,
             Pageable pageable);
 
     @Query("SELECT p FROM PhotoArticleJpaEntity p " +
@@ -56,6 +57,6 @@ public interface PhotoArticleJpaRepository extends JpaRepository<PhotoArticleJpa
             "ORDER BY p.likes DESC")
     Page<PhotoArticleJpaEntity> findAllByCommunityIdNotAndCreatedAtAfterOrderByLikesDesc(
             @Param("communityId") Long communityId,
-            @Param("startDate") LocalDateTime startDate,
+            @Param("startDate") Instant startDate,
             Pageable pageable);
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.v1.jpaentity.gathering.GatheringDetailJpaEntity;
 import org.v1.jpaentity.gathering.UnionGatheringDetailJpaEntity;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 public interface UnionGatheringDetailJpaRepository extends JpaRepository<UnionGatheringDetailJpaEntity, Long> {
@@ -32,7 +33,7 @@ public interface UnionGatheringDetailJpaRepository extends JpaRepository<UnionGa
             "ORDER BY p.likes DESC")
     Page<UnionGatheringDetailJpaEntity> findAllByCommunityIdAndCreatedAtAfterOrderByLikesDesc(
             @Param("communityId") Long communityId,
-            @Param("startDate") LocalDateTime startDate,
+            @Param("startDate") Instant startDate,
             Pageable pageable);
 
     @Query("SELECT p FROM UnionGatheringDetailJpaEntity p " +
@@ -41,7 +42,7 @@ public interface UnionGatheringDetailJpaRepository extends JpaRepository<UnionGa
             "ORDER BY p.likes DESC")
     Page<UnionGatheringDetailJpaEntity> findAllByCommunityIdNotAndCreatedAtAfterOrderByLikesDesc(
             @Param("communityId") Long communityId,
-            @Param("startDate") LocalDateTime startDate,
+            @Param("startDate") Instant startDate,
             Pageable pageable);
 
     @Query("SELECT p FROM UnionGatheringDetailJpaEntity p " +

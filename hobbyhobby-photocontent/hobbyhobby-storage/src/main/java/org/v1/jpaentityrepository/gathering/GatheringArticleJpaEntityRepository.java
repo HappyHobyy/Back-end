@@ -16,6 +16,7 @@ import org.v1.model.imageVideo.ImageVideo;
 import org.v1.model.user.User;
 import org.v1.repository.article.GatheringArticleRepository;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +97,7 @@ public class GatheringArticleJpaEntityRepository implements GatheringArticleRepo
         Page<UnionGatheringDetailJpaEntity> entities =
                 unionGatheringDetailJpaRepository.findAllByCommunityIdAndCreatedAtAfterOrderByLikesDesc(
                         communityId.longValue(),
-                        startDate, pageable);
+                        Instant.from(startDate), pageable);
         return entities.isEmpty() ? new ArrayList<>() :
                 entities.stream()
                         .map(UnionGatheringDetailJpaEntity::toGatheringArticle)
@@ -110,7 +111,7 @@ public class GatheringArticleJpaEntityRepository implements GatheringArticleRepo
         Page<UnionGatheringDetailJpaEntity> entities =
                 unionGatheringDetailJpaRepository.findAllByCommunityIdNotAndCreatedAtAfterOrderByLikesDesc(
                         communityId.longValue(),
-                        startDate, pageable);
+                        Instant.from(startDate), pageable);
         return entities.isEmpty() ? new ArrayList<>() :
                 entities.stream()
                         .map(UnionGatheringDetailJpaEntity::toGatheringArticle)

@@ -15,6 +15,7 @@ import org.v1.model.imageVideo.ImageVideo;
 import org.v1.model.user.User;
 import org.v1.repository.article.PhotoArticleRepository;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,7 +53,7 @@ public class PhotoArticleJpaEntityRepository implements PhotoArticleRepository {
     public List<PhotoArticle> readPopularCommunityArticle(Integer communityId) {
         LocalDateTime startDate = LocalDateTime.now().minusDays(1);
         Pageable pageable = PageRequest.of(0, 10);
-        Page<PhotoArticleJpaEntity> page = photoArticleJpaRepository.findAllByCommunityIdAndCreatedAtAfterOrderByLikesDesc(communityId.longValue(),startDate,pageable);
+        Page<PhotoArticleJpaEntity> page = photoArticleJpaRepository.findAllByCommunityIdAndCreatedAtAfterOrderByLikesDesc(communityId.longValue(), Instant.from(startDate), pageable);
         return mapPhotoArticles(page);
     }
 
@@ -60,7 +61,7 @@ public class PhotoArticleJpaEntityRepository implements PhotoArticleRepository {
     public List<PhotoArticle> readNotPopularCommunityArticle(Integer communityId) {
         LocalDateTime startDate = LocalDateTime.now().minusDays(1);
         Pageable pageable = PageRequest.of(0, 10);
-        Page<PhotoArticleJpaEntity> page = photoArticleJpaRepository.findAllByCommunityIdNotAndCreatedAtAfterOrderByLikesDesc(communityId.longValue(),startDate,pageable);
+        Page<PhotoArticleJpaEntity> page = photoArticleJpaRepository.findAllByCommunityIdNotAndCreatedAtAfterOrderByLikesDesc(communityId.longValue(), Instant.from(startDate), pageable);
         return mapPhotoArticles(page);
     }
 
