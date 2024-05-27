@@ -17,9 +17,9 @@ public class LikeEventListener {
     public void handleLikeEvent(LikeEvent likeEvent) {
         Integer communityId = likeEvent.getCommunityId();
         if (likeEvent.getLikeType() == LikeEvent.LikeType.LIKE) {
-            manager.plusCommunityLikes(communityId);
+            manager.plusCommunityLikes(communityId,likeEvent.getType());
         } else {
-            manager.minusCommunityLikes(communityId);
+            manager.minusCommunityLikes(communityId,likeEvent.getType());
         }
     }
 }

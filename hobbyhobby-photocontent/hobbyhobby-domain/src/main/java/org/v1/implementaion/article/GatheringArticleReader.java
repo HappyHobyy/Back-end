@@ -6,6 +6,7 @@ import org.v1.model.article.ArticleType;
 import org.v1.model.article.GatheringInfo;
 import org.v1.model.article.GatheringArticle;
 import org.v1.model.article.GatheringArticleContent;
+import org.v1.model.imageVideo.ImageVideo;
 import org.v1.repository.article.GatheringArticleRepository;
 
 import java.util.List;
@@ -14,11 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 public class GatheringArticleReader {
     private GatheringArticleRepository repository;
-    public List<GatheringArticle> readLatestArticles(ArticleType type) {
-        return repository.readArticleLatest(type);
+    public List<GatheringArticle> readLatestArticles(Integer index,ArticleType type) {
+        return repository.readArticleLatest(index,type);
     }
-    public List<GatheringArticle> readSearchArticles(GatheringInfo info) {
-        return repository.readArticleSearch(info);
+    public List<GatheringArticle> readSearchArticles(Integer index,GatheringInfo info) {
+        return repository.readArticleSearch(index,info);
     }
     public List<GatheringArticle> readPopularCommunityHotArticle(Integer communityId) {
         return repository.readPopularCommunityArticle(communityId);
@@ -28,5 +29,8 @@ public class GatheringArticleReader {
     }
     public GatheringArticleContent readContent(GatheringInfo info) {
         return repository.readContent(info);
+    }
+    public ImageVideo readImage(GatheringInfo info) {
+        return repository.readImage(info);
     }
 }

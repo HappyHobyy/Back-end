@@ -11,9 +11,6 @@ import java.time.LocalDateTime;
 public class GatheringArticleContent {
     private final String description;
     private final String location;
-    private final LocalDateTime localDateTime;
-    private final ImageVideo image;
-    public GatheringArticleContent updateImage(ImageVideo image) {
-        return new GatheringArticleContent(this.description,this.location,this.localDateTime,image);
-    }
+    private final LocalDateTime gatheringTime;
+    private final String openTalkLink;
 }

@@ -23,5 +23,9 @@ public record PhotoArticleCommentRequest(
             return Comment.initial(User.onlyUserId(userId), LocalDateTime.now(), comment);
         }
     }
-    public record Delete(Long commentId) {}
+    public record Delete(
+            @Schema(description = "댓글 id", example = "123")
+            @NotNull(message = "댓글 id은 필수 입력값입니다.")
+            Long commentId
+    ) {}
 }
