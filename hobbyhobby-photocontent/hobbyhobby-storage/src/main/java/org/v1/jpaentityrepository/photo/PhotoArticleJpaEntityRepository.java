@@ -17,6 +17,8 @@ import org.v1.repository.article.PhotoArticleRepository;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,19 +54,20 @@ public class PhotoArticleJpaEntityRepository implements PhotoArticleRepository {
     @Override
     public List<PhotoArticle> readPopularCommunityArticle(Integer communityId) {
         LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+        Instant startInstant = startDate.atZone(ZoneId.of("Asia/Seoul")).toInstant();
         Pageable pageable = PageRequest.of(0, 10);
-        Page<PhotoArticleJpaEntity> page = photoArticleJpaRepository.findAllByCommunityIdAndCreatedAtAfterOrderByLikesDesc(communityId.longValue(), Instant.from(startDate), pageable);
+        Page<PhotoArticleJpaEntity> page = photoArticleJpaRepository.findAllByCommunityIdAndCreatedAtAfterOrderByLikesDesc(communityId.longValue(), startInstant, pageable);
         return mapPhotoArticles(page);
     }
 
     @Override
     public List<PhotoArticle> readNotPopularCommunityArticle(Integer communityId) {
         LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+        Instant startInstant = startDate.atZone(ZoneId.of("Asia/Seoul")).toInstant();
         Pageable pageable = PageRequest.of(0, 10);
-        Page<PhotoArticleJpaEntity> page = photoArticleJpaRepository.findAllByCommunityIdNotAndCreatedAtAfterOrderByLikesDesc(communityId.longValue(), Instant.from(startDate), pageable);
+        Page<PhotoArticleJpaEntity> page = photoArticleJpaRepository.findAllByCommunityIdNotAndCreatedAtAfterOrderByLikesDesc(communityId.longValue(), startInstant, pageable);
         return mapPhotoArticles(page);
     }
-
     @Override
     public void appendArticleContent(List<ImageVideo> imageVideoList, Long articleId) {
         imageVideoList.forEach(imageVideo ->

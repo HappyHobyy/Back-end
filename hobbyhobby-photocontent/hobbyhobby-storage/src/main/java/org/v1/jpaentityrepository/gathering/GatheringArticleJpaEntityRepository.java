@@ -18,6 +18,7 @@ import org.v1.repository.article.GatheringArticleRepository;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -94,10 +95,11 @@ public class GatheringArticleJpaEntityRepository implements GatheringArticleRepo
     public List<GatheringArticle> readPopularCommunityArticle(Integer communityId) {
         Pageable pageable = PageRequest.of(0, 10);
         LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+        Instant startInstant = startDate.atZone(ZoneId.of("Asia/Seoul")).toInstant();
         Page<UnionGatheringDetailJpaEntity> entities =
                 unionGatheringDetailJpaRepository.findAllByCommunityIdAndCreatedAtAfterOrderByLikesDesc(
                         communityId.longValue(),
-                        Instant.from(startDate), pageable);
+                        startInstant, pageable);
         return entities.isEmpty() ? new ArrayList<>() :
                 entities.stream()
                         .map(UnionGatheringDetailJpaEntity::toGatheringArticle)
@@ -108,10 +110,11 @@ public class GatheringArticleJpaEntityRepository implements GatheringArticleRepo
     public List<GatheringArticle> readNotPopularCommunityArticle(Integer communityId) {
         Pageable pageable = PageRequest.of(0, 10);
         LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+        Instant startInstant = startDate.atZone(ZoneId.of("Asia/Seoul")).toInstant();
         Page<UnionGatheringDetailJpaEntity> entities =
                 unionGatheringDetailJpaRepository.findAllByCommunityIdNotAndCreatedAtAfterOrderByLikesDesc(
                         communityId.longValue(),
-                        Instant.from(startDate), pageable);
+                        startInstant, pageable);
         return entities.isEmpty() ? new ArrayList<>() :
                 entities.stream()
                         .map(UnionGatheringDetailJpaEntity::toGatheringArticle)
