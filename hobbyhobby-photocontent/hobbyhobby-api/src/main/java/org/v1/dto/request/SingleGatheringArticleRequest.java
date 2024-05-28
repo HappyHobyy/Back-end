@@ -13,6 +13,7 @@ import org.v1.model.user.User;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.v1.global.util.FileUtil.convertMultipartFileToFile;
 
@@ -58,11 +59,11 @@ public record SingleGatheringArticleRequest(
             return new GatheringArticleContent(this.text, this.location, this.date, this.openTalkLink);
         }
 
-        public GatheringArticle toArticle(Long userId, MultipartFile file) {
+        public GatheringArticle toArticle(Long userId,MultipartFile file) {
             try {
                 File convertedFile = FileUtil.convertMultipartFileToFile(file);
-                ImageVideo image = ImageVideo.withoutPath(0, convertedFile, ImageVideo.FileType.H_LOG);
-                return GatheringArticle.initial(User.onlyUserId(userId), title, GatheringInfo.singleGatheringWithCommunity(communityId), image,joinMax);
+                ImageVideo image = ImageVideo.withoutPath(0, convertedFile, ImageVideo.FileType.UNION_GATHERING);
+                return GatheringArticle.initial(User.onlyUserId(userId), this.title, GatheringInfo.unionGatheringWithCommunity(List.of(communityId)),image,joinMax);
             } catch (IOException e) {
                 throw new RuntimeException("MultipartFile -> File로 전환이 실패했습니다.", e);
             }

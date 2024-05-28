@@ -14,6 +14,7 @@ public record ImageVideo(Integer index, String path, File data, FileType fileTyp
     }
     public enum FileType {
         H_LOG,
+        UNION_GATHERING,
         GATHERING
     }
 }
