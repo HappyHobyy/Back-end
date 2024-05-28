@@ -2,6 +2,7 @@ package org.v1.implementation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.v1.handler.ExternalCommunitySender;
 import org.v1.handler.ExternalPhotoContentSender;
 import org.v1.handler.ExternalTextContentSender;
 import org.v1.model.User;
@@ -13,9 +14,11 @@ public class UserUpdater {
     private final UserRepository userRepository;
     private final ExternalPhotoContentSender externalPhotoContentSender;
     private final ExternalTextContentSender externalTextContentSender;
+    private final ExternalCommunitySender externalCommunitySender;
     public void updateUser(final User user) {
         userRepository.update(user);
         externalPhotoContentSender.sendUserUpdate(user);
         externalTextContentSender.sendUserUpdate(user);
+        externalCommunitySender.sendUserUpdate(user);
     }
 }
