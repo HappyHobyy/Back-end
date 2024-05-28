@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.v1.error.BusinessException;
 import org.v1.error.ErrorCode;
+import org.v1.handler.ExternalCommunitySender;
 import org.v1.handler.ExternalPhotoContentSender;
 import org.v1.handler.ExternalTextContentSender;
 import org.v1.implementation.UserAppender;
@@ -32,6 +33,9 @@ public class UserAppenderTest {
 
     @Mock
     private ExternalTextContentSender externalTextContentSender;
+
+    @Mock
+    private ExternalCommunitySender externalCommunitySender;
 
     @InjectMocks
     private UserAppender userAppender;
@@ -70,6 +74,7 @@ public class UserAppenderTest {
 
         verify(externalPhotoContentSender).sendUserCreate(sampleUser);
         verify(externalTextContentSender).sendUserCreate(sampleUser);
+        verify(externalCommunitySender).sendUserCreate(sampleUser);
     }
 
     @Test
@@ -81,5 +86,6 @@ public class UserAppenderTest {
         //Then
         verifyNoInteractions(externalPhotoContentSender);
         verifyNoInteractions(externalTextContentSender);
+        verifyNoInteractions(externalCommunitySender);
     }
 }

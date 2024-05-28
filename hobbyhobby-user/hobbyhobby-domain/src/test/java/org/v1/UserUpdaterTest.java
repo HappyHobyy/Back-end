@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.v1.handler.ExternalCommunitySender;
 import org.v1.handler.ExternalPhotoContentSender;
 import org.v1.handler.ExternalTextContentSender;
 import org.v1.implementation.UserUpdater;
@@ -26,6 +27,9 @@ class UserUpdaterTest {
 
     @Mock
     private ExternalTextContentSender externalTextContentSender;
+
+    @Mock
+    private ExternalCommunitySender externalCommunitySender;
 
     @InjectMocks
     private UserUpdater userUpdater;
@@ -58,5 +62,6 @@ class UserUpdaterTest {
         verify(userRepository, times(1)).update(sampleUser);
         verify(externalPhotoContentSender, times(1)).sendUserUpdate(sampleUser);
         verify(externalTextContentSender, times(1)).sendUserUpdate(sampleUser);
+        verify(externalCommunitySender, times(1)).sendUserUpdate(sampleUser);
     }
 }

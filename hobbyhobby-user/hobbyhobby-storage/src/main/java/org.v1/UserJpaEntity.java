@@ -58,7 +58,7 @@ public class UserJpaEntity{
     private String deviceToken;
 
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
     @UpdateTimestamp

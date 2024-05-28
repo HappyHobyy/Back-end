@@ -12,6 +12,8 @@ spring:
           destination: textContent
         user-out-1:
           destination: photoContent
+        user-out-2:
+          destination: community
       rabbit:
         bindings:
           userCached-out-0:
@@ -27,6 +29,10 @@ spring:
               exchangeType: direct
               routing-key: User
           user-out-1:
+            producer:
+              exchangeType: direct
+              routing-key: User
+          user-out-2:
             producer:
               exchangeType: direct
               routing-key: User
