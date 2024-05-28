@@ -27,7 +27,9 @@ public record PhotoArticleResponse(
         @Schema(description = "게시글 작성자 유무", example = "true")
         boolean isUserArticleOwner,
         @Schema(description = "게시글 좋아요 유무", example = "true")
-        boolean isUserLiked
+        boolean isUserLiked,
+        @Schema(description = "게시글 작성자 이미지 url", example = "true")
+        String userImageUrl
 ) {
     public record ImageResponse(
             @Schema(description = "이미지 번호", example = "2")
@@ -56,7 +58,8 @@ public record PhotoArticleResponse(
                                 .map(images -> images.stream().map(ImageResponse::of).toList())
                                 .orElse(Collections.emptyList()),
                         Optional.of(photoArticle.getUserStatus().isUserOwner()).orElse(false),
-                        Optional.of(photoArticle.getUserStatus().isUserLiked()).orElse(false)
+                        Optional.of(photoArticle.getUserStatus().isUserLiked()).orElse(false),
+                        photoArticle.getUser().imageUrl()
                 ))
                 .collect(Collectors.toList());
     }
