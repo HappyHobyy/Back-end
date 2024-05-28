@@ -1,8 +1,7 @@
-package org.v1.rabbitmq;
+package org.v1.rabbitmq.dto;
 
 import org.v1.model.community.Community;
 import org.v1.model.content.GatheringArticle;
-import org.v1.model.content.PhotoArticle;
 import org.v1.model.user.User;
 
 import java.time.LocalDateTime;
