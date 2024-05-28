@@ -48,6 +48,18 @@ public class ExternalMessageHandler {
             log.error("Error serializing message payload: {}", e.getMessage());
         }
     }
+    public void sendCommunityFromUser(@NotNull Object message,String header) {
+        try {
+            byte[] payload = objectMapper.writeValueAsBytes(message);
+            Message<byte[]> msg = MessageBuilder
+                    .withPayload(payload)
+                    .setHeader("headerKey", header)
+                    .build();
+            streamBridge.send("user-out-1", msg);
+        } catch (JsonProcessingException e) {
+            log.error("Error serializing message payload: {}", e.getMessage());
+        }
+    }
     public void refreshUserCached(@NotNull Object message) {
         try {
             byte[] payload = objectMapper.writeValueAsBytes(message);
