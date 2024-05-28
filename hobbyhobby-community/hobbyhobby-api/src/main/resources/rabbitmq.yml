@@ -10,6 +10,8 @@ spring:
           destination: allCommunity
         allCommunity-in-0:
           destination: allCommunity
+        user-in-0:
+          destination: community
       rabbit:
         bindings:
           photoContent-in-0:
