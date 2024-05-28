@@ -28,7 +28,7 @@ public record PhotoArticleResponse(
         boolean isUserArticleOwner,
         @Schema(description = "게시글 좋아요 유무", example = "true")
         boolean isUserLiked,
-        @Schema(description = "게시글 작성자 이미지 url", example = "true")
+        @Schema(description = "게시글 작성자 이미지 url", example = "https://example")
         String userImageUrl
 ) {
     public record ImageResponse(
