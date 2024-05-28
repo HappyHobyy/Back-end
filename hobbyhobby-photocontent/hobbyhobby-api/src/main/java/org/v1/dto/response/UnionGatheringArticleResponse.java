@@ -49,9 +49,9 @@ public record UnionGatheringArticleResponse(
                         gatheringArticle.getCreatedAt(),
                         gatheringArticle.getTitle(),
                         gatheringArticle.getUser().nickname(),
+                        gatheringArticle.getLikes(),
                         gatheringArticle.getJoinedMax(),
                         gatheringArticle.getJoinedCount(),
-                        gatheringArticle.getLikes(),
                         gatheringArticle.getInfo().communityIds().get(0),
                         gatheringArticle.getInfo().communityIds().get(1),
                         ImageResponse.of(gatheringArticle.getImageVideo())
