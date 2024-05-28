@@ -55,7 +55,7 @@ public class ExternalMessageHandler {
                     .withPayload(payload)
                     .setHeader("headerKey", header)
                     .build();
-            streamBridge.send("user-out-1", msg);
+            streamBridge.send("user-out-2", msg);
         } catch (JsonProcessingException e) {
             log.error("Error serializing message payload: {}", e.getMessage());
         }
