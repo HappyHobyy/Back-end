@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.v1.error.BusinessException;
 import org.v1.error.ErrorCode;
+import org.v1.handler.ExternalCommunitySender;
 import org.v1.handler.ExternalPhotoContentSender;
 import org.v1.handler.ExternalTextContentSender;
 import org.v1.model.User;
@@ -16,6 +17,7 @@ public class UserAppender {
     private final UserRepository userRepository;
     private final ExternalPhotoContentSender externalPhotoContentSender;
     private final ExternalTextContentSender externalTextContentSender;
+    private final ExternalCommunitySender externalCommunitySender;
     @Transactional
     public void appendUser(
             final User user
@@ -24,5 +26,6 @@ public class UserAppender {
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_CREATE_FAILED));
         externalPhotoContentSender.sendUserCreate(savedUser);
         externalTextContentSender.sendUserCreate(savedUser);
+        externalCommunitySender.sendUserCreate(savedUser);
     }
 }

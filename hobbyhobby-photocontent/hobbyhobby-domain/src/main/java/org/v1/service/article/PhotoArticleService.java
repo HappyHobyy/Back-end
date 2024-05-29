@@ -2,6 +2,7 @@ package org.v1.service.article;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.v1.implementaion.article.*;
 import org.v1.implementaion.comment.CommentReader;
 import org.v1.implementaion.comment.CommentUpdater;
@@ -10,9 +11,7 @@ import org.v1.implementaion.like.LikeChecker;
 import org.v1.model.comment.Comment;
 import org.v1.model.imageVideo.ImageVideo;
 import org.v1.model.article.PhotoArticle;
-import org.v1.model.article.PhotoAriticleContent;
 import org.v1.model.like.Like;
-import org.v1.model.user.UserStatus;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,8 +28,9 @@ public class PhotoArticleService {
     private final CommentReader commentReader;
     private final CommentUpdater commentUpdater;
 
-    public List<PhotoArticle> getTenArticleLatest(int communityId, long userId) {
-        return photoArticleReader.readTenArticleLatest(communityId).stream().map(
+    @Transactional
+    public List<PhotoArticle> getTenArticleLatest(int index,int communityId, long userId) {
+        return photoArticleReader.readTenArticleLatest(index,communityId).stream().map(
                 photoArticle -> {
                     boolean isUserLiked = likeChecker.checkArticleLiked(Like.toPhotoLike(userId, photoArticle.getId()));
                     boolean isUserArticleOwner = photoArticle.isUserArticleOwner(userId);
@@ -38,8 +38,9 @@ public class PhotoArticleService {
                 }
         ).collect(Collectors.toList());
     }
-    public List<PhotoArticle> getTenArticleLikes(int communityId,long userId) {
-        return photoArticleReader.readTenArticleLikes(communityId).stream().map(
+    @Transactional
+    public List<PhotoArticle> getTenArticleLikes(int index,int communityId,long userId) {
+        return photoArticleReader.readTenArticleLikes(index,communityId).stream().map(
                 photoArticle -> {
                     boolean isUserLiked = likeChecker.checkArticleLiked(Like.toPhotoLike(userId, photoArticle.getId()));
                     boolean isUserArticleOwner = photoArticle.isUserArticleOwner(userId);
@@ -54,7 +55,7 @@ public class PhotoArticleService {
         return photoArticleId;
     }
     public void deleteArticle(long photoArticleId){
-        imageVideoManager.removeImages(photoArticleReader.readContent(photoArticleId).getImages());
+        imageVideoManager.removeImages(photoArticleReader.readImageList(photoArticleId));
         photoArticleRemover.removeArticle(photoArticleId);
     }
     public  List<Comment> getArticleComment(long photoArticleId, long userId) {

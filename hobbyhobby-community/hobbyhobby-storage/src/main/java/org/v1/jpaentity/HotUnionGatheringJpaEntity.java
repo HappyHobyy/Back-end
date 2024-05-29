@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -11,6 +12,7 @@ import java.time.Instant;
 
 @Getter
 @Setter
+@DynamicInsert
 @Entity
 @Table(name = "hot_union_gathering", schema = "hobby_community")
 public class HotUnionGatheringJpaEntity {
@@ -51,7 +53,7 @@ public class HotUnionGatheringJpaEntity {
     @Column(name = "likes", nullable = false)
     private Integer likes;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
     @Column(name = "modified_at")

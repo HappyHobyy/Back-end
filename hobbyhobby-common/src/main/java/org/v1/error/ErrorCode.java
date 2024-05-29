@@ -31,7 +31,11 @@ public enum ErrorCode {
     PHOTO_ALREADY_LIKE("REVIEW_ARTICLE_003","장비 리뷰 게시물 좋아요를 이미 눌렀어요"),
     PHOTO_ALREADY_DISLIKE("REVIEW_ARTICLE_004","장비 리뷰 게시물 좋아요를 이미 취소했어요"),
     ARTICLE_ALREADY_LIKE("ARTICLE_001","게시물 좋아요를 이미 눌렀어요"),
-    ARTICLE_ALREADY_DISLIKE("ARTICLE_002","게시물 좋아요를 이미 취소했어요");
+    ARTICLE_ALREADY_DISLIKE("ARTICLE_002","게시물 좋아요를 이미 취소했어요"),
+    GATHERING_CANNOT_APPEND("GATHERING_001","모임에 추가 할수 없어요"),
+    GATHERING_ALREADY_JOINED("GATHERING_002","모임에 이미 가입했어요"),
+    GATHERING_ALREADY_LEAVED("GATHERING_003","모임에 이미 탈퇴했어요");
+
 
 
 

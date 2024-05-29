@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public record PhotoArticleResponse(
         @Schema(description = "게시글 Id", example = "123")
         long photoArticleId,
-        @Schema(description = "게시글 날짜", example = "2024-05-06T15:23:45.123456789")
+        @Schema(description = "게시글 날짜", example = "2024-05-06T15:23:45")
         LocalDateTime date,
         @Schema(description = "게시글 작성자 닉네임", example = "hobbyhobby")
         String nickname,

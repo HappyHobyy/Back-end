@@ -40,21 +40,21 @@ public class GatheringArticleLikeController {
     @PostMapping("/multi/like")
     @Operation(summary = "연합 모임 게시글 좋아요 누르기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> createMultiArticleLike(
+    public HttpResponse<Object> createUnionArticleLike(
             @RequestBody ArticleLikeRequest request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        likeService.createArticleLike(request.toMulti(userId));
+        likeService.createArticleLike(request.toUnion(userId));
         return HttpResponse.successOnly();
     }
     @DeleteMapping("/multi/like")
     @Operation(summary = "연합 모임 게시글 좋아요 취소하기")
     @Parameter(name = "Authorization", description = "Access token", required = true, in = ParameterIn.HEADER)
-    public HttpResponse<Object> deleteMultiArticleLike(
+    public HttpResponse<Object> deleteUnionArticleLike(
             @RequestBody ArticleLikeRequest request,
             @Parameter(hidden = true) @Valid @RequestHeader Long userId
     ) {
-        likeService.deleteArticleLike(request.toMulti(userId));
+        likeService.deleteArticleLike(request.toUnion(userId));
         return HttpResponse.successOnly();
     }
 

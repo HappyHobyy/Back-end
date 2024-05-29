@@ -11,6 +11,7 @@ import org.v1.model.content.Contents;
 import org.v1.model.content.GatheringArticle;
 import org.v1.model.content.PhotoArticle;
 import org.v1.model.like.Like;
+import org.v1.rabbitmq.dto.*;
 import org.v1.service.CommunityService;
 
 import java.io.IOException;

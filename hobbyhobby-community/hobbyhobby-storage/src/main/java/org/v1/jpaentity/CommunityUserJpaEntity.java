@@ -1,13 +1,20 @@
 package org.v1.jpaentity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.v1.model.user.User;
+
+import java.util.Optional;
 
 @Getter
 @Setter
+@DynamicInsert
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 @Table(name = "community_user", schema = "hobby_community")
 public class CommunityUserJpaEntity {
     @Id
@@ -22,4 +29,25 @@ public class CommunityUserJpaEntity {
     @Column(name = "image_url", nullable = false, length = 256)
     private String imageUrl;
 
+    public static CommunityUserJpaEntity of(User user) {
+        return CommunityUserJpaEntity.builder()
+                .id(user.id())
+                .nickname(user.nickname())
+                .imageUrl(user.imageUrl())
+                .build();
+    }
+
+    public Optional<User> toUser() {
+        User user = User.withId(
+                this.id,
+                this.nickname,
+                this.imageUrl
+        );
+        return Optional.of(user);
+    }
+    public static CommunityUserJpaEntity onlyWithId(Long id) {
+        return CommunityUserJpaEntity.builder()
+                .id(id)
+                .build();
+    }
 }

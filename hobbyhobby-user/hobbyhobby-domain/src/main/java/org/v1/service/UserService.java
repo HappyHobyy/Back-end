@@ -1,8 +1,7 @@
 package org.v1.service;
 
 import lombok.RequiredArgsConstructor;
-import org.v1.handler.ExternalPhotoContentSender;
-import org.v1.handler.ExternalTextContentSender;
+
 import org.v1.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

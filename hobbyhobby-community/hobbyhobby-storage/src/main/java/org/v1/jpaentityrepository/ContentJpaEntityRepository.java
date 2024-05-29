@@ -31,7 +31,7 @@ public class ContentJpaEntityRepository implements ContentRepository {
         List<Community> communities= new ArrayList<>();
         communities.add(community1);
         communities.add(community2);
-        GatheringArticle article = GatheringArticle.withId(1L, LocalDateTime.now(), user, 5, 5, "https://hobbyhobby.s3.ap-northeast-2.amazonaws.com/gathering/default_gathering_image.png", communities);
+        GatheringArticle article = GatheringArticle.withId(1L,"놀자", LocalDateTime.now(), user, 5, 5, 5,"https://hobbyhobby.s3.ap-northeast-2.amazonaws.com/gathering/default_gathering_image.png", communities);
         List<GatheringArticle> gatheringArticles = List.of(article);
         return new Contents.GatheringArticles(gatheringArticles, gatheringArticles);
     }
