@@ -49,7 +49,7 @@ public class CommunityJpaEntityRepository implements CommunityRepository {
         result.add(Community.withId(16, "보드게임"));
         result.add(Community.withId(17, "볼링"));
         result.add(Community.withId(18, "비디오게임"));
-        result.add(Community.withId(19, "사진 찍기"));
+        result.add(Community.withId(19, "사진"));
         result.add(Community.withId(20, "산책"));
         result.add(Community.withId(21, "서핑"));
         result.add(Community.withId(22, "스케이트 보드"));
