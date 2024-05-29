@@ -24,7 +24,7 @@ public class UserCommunityController {
             @Parameter(hidden = true) @Valid @RequestHeader Long userId,
             @RequestBody UserCommunityRequest userCommunityRequest
     ) {
-        userCommunityService.createUserToCommunity(userId,userCommunityRequest.communityId());
+        userCommunityService.createUserToCommunity(userId, Long.valueOf(userCommunityRequest.communityId()));
         return HttpResponse.successOnly();
     }
     @DeleteMapping("")
@@ -34,7 +34,7 @@ public class UserCommunityController {
             @Parameter(hidden = true) @Valid @RequestHeader Long userId,
             @RequestBody UserCommunityRequest userCommunityRequest
     ) {
-        userCommunityService.removeUserFromCommunity(userId,userCommunityRequest.communityId());
+        userCommunityService.removeUserFromCommunity(userId, Long.valueOf(userCommunityRequest.communityId()));
         return HttpResponse.successOnly();
     }
 }
