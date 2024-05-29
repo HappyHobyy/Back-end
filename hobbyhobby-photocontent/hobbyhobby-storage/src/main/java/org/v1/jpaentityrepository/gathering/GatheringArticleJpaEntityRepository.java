@@ -62,9 +62,9 @@ public class GatheringArticleJpaEntityRepository implements GatheringArticleRepo
         Pageable pageable = PageRequest.of(index, 10);
         return switch (info.type()) {
             case UNION_GATHERING -> {
-                if (info.communityIds().get(0).equals(info.communityIds().get(1))) {
+                if (info.communityIds().size() == 1) {
                     Page<UnionGatheringDetailJpaEntity> unionEntities =
-                            unionGatheringDetailJpaRepository.findAllByCommunityIdAndCreatedAtAfterOrderByDesc(info.communityIds().get(0).longValue(), pageable);
+                            unionGatheringDetailJpaRepository.findAllByCommunityIdAndCreatedAtAfterOrderByDesc(info.communityIds().get(0).longValue(),info.communityIds().get(0).longValue(), pageable);
                     yield unionEntities.isEmpty() ? new ArrayList<>() :
                             unionEntities.stream()
                                     .map(UnionGatheringDetailJpaEntity::toGatheringArticle)
