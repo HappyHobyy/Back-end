@@ -30,7 +30,7 @@ public class UnionGatheringDetailJpaEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false,cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "union_gathering_id", nullable = false)
-    @BatchSize(size = 10)
+    @BatchSize(size = 100)
     private UnionGatheringJpaEntity unionGathering;
 
     @Lob
