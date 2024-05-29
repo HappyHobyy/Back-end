@@ -1,4 +1,4 @@
-package org.v1;
+package org.v1.jpaentity;
 
 import jakarta.persistence.*;
 import lombok.*;

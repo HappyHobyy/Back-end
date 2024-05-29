@@ -1,5 +1,6 @@
-package org.v1;
+package org.v1.jparepository;
 
+import org.v1.jpaentity.UserJpaEntity;
 import org.v1.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,7 +1,9 @@
-package org.v1;
+package org.v1.entityjparepository;
 
 
 import org.springframework.stereotype.Repository;
+import org.v1.jpaentity.UserJpaEntity;
+import org.v1.jparepository.UserJpaRepository;
 import org.v1.model.User;
 import org.v1.repository.UserRepository;
 
