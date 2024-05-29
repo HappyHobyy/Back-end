@@ -27,19 +27,19 @@ public class UnionGatheringJpaEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
-    @BatchSize(size = 10)
+    @BatchSize(size = 100)
     private UserJpaEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "community1_id", nullable = false)
-    @BatchSize(size = 10)
+    @BatchSize(size = 100)
     private CommunityJpaEntity community1;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "community2_id", nullable = false)
-    @BatchSize(size = 10)
+    @BatchSize(size = 100)
     private CommunityJpaEntity community2;
 
     @Column(name = "community_max", nullable = false)

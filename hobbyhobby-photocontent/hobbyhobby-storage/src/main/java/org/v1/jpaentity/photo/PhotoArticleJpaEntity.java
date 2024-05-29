@@ -39,7 +39,6 @@ public class PhotoArticleJpaEntity {
     private Integer likes;
 
     @CreationTimestamp
-
     @Column(name = "created_at", columnDefinition = "timestamp", updatable = false, nullable = false)
     private Instant createdAt;
 

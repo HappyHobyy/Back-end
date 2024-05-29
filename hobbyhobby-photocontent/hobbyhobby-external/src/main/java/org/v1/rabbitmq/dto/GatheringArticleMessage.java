@@ -7,18 +7,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public record GatheringArticleMessage (
-        Long photoArticleId,
+public record GatheringArticleMessage(
+        Long gatheringArticleId,
         LocalDateTime date,
+        String title,
         String nickname,
         Integer joinedMax,
         Integer joinedCount,
         Integer likes,
         String url,
         Long userId,
-        String userImageUrl,
-        List<Integer> communityId
-){
+        List<Integer> communityIds
+) {
     public static List<GatheringArticleMessage> of(List<GatheringArticle> gatheringArticleList) {
         if (gatheringArticleList == null) {
             return Collections.emptyList();
@@ -27,13 +27,13 @@ public record GatheringArticleMessage (
                 .map(gatheringArticle -> new GatheringArticleMessage(
                         gatheringArticle.getId(),
                         gatheringArticle.getCreatedAt(),
+                        gatheringArticle.getTitle(),
                         gatheringArticle.getUser().nickname(),
                         gatheringArticle.getJoinedMax(),
                         gatheringArticle.getJoinedCount(),
                         gatheringArticle.getLikes(),
                         gatheringArticle.getImageVideo().path(),
                         gatheringArticle.getUser().id(),
-                        gatheringArticle.getUser().imageUrl(),
                         gatheringArticle.getInfo().communityIds()
                 ))
                 .collect(Collectors.toList());
