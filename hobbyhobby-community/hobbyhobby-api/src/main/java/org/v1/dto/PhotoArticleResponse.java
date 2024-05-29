@@ -33,7 +33,7 @@ record PhotoArticleResponse(
                 photoArticle.getDate(),
                 photoArticle.getUser().id(),
                 photoArticle.getUser().nickname(),
-                photoArticle.getUser().path(),
+                photoArticle.getUser().imageUrl(),
                 photoArticle.getLikes(),
                 photoArticle.getComments(),
                 photoArticle.getFirstImageUrl(),

@@ -1,4 +1,4 @@
-package org.v1.rabbitmq;
+package org.v1.rabbitmq.dto;
 
 
 import org.v1.model.community.Community;
