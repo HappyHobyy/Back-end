@@ -8,7 +8,7 @@ import org.v1.repository.UserCommunityRepository;
 @AllArgsConstructor
 public class UserCommunityAppender {
     private final UserCommunityRepository userCommunityRepository;
-    public void appendUserToCommunity(final Long userId, final Integer communityId) {
+    public void appendUserToCommunity(final Long userId, final Long communityId) {
         userCommunityRepository.appendUserToCommunity(userId, communityId);
     }
 }
