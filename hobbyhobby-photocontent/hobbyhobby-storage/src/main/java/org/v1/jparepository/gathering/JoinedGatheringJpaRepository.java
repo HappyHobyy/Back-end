@@ -8,6 +8,4 @@ public interface JoinedGatheringJpaRepository extends JpaRepository<JoinedGather
     void deleteByGathering_IdAndUser_Id(Long articleId,Long userId);
 
     boolean existsByGathering_IdAndUser_Id(Long articleId,Long userId);
-
-
 }
