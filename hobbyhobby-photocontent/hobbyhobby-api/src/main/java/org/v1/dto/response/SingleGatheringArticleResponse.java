@@ -46,8 +46,8 @@ public record SingleGatheringArticleResponse(
                 .map(gatheringArticle -> new SingleGatheringArticleResponse(
                         gatheringArticle.getId(),
                         gatheringArticle.getCreatedAt(),
-                        gatheringArticle.getUser().nickname(),
                         gatheringArticle.getTitle(),
+                        gatheringArticle.getUser().nickname(),
                         gatheringArticle.getLikes(),
                         gatheringArticle.getJoinedMax(),
                         gatheringArticle.getJoinedCount(),
