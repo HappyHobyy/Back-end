@@ -8,6 +8,8 @@ env:
   EC2_HOST: 52.79.143.36
   EC2_SSH_USER: ubuntu
   PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+  AWS_S3_ACCESS_KEY: ${{ secrets.AWS_S3_ACCESS_KEY }}
+  AWS_S3_SECRET_KEY: ${{ secrets.AWS_S3_SECRET_KEY }}
 
 jobs:
   build:
@@ -37,8 +39,6 @@ jobs:
         run: |
           cd hobbyhobby-photocontent
           docker build \
-            --build-arg AWS_S3_ACCESS_KEY=${{ secrets.AWS_S3_ACCESS_KEY }} \
-            --build-arg AWS_S3_SECRET_KEY=${{ secrets.AWS_S3_SECRET_KEY }} \
             -t ${{ secrets.DOCKERHUB_USERNAME }}/photocontent .
 
       - name: Docker login
