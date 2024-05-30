@@ -33,12 +33,19 @@ public class JoinedUnionGatheringJpaEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "community_id", nullable = false)
-    private CommunityJpaEntity community;
+    @JoinColumn(name = "community_id1", nullable = false)
+    private CommunityJpaEntity community1;
 
-    public static JoinedUnionGatheringJpaEntity of(GatheringMember gatheringMember) {
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "community_id2", nullable = false)
+    private CommunityJpaEntity community2;
+
+    public static JoinedUnionGatheringJpaEntity of(GatheringMember gatheringMember,CommunityJpaEntity community1, CommunityJpaEntity community2) {
         return JoinedUnionGatheringJpaEntity.builder()
                 .unionGathering(UnionGatheringJpaEntity.onlyWithId(gatheringMember.articleId()))
+                .community1(community1)
+                .community2(community2)
                 .user(UserJpaEntity.onlyWithId(gatheringMember.userId())).build();
     }
 }

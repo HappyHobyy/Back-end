@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.v1.jpaentity.gathering.GatheringJpaEntity;
 import org.v1.jpaentity.gathering.JoinedGatheringJpaEntity;
 import org.v1.jpaentity.gathering.JoinedUnionGatheringJpaEntity;
+import org.v1.jpaentity.gathering.UnionGatheringJpaEntity;
 import org.v1.jpaentity.user.UserJpaEntity;
 import org.v1.jparepository.gathering.GatheringJpaRepository;
 import org.v1.jparepository.gathering.JoinedGatheringJpaRepository;
@@ -26,7 +27,8 @@ public class GatheringMemberJpaEntityRepository implements GatheringMemberReposi
             case UNION_GATHERING:
                 int updatedUnionRows = unionGatheringJpaRepository.updatePlusCount(member.articleId());
                 if (updatedUnionRows > 0) {
-                    joinedUnionGatheringJpaRepository.save(JoinedUnionGatheringJpaEntity.of(member));
+                    UnionGatheringJpaEntity entity= unionGatheringJpaRepository.findWithCommunityById(member.articleId());
+                    joinedUnionGatheringJpaRepository.save(JoinedUnionGatheringJpaEntity.of(member,entity.getCommunity1(),entity.getCommunity2()));
                     return true;
                 } else {
                     return false;
@@ -34,7 +36,8 @@ public class GatheringMemberJpaEntityRepository implements GatheringMemberReposi
             case SINGLE_GATHERING:
                 int updatedSingleRows = gatheringJpaRepository.updatePlusCount(member.articleId());
                 if (updatedSingleRows > 0) {
-                    joinedGatheringJpaRepository.save(JoinedGatheringJpaEntity.of(member));
+                    GatheringJpaEntity entity= gatheringJpaRepository.findWithCommunityById(member.articleId());
+                    joinedGatheringJpaRepository.save(JoinedGatheringJpaEntity.of(member,entity.getCommunity()));
                     return true;
                 } else {
                     return false;
