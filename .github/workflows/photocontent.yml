@@ -39,6 +39,8 @@ jobs:
         run: |
           cd hobbyhobby-photocontent
           docker build \
+            --build-arg AWS_S3_ACCESS_KEY=${AWS_S3_ACCESS_KEY} \
+            --build-arg AWS_S3_SECRET_KEY=${AWS_S3_SECRET_KEY} \
             -t ${{ secrets.DOCKERHUB_USERNAME }}/photocontent .
 
       - name: Docker login
