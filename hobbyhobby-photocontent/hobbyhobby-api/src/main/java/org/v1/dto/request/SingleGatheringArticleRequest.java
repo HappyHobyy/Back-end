@@ -62,7 +62,7 @@ public record SingleGatheringArticleRequest(
         public GatheringArticle toArticle(Long userId,MultipartFile file) {
             try {
                 File convertedFile = FileUtil.convertMultipartFileToFile(file);
-                ImageVideo image = ImageVideo.withoutPath(0, convertedFile, ImageVideo.FileType.UNION_GATHERING);
+                ImageVideo image = ImageVideo.withoutPath(0, convertedFile, ImageVideo.FileType.GATHERING);
                 return GatheringArticle.initial(User.onlyUserId(userId), this.title, GatheringInfo.unionGatheringWithCommunity(List.of(communityId)),image,joinMax);
             } catch (IOException e) {
                 throw new RuntimeException("MultipartFile -> File로 전환이 실패했습니다.", e);
