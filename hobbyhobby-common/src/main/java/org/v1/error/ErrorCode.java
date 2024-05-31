@@ -34,8 +34,8 @@ public enum ErrorCode {
     ARTICLE_ALREADY_DISLIKE("ARTICLE_002","게시물 좋아요를 이미 취소했어요"),
     GATHERING_CANNOT_APPEND("GATHERING_001","모임에 추가 할수 없어요"),
     GATHERING_ALREADY_JOINED("GATHERING_002","모임에 이미 가입했어요"),
-    GATHERING_ALREADY_LEAVED("GATHERING_003","모임에 이미 탈퇴했어요");
-
+    GATHERING_ALREADY_LEAVED("GATHERING_003","모임에 이미 탈퇴했어요"),
+    COMMUNITY_ALREADY_LIKED("COMMUNITY_001", "이미 즐겨찾기한 커뮤니티입니다.");
 
 
 

@@ -1,12 +1,14 @@
 package org.v1.jpaentity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "community", schema = "hobby_community")
 public class CommunityJpaEntity {
@@ -24,5 +26,11 @@ public class CommunityJpaEntity {
     @ColumnDefault("0")
     @Column(name = "total_likes", nullable = false)
     private Integer totalLikes;
+
+    public static CommunityJpaEntity onlyWithId(Long id) {
+        return CommunityJpaEntity.builder()
+                .id(id)
+                .build();
+    }
 
 }

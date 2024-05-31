@@ -18,7 +18,6 @@ import java.util.Optional;
 @Table(name = "community_user", schema = "hobby_community")
 public class CommunityUserJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "community_user_id", nullable = false)
     private Long id;
 

@@ -10,10 +10,10 @@ import org.v1.implementation.community.UserCommunityRemover;
 public class UserCommunityService {
     private final UserCommunityRemover userCommunityRemover;
     private final UserCommunityAppender userCommunityAppender;
-    public void removeUserFromCommunity(Long userId, Integer communityId) {
+    public void removeUserFromCommunity(Long userId, Long communityId) {
         userCommunityRemover.removeUserFromCommunity(userId, communityId);
     }
-    public void createUserToCommunity(Long userId, Integer communityId) {
+    public void createUserToCommunity(Long userId, Long communityId) {
         userCommunityAppender.appendUserToCommunity(userId, communityId);
     }
 }
