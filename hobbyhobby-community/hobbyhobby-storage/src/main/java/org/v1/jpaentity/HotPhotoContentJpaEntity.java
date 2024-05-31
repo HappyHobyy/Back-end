@@ -5,8 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.v1.model.community.Community;
+import org.v1.model.content.PhotoArticle;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Getter
 @Setter
@@ -14,7 +18,6 @@ import java.time.Instant;
 @Table(name = "hot_photo_content", schema = "hobby_community")
 public class HotPhotoContentJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hot_photo_content_id", nullable = false)
     private Long id;
 
@@ -31,6 +34,9 @@ public class HotPhotoContentJpaEntity {
     @Column(name = "image_url", nullable = false, length = 256)
     private String imageUrl;
 
+    @Column(name = "is_populist_community", nullable = false)
+    private boolean isPopulistCommunity;
+
     @Lob
     @Column(name = "content")
     private String content;
@@ -41,7 +47,17 @@ public class HotPhotoContentJpaEntity {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
-    @Column(name = "modified_at", nullable = false)
-    private Instant modifiedAt;
+    public PhotoArticle to(){
+        return PhotoArticle.withId(
+                this.id,
+                LocalDateTime.ofInstant(createdAt, ZoneId.of("Asia/Seoul")),
+                this.user.toUser().orElseThrow(),
+                this.content,
+                this.likes,
+                0,
+                this.imageUrl,
+                Community.withId(this.community.getId().intValue(),this.community.getName())
+        );
+    }
 
 }

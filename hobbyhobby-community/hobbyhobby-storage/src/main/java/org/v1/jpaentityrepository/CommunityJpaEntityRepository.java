@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.v1.jpaentity.CommunityJpaEntity;
 import org.v1.jpaentity.LikedCommunityJpaEntity;
+import org.v1.jparepository.CommunityJpaRepository;
 import org.v1.jparepository.LikeCommunityJpaRepository;
 import org.v1.model.community.Community;
 import org.v1.model.like.Like;
@@ -17,6 +18,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CommunityJpaEntityRepository implements CommunityRepository {
     private final LikeCommunityJpaRepository likeCommunityJpaRepository;
+    private final CommunityJpaRepository communityJpaRepository;
+
 
     @Override
     public List<Community> readUserCommunities(Long userId) {
@@ -59,12 +62,7 @@ public class CommunityJpaEntityRepository implements CommunityRepository {
     }
 
     @Override
-    public Community readPopulistCommunity() {
-        return null;
-    }
-
-    @Override
     public void updateCommunityLike(Like like) {
-
+        communityJpaRepository.incrementLikesById(like.communityId().longValue());
     }
 }

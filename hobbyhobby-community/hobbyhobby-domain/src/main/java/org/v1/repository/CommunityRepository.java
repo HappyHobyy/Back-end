@@ -9,6 +9,5 @@ public interface CommunityRepository {
     List<Community> readUserCommunities(Long userId);
     List<Community> readPopularCommunities();
     List<Community> readRecommendCommunities(Long userId);
-    Community readPopulistCommunity();
     void updateCommunityLike(Like like);
 }
