@@ -4,8 +4,8 @@ import org.v1.model.community.Community;
 import org.v1.model.content.Contents;
 
 public interface ContentRepository {
-    Contents.PhotoArticles readPopularPhotoContent(Community community);
-    Contents.GatheringArticles readPopularGatheringContent(Community community);
+    Contents.PhotoArticles readPopularPhotoContent();
+    Contents.GatheringArticles readPopularGatheringContent();
     void updatePhotoArticle(Contents.PhotoArticles photos);
     void updateGatheringArticle(Contents.GatheringArticles photos);
 }

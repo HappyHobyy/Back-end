@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.v1.jpaentity.gathering.GatheringJpaEntity;
 import org.v1.jpaentity.gathering.JoinedGatheringJpaEntity;
 import org.v1.jpaentity.gathering.JoinedUnionGatheringJpaEntity;
+import org.v1.jpaentity.gathering.UnionGatheringJpaEntity;
 import org.v1.jpaentity.user.UserJpaEntity;
 import org.v1.jparepository.gathering.GatheringJpaRepository;
 import org.v1.jparepository.gathering.JoinedGatheringJpaRepository;
@@ -21,27 +22,20 @@ public class GatheringMemberJpaEntityRepository implements GatheringMemberReposi
     private final JoinedUnionGatheringJpaRepository joinedUnionGatheringJpaRepository;
     private final UnionGatheringJpaRepository unionGatheringJpaRepository;
     @Override
-    public boolean appendGatheringMember(GatheringMember member) {
+    public int appendGatheringMember(GatheringMember member) {
         switch (member.type()) {
             case UNION_GATHERING:
-                int updatedUnionRows = unionGatheringJpaRepository.updatePlusCount(member.articleId());
-                if (updatedUnionRows > 0) {
-                    joinedUnionGatheringJpaRepository.save(JoinedUnionGatheringJpaEntity.of(member));
-                    return true;
-                } else {
-                    return false;
-                }
+                UnionGatheringJpaEntity unionGatheringJpaEntity = unionGatheringJpaRepository.findWithCommunityById(member.articleId());
+                joinedUnionGatheringJpaRepository.save(JoinedUnionGatheringJpaEntity.of(member, unionGatheringJpaEntity.getCommunity1(), unionGatheringJpaEntity.getCommunity2()));
+                return unionGatheringJpaRepository.updatePlusCount(member.articleId());
             case SINGLE_GATHERING:
-                int updatedSingleRows = gatheringJpaRepository.updatePlusCount(member.articleId());
-                if (updatedSingleRows > 0) {
-                    joinedGatheringJpaRepository.save(JoinedGatheringJpaEntity.of(member));
-                    return true;
-                } else {
-                    return false;
-                }
+                GatheringJpaEntity gatheringJpaEntity = gatheringJpaRepository.findWithCommunityById(member.articleId());
+                joinedGatheringJpaRepository.save(JoinedGatheringJpaEntity.of(member, gatheringJpaEntity.getCommunity()));
+                return gatheringJpaRepository.updatePlusCount(member.articleId());
         }
-        return false;
+        return 0;
     }
+
     @Override
     public void removeGatheringMember(GatheringMember member) {
         switch (member.type()) {

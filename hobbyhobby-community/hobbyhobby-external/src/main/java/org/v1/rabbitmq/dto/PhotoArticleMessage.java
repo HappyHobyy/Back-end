@@ -11,6 +11,7 @@ public record PhotoArticleMessage(
         Long photoArticleId,
         LocalDateTime date,
         String nickname,
+        String content,
         Integer likes,
         Integer comments,
         String url,
@@ -21,6 +22,6 @@ public record PhotoArticleMessage(
 
 ) {
     public PhotoArticle toArticle() {
-        return PhotoArticle.withId(photoArticleId,date,new User(userId,userName,userImageUrl),likes,comments,url, Community.onlyWithId(communityId));
+        return PhotoArticle.withId(photoArticleId,date,new User(userId,userName,userImageUrl),content,likes,comments,url, Community.onlyWithId(communityId));
     }
 }

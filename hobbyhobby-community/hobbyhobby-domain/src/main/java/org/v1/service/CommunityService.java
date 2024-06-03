@@ -31,17 +31,16 @@ public class CommunityService {
         return communityReader.readRecommendCommunities(userId);
     }
     public Contents getPopularContent(){
-        Community populistCommunity = communityReader.readPopulistCommunity();
         Contents.PhotoArticles cachedPhotoArticles = getCachedPhotoArticles();
         if (cachedPhotoArticles == null) {
-            cachedPhotoArticles= contentReader.readPopularPhotoContent(populistCommunity);
+            cachedPhotoArticles= contentReader.readPopularPhotoContent();
             if(cachedPhotoArticles != null) {
                 cachedContentHandler.put("photoArticles", cachedPhotoArticles);
             }
         }
         Contents.GatheringArticles cachedGatheringArticles = getCachedGatheringArticles();
         if (cachedGatheringArticles == null) {
-            cachedGatheringArticles = contentReader.readPopularGatheringContent(populistCommunity);
+            cachedGatheringArticles = contentReader.readPopularGatheringContent();
             cachedContentHandler.put("gatheringArticles", cachedGatheringArticles);
         }
         return new Contents(cachedPhotoArticles, cachedGatheringArticles);

@@ -33,14 +33,14 @@ public class PhotoArticleJpaEntityRepository implements PhotoArticleRepository {
     @Override
     public List<PhotoArticle> readArticleLatest(int index, Integer communityId) {
         Pageable pageable = PageRequest.of(index, 10);
-        Page<PhotoArticleJpaEntity> page = photoArticleJpaRepository.findAllByOrderByCreatedAtDesc(pageable);
+        Page<PhotoArticleJpaEntity> page = photoArticleJpaRepository.findAllByCommunityIdOrderByCreatedAtDesc(pageable,communityId);
         return mapPhotoArticles(page);
     }
 
     @Override
     public List<PhotoArticle> readArticleLikes(int index, Integer communityId) {
         Pageable pageable = PageRequest.of(index, 10);
-        Page<PhotoArticleJpaEntity> page = photoArticleJpaRepository.findAllByOrderByLikesDesc(pageable);
+        Page<PhotoArticleJpaEntity> page = photoArticleJpaRepository.findAllByCommunityIdOrderByLikesDesc(pageable,communityId);
         return mapPhotoArticles(page);
     }
 

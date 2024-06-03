@@ -22,6 +22,8 @@ record PhotoArticleResponse(
         Integer comments,
         @Schema(description = "게시물 첫번째 이미지 수", example = "1")
         String firstImageUrl,
+        @Schema(description = "게시물 내용", example = "밥")
+        String content,
         @Schema(description = "커뮤니티id", example = "1")
         Integer communityId,
         @Schema(description = "커뮤니티id 이름", example = "야구")
@@ -37,6 +39,7 @@ record PhotoArticleResponse(
                 photoArticle.getLikes(),
                 photoArticle.getComments(),
                 photoArticle.getFirstImageUrl(),
+                photoArticle.getContent(),
                 photoArticle.getCommunity().getId(),
                 photoArticle.getCommunity().getCommunityName()
         );
