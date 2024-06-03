@@ -10,10 +10,10 @@ import org.v1.repository.ContentRepository;
 @AllArgsConstructor
 public class ContentReader {
     private final ContentRepository contentRepository;
-    public Contents.PhotoArticles readPopularPhotoContent(Community populistCommunity) {
-        return contentRepository.readPopularPhotoContent(populistCommunity);
+    public Contents.PhotoArticles readPopularPhotoContent() {
+        return contentRepository.readPopularPhotoContent();
     }
-    public Contents.GatheringArticles readPopularGatheringContent(Community populistCommunity) {
-        return contentRepository.readPopularGatheringContent(populistCommunity);
+    public Contents.GatheringArticles readPopularGatheringContent() {
+        return contentRepository.readPopularGatheringContent();
     }
 }

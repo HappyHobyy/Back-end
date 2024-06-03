@@ -26,4 +26,6 @@ public interface GatheringJpaRepository extends JpaRepository<GatheringJpaEntity
     @Transactional
     @Query("UPDATE GatheringJpaEntity ga SET ga.joinedCount = ga.joinedCount - 1 WHERE ga.id = :id")
     void updateMinusCount(@Param("id") Long id);
+
+
 }

@@ -73,7 +73,7 @@ public class GatheringDetailJpaEntity {
                 info,
                 this.gathering.getCreatedAt().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime(),
                 this.gathering.getCommunityMax().intValue(),
-                this.gathering.getJoinedCount().intValue(),
+                this.gathering.getJoinedCount(),
                 this.likes,
                 ImageVideo.withOnlyPath(this.gathering.getImageUrl())
         );

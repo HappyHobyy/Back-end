@@ -20,7 +20,4 @@ public class CommunityReader {
     public List<Community> readRecommendCommunities(Long userId) {
         return communityRepository.readRecommendCommunities(userId);
     }
-    public Community readPopulistCommunity() {
-        return communityRepository.readPopulistCommunity();
-    }
 }

@@ -25,24 +25,15 @@ record GatheringArticleResponse(
         int joinCount,
         @Schema(description = "첫번째 태그 커뮤니티Id", example = "1")
         Integer communityId1,
+        @Schema(description = "첫번째 태그 이름", example = "축구")
+        String communityName1,
         @Schema(description = "두번쨰 태그 커뮤니티Id", example = "2")
         Integer communityId2,
+        @Schema(description = "두번쨰 태그 이름", example = "야구")
+        String communityName2,
         @Schema(description = "게시물 이미지 url", example = "http://")
         String imageUrl
 ) {
-    public record CommunityResponse(
-            @Schema(description = "커뮤니티id", example = "1")
-            Integer communityId,
-            @Schema(description = "커뮤니티id 이름", example = "야구")
-            String communityName
-    ) {
-        public static List<CommunityResponse> of(List<Community> communities) {
-            return communities.stream()
-                    .map(community -> new CommunityResponse(community.getId(), community.getCommunityName()))
-                    .collect(Collectors.toList());
-        }
-    }
-
     static GatheringArticleResponse fromGatheringArticle(GatheringArticle gatheringArticle) {
         return new GatheringArticleResponse(
                 gatheringArticle.getId(),
@@ -53,7 +44,9 @@ record GatheringArticleResponse(
                 gatheringArticle.getJoinedMax(),
                 gatheringArticle.getJoinedCount(),
                 gatheringArticle.getCommunities().get(0).getId(),
+                gatheringArticle.getCommunities().get(0).getCommunityName(),
                 gatheringArticle.getCommunities().get(1).getId(),
+                gatheringArticle.getCommunities().get(1).getCommunityName(),
                 gatheringArticle.getImageUrl()
         );
     }

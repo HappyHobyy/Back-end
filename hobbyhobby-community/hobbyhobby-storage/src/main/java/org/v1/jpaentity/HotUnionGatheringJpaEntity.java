@@ -7,8 +7,14 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.v1.model.community.Community;
+import org.v1.model.content.GatheringArticle;
+import org.v1.model.content.PhotoArticle;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.List;
 
 @Getter
 @Setter
@@ -43,11 +49,8 @@ public class HotUnionGatheringJpaEntity {
     @Column(name = "image_url", nullable = false, length = 256)
     private String imageUrl;
 
-    @Column(name = "community1_max", nullable = false)
-    private Integer community1Max;
-
-    @Column(name = "community2_max", nullable = false)
-    private Integer community2Max;
+    @Column(name = "joined_max", nullable = false)
+    private Integer joinedMax;
 
     @ColumnDefault("0")
     @Column(name = "likes", nullable = false)
@@ -56,7 +59,23 @@ public class HotUnionGatheringJpaEntity {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
-    @Column(name = "modified_at")
-    private Instant modifiedAt;
+    @Column(name = "is_populist_community", nullable = false)
+    private boolean isPopulistCommunity;
 
+    public GatheringArticle to(){
+        return GatheringArticle.withId(
+                this.id,
+                this.title,
+                LocalDateTime.ofInstant(createdAt, ZoneId.of("Asia/Seoul")),
+                this.user.toUser().orElseThrow(),
+                this.joinedMax,
+                0,
+                this.likes,
+                this.imageUrl,
+                List.of(
+                        Community.withId(this.community1.getId().intValue(),this.community1.getName()),
+                        Community.withId(this.community2.getId().intValue(),this.community2.getName())
+                        )
+        );
+    }
 }

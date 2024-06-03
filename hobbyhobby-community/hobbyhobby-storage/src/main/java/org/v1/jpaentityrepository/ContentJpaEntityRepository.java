@@ -1,6 +1,11 @@
 package org.v1.jpaentityrepository;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.v1.jpaentity.HotPhotoContentJpaEntity;
+import org.v1.jpaentity.HotUnionGatheringJpaEntity;
+import org.v1.jparepository.HotPhotoContentJpaRepository;
+import org.v1.jparepository.HotUnionGatheringJpaRepository;
 import org.v1.model.community.Community;
 import org.v1.model.content.Contents;
 import org.v1.model.content.GatheringArticle;
@@ -11,37 +16,45 @@ import org.v1.repository.ContentRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
+@AllArgsConstructor
 public class ContentJpaEntityRepository implements ContentRepository {
+    private final HotPhotoContentJpaRepository hotPhotoContentJpaRepository;
+    private final HotUnionGatheringJpaRepository hotUnionGatheringJpaRepository;
     @Override
-    public Contents.PhotoArticles readPopularPhotoContent(Community community) {
-        User user = new User(1L, "음", "https://hobbyhobby.s3.ap-northeast-2.amazonaws.com/gathering/default_gathering_image.png");
-        Community community1 = Community.withId(1, "축구");
-        PhotoArticle article = PhotoArticle.withId(1L, LocalDateTime.now(), user, 5, 5, "https://hobbyhobby.s3.ap-northeast-2.amazonaws.com/gathering/default_gathering_image.png", community1);
-        List<PhotoArticle> popularPhotoArticle = List.of(article);
-        return new Contents.PhotoArticles(popularPhotoArticle, popularPhotoArticle);
+    public Contents.PhotoArticles readPopularPhotoContent() {
+        List<PhotoArticle> notPopularPhotoArticle = mapToPhotoArticle(hotPhotoContentJpaRepository.findNotPopularWithCommunity());
+        List<PhotoArticle> PopularPhotoArticle = mapToPhotoArticle(hotPhotoContentJpaRepository.findPopularWithCommunity());
+        return new Contents.PhotoArticles(notPopularPhotoArticle, PopularPhotoArticle);
     }
 
     @Override
-    public Contents.GatheringArticles readPopularGatheringContent(Community community) {
-        Community community1 = Community.withId(1, "축구");
-        Community community2 = Community.withId(2, "야구");
-        User user = new User(1L, "음", "https://hobbyhobby.s3.ap-northeast-2.amazonaws.com/gathering/default_gathering_image.png");
-        List<Community> communities= new ArrayList<>();
-        communities.add(community1);
-        communities.add(community2);
-        GatheringArticle article = GatheringArticle.withId(1L,"놀자", LocalDateTime.now(), user, 5, 5, 5,"https://hobbyhobby.s3.ap-northeast-2.amazonaws.com/gathering/default_gathering_image.png", communities);
-        List<GatheringArticle> gatheringArticles = List.of(article);
-        return new Contents.GatheringArticles(gatheringArticles, gatheringArticles);
+    public Contents.GatheringArticles readPopularGatheringContent() {
+        List<GatheringArticle> notPopularPhotoArticle = mapToGatheringArticle(hotUnionGatheringJpaRepository.findNotPopularWithCommunity());
+        List<GatheringArticle> PopularPhotoArticle = mapToGatheringArticle(hotUnionGatheringJpaRepository.findPopularWithCommunity());
+        return new Contents.GatheringArticles(notPopularPhotoArticle, PopularPhotoArticle);
     }
 
     @Override
     public void updatePhotoArticle(Contents.PhotoArticles photos) {
+
     }
 
     @Override
     public void updateGatheringArticle(Contents.GatheringArticles photos) {
 
+    }
+    private List<PhotoArticle> mapToPhotoArticle(List<HotPhotoContentJpaEntity> photos) {
+        return photos.stream()
+                .map(HotPhotoContentJpaEntity::to)
+                .collect(Collectors.toList());
+    }
+
+    private List<GatheringArticle> mapToGatheringArticle(List<HotUnionGatheringJpaEntity> unions) {
+        return unions.stream()
+                .map(HotUnionGatheringJpaEntity::to)
+                .collect(Collectors.toList());
     }
 }
