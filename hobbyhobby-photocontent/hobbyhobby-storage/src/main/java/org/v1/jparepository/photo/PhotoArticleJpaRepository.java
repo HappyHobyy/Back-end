@@ -36,12 +36,13 @@ public interface PhotoArticleJpaRepository extends JpaRepository<PhotoArticleJpa
     @Query("UPDATE PhotoArticleJpaEntity pa SET pa.comments = pa.comments - 1 WHERE pa.id = :articleId")
     void decrementCommentsById(Long articleId);
 
-    @Query(value = "SELECT p FROM PhotoArticleJpaEntity p JOIN FETCH p.community ORDER BY p.createdAt DESC",
-            countQuery = "SELECT COUNT(p) FROM PhotoArticleJpaEntity p")
-    Page<PhotoArticleJpaEntity> findAllByOrderByCreatedAtDesc(Pageable pageable);
-    @Query(value = "SELECT p FROM PhotoArticleJpaEntity p JOIN FETCH p.community ORDER BY p.likes DESC",
-            countQuery = "SELECT COUNT(p) FROM PhotoArticleJpaEntity p")
-    Page<PhotoArticleJpaEntity> findAllByOrderByLikesDesc(Pageable pageable);
+    @Query(value = "SELECT p FROM PhotoArticleJpaEntity p JOIN FETCH p.community c WHERE c.id = :communityId ORDER BY p.createdAt DESC",
+            countQuery = "SELECT COUNT(p) FROM PhotoArticleJpaEntity p WHERE p.community.id = :communityId")
+    Page<PhotoArticleJpaEntity> findAllByCommunityIdOrderByCreatedAtDesc(Pageable pageable, @Param("communityId") Integer communityId);
+
+    @Query(value = "SELECT p FROM PhotoArticleJpaEntity p JOIN FETCH p.community c WHERE c.id = :communityId ORDER BY p.likes DESC",
+            countQuery = "SELECT COUNT(p) FROM PhotoArticleJpaEntity p WHERE p.community.id = :communityId")
+    Page<PhotoArticleJpaEntity> findAllByCommunityIdOrderByLikesDesc(Pageable pageable, @Param("communityId") Integer communityId);
     @Query("SELECT p FROM PhotoArticleJpaEntity p " +
             "WHERE p.community.id = :communityId " +
             "AND p.createdAt >= :startDate " +
