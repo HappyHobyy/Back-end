@@ -49,6 +49,9 @@ public class HotUnionGatheringJpaEntity {
     @Column(name = "image_url", nullable = false, length = 256)
     private String imageUrl;
 
+    @Column(name = "joined_count", nullable = false)
+    private Integer joinedCount;
+
     @Column(name = "joined_max", nullable = false)
     private Integer joinedMax;
 
@@ -69,7 +72,7 @@ public class HotUnionGatheringJpaEntity {
                 LocalDateTime.ofInstant(createdAt, ZoneId.of("Asia/Seoul")),
                 this.user.toUser().orElseThrow(),
                 this.joinedMax,
-                0,
+                this.joinedCount,
                 this.likes,
                 this.imageUrl,
                 List.of(
