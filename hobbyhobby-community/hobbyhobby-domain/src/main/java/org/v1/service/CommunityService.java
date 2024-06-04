@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.v1.implementation.community.CommunityUpdater;
 import org.v1.implementation.content.CachedContentHandler;
 import org.v1.implementation.community.CommunityReader;
+import org.v1.implementation.content.ContentEventPublisher;
 import org.v1.implementation.content.ContentUpdater;
 import org.v1.implementation.content.ContentReader;
 import org.v1.model.community.Community;
@@ -21,6 +22,7 @@ public class CommunityService {
     private final ContentReader contentReader;
     private final ContentUpdater contentUpdater;
     private final CachedContentHandler cachedContentHandler;
+    private final ContentEventPublisher contentEventPublisher;
     public List<Community> getPopularCommunity(){
         return communityReader.readPopularCommunities();
     }
@@ -47,9 +49,11 @@ public class CommunityService {
     }
     public void updatePhotoArticle(Contents.PhotoArticles photos){
         contentUpdater.updatePhotoArticle(photos);
+        contentEventPublisher.publishPhotoArticleResetEvent();
     }
     public void updateGatheringArticle(Contents.GatheringArticles photos){
         contentUpdater.updateGatheringArticle(photos);
+        contentEventPublisher.publishGatheringResetEvent();
     }
     public void clearCachedPhotoArticles(){
         cachedContentHandler.remove("photoArticles");

@@ -27,14 +27,14 @@ public class ContentJpaEntityRepository implements ContentRepository {
     public Contents.PhotoArticles readPopularPhotoContent() {
         List<PhotoArticle> notPopularPhotoArticle = mapToPhotoArticle(hotPhotoContentJpaRepository.findNotPopularWithCommunity());
         List<PhotoArticle> PopularPhotoArticle = mapToPhotoArticle(hotPhotoContentJpaRepository.findPopularWithCommunity());
-        return new Contents.PhotoArticles(notPopularPhotoArticle, PopularPhotoArticle);
+        return new Contents.PhotoArticles(PopularPhotoArticle,notPopularPhotoArticle);
     }
 
     @Override
     public Contents.GatheringArticles readPopularGatheringContent() {
         List<GatheringArticle> notPopularPhotoArticle = mapToGatheringArticle(hotUnionGatheringJpaRepository.findNotPopularWithCommunity());
         List<GatheringArticle> PopularPhotoArticle = mapToGatheringArticle(hotUnionGatheringJpaRepository.findPopularWithCommunity());
-        return new Contents.GatheringArticles(notPopularPhotoArticle, PopularPhotoArticle);
+        return new Contents.GatheringArticles(PopularPhotoArticle,notPopularPhotoArticle);
     }
 
     @Override
