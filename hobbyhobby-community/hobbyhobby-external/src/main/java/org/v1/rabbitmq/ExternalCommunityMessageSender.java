@@ -19,8 +19,8 @@ public class ExternalCommunityMessageSender {
     private StreamBridge streamBridge;
 
     public void sendAllCommunity(String header) {
-        Object payload = new Object();
-        Message<Object> msg = MessageBuilder
+        String payload = "refresh";
+        Message<String> msg = MessageBuilder
                 .withPayload(payload)
                 .setHeader("headerKey", header)
                 .build();
